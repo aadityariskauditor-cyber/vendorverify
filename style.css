@@ -1517,6 +1517,19 @@ footer {
 }
 @media (max-width:480px) {
   .trust-grid { grid-template-columns:1fr; }
+   .hero {
+color: white;
+text-align: center;
+}
+.hero h1 {
+color: white;
+font-size: 48px;
+}
+
+.hero p {
+color: #e5e5e5;
+font-size: 20px;
+}
   .stat-row { grid-template-columns:1fr 1fr; }
   .grid-2, .grid-3, .grid-4 { grid-template-columns:1fr; }
   .about-stat-grid { grid-template-columns:1fr 1fr; }

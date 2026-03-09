@@ -1545,4 +1545,34 @@ color: white;
 opacity: 1 !important;
 transform: none !important;
 }
+/* Fix form alignment */
+.form-group {
+  margin-bottom: 18px;
+}
+
+.form-group input,
+.form-group textarea {
+  width: 100%;
+  padding: 12px 14px;
+  border-radius: 8px;
+  border: 1px solid #dcdcdc;
+  font-size: 14px;
+  box-sizing: border-box;
+}
+
+.form-group textarea {
+  min-height: 90px;
+  resize: vertical;
+}
+
+.btn-primary {
+  width: 100%;
+  padding: 14px;
+  background: #c9a64b;
+  border: none;
+  border-radius: 8px;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+}
 

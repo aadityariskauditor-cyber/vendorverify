@@ -1575,4 +1575,7 @@ transform: none !important;
   font-weight: 600;
   cursor: pointer;
 }
+.btn-primary:hover {
+  opacity: 0.9;
+}
 

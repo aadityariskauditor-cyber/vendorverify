@@ -1579,3 +1579,22 @@ transform: none !important;
   opacity: 0.9;
 }
 
+/* Form alignment fix */
+
+.form-card {
+  max-width: 520px;
+  margin: 0 auto;
+  padding: 28px;
+}
+
+.form-group input,
+.form-group textarea {
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 6px;
+}
+

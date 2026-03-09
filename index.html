@@ -349,7 +349,10 @@ window.location.replace("/");
         <div class="form-card">
           <h4>Request Free Vendor Risk Check</h4>
           <p>Fill in your vendor's basic details. Our team will run a preliminary check and send you the snapshot report.</p>
-          <form id="riskForm" novalidate>
+          <form id="riskForm" action="https://formsubmit.co/info@vendorverify.in" method="POST">
+<input type="hidden" name="_subject" value="New Free Vendor Risk Check Request">
+<input type="hidden" name="_captcha" value="false">
+<input type="hidden" name="_next" value="https://vendorverify.in/index.html#risk-check">
             <div class="form-group">
               <label for="vendorName">Vendor / Supplier Name *</label>
               <input type="text" id="vendorName" name="vendorName" class="form-control" placeholder="Full legal name of vendor" required/>

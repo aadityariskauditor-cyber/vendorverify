@@ -1540,4 +1540,9 @@ position: relative;
 z-index: 10;
 color: white;
 }
+.hero-headline,
+.fade-up {
+opacity: 1 !important;
+transform: none !important;
+}
 

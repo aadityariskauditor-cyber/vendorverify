@@ -60,7 +60,7 @@
           <p class="lead">VendorVerify helps businesses verify suppliers before transactions through structured vendor due diligence, compliance checks, and vendor risk intelligence.</p>
           <div class="hero-actions">
             <a class="btn btn-primary" href="pages/auth/signup.html">Request Vendor Verification</a>
-            <a class="btn btn-outline" href="pages/features.html">Free Vendor Risk Check</a>
+            <a class="btn btn-outline" href="#free-vendor-risk-check">Free Vendor Risk Check</a>
           </div>
           <ul class="hero-highlights">
             <li>Automated compliance checks</li>
@@ -288,6 +288,52 @@
             <li><span>Site verification signals</span></li>
             <li><span>Document authenticity review</span></li>
           </ul>
+        </article>
+      </div>
+    </section>
+
+    <section class="page-section section-soft" id="free-vendor-risk-check" data-animate>
+      <div class="container free-risk-check-grid">
+        <div>
+          <div class="section-heading">
+            <span class="eyebrow">Free assessment</span>
+            <h2>Free Vendor Risk Check</h2>
+            <p>Our preliminary vendor risk check may include:</p>
+          </div>
+          <ul class="workflow-list" aria-label="Preliminary vendor risk check inclusions">
+            <li><span>GST validation</span></li>
+            <li><span>Company existence verification</span></li>
+            <li><span>MSME registration verification</span></li>
+            <li><span>Preliminary litigation scan</span></li>
+            <li><span>Basic risk classification</span></li>
+          </ul>
+          <p>Submit your details to receive a preliminary vendor risk snapshot via email in PDF format.</p>
+        </div>
+        <article class="content-card">
+          <h3>Request your free check</h3>
+          <form class="auth-form" aria-label="Free vendor risk check form">
+            <div class="form-field">
+              <label for="risk-vendor-name">Vendor name</label>
+              <input id="risk-vendor-name" name="vendorName" type="text" required />
+            </div>
+            <div class="form-field">
+              <label for="risk-gst-number">GST number</label>
+              <input id="risk-gst-number" name="gstNumber" type="text" required />
+            </div>
+            <div class="form-field">
+              <label for="risk-company-name">Company name</label>
+              <input id="risk-company-name" name="companyName" type="text" required />
+            </div>
+            <div class="form-field">
+              <label for="risk-email">Email</label>
+              <input id="risk-email" name="email" type="email" required />
+            </div>
+            <div class="form-field">
+              <label for="risk-phone">Phone</label>
+              <input id="risk-phone" name="phone" type="tel" required />
+            </div>
+            <button class="btn btn-primary" type="submit">Get Free Vendor Risk Check</button>
+          </form>
         </article>
       </div>
     </section>

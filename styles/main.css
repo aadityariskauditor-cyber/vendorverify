@@ -713,7 +713,8 @@ p {
 
   .hero-grid,
   .pricing-grid,
-  .demo-grid {
+  .demo-grid,
+  .free-risk-check-grid {
     grid-template-columns: 1fr;
   }
 
@@ -798,6 +799,17 @@ p {
   .final-cta-card {
     padding: 2.3rem 1rem;
   }
+}
+
+.free-risk-check-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.4rem;
+  align-items: start;
+}
+
+.free-risk-check-grid .content-card h3 {
+  margin-bottom: 0.4rem;
 }
 
 .auth-form {

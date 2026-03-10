@@ -6,65 +6,18 @@
   <title>Pricing | VendorVerify</title>
   <link rel="stylesheet" href="../styles/main.css" />
   <style>
-    .pricing-page-grid {
-      display: grid;
-      grid-template-columns: 1.15fr 0.85fr;
-      gap: 1rem;
-      margin-top: 1.3rem;
-    }
-
-    .plan-selector {
-      display: grid;
-      grid-template-columns: repeat(3, minmax(0, 1fr));
-      gap: 0.9rem;
-      margin-top: 1.2rem;
-    }
-
-    .plan-option {
-      border: 1px solid var(--border);
-      border-radius: 14px;
-      padding: 1rem;
-      background: rgba(8, 14, 30, 0.7);
-      cursor: pointer;
-      transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
-      text-align: left;
-      color: var(--text);
-      width: 100%;
-    }
-
-    .plan-option:hover,
-    .plan-option.active {
-      border-color: rgba(124, 151, 255, 0.7);
-      box-shadow: 0 16px 36px rgba(65, 87, 176, 0.26);
-      transform: translateY(-2px);
-    }
-
-    .plan-option h3 {
-      margin-bottom: 0.3rem;
-    }
-
-    .plan-option .price-value {
-      margin-bottom: 0.3rem;
-      font-size: 1.6rem;
-    }
-
-    .plan-option p {
-      margin-bottom: 0;
-      font-size: 0.9rem;
-    }
-
     .pricing-table-wrap {
       margin-top: 1.2rem;
       border: 1px solid var(--border);
       border-radius: 14px;
-      overflow: hidden;
+      overflow-x: auto;
       background: rgba(8, 14, 30, 0.78);
     }
 
     .pricing-table {
       width: 100%;
       border-collapse: collapse;
-      min-width: 520px;
+      min-width: 680px;
     }
 
     .pricing-table th,
@@ -72,6 +25,7 @@
       padding: 0.85rem 0.9rem;
       border-bottom: 1px solid rgba(173, 194, 255, 0.16);
       text-align: left;
+      color: #dce6ff;
     }
 
     .pricing-table tbody tr:last-child td {
@@ -86,25 +40,26 @@
     }
 
     .feature-cell {
-      color: #dce6ff;
       font-weight: 600;
-      width: 25%;
+      width: 28%;
     }
 
-    .comparison-cell {
-      color: var(--muted);
-    }
-
-    .comparison-cell.is-available {
-      color: var(--accent);
+    .price-cell {
       font-weight: 700;
+      color: var(--accent);
     }
 
-    .selection-summary {
-      display: grid;
-      gap: 0.95rem;
-      align-content: start;
-      height: fit-content;
+    .model-note {
+      margin-top: 1.1rem;
+      color: var(--muted);
+      line-height: 1.6;
+    }
+
+    .pricing-cta {
+      margin-top: 1.2rem;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.8rem;
     }
 
     .addon-list {
@@ -117,41 +72,6 @@
 
     .addon-list li {
       line-height: 1.45;
-    }
-
-    .summary-plan-name {
-      margin-bottom: 0.25rem;
-    }
-
-    .summary-list {
-      list-style: none;
-      margin: 0;
-      padding: 0;
-      display: grid;
-      gap: 0.6rem;
-    }
-
-    .summary-list li {
-      border: 1px solid var(--border);
-      border-radius: 11px;
-      padding: 0.65rem 0.75rem;
-      background: rgba(255, 255, 255, 0.03);
-      color: #dce6ff;
-      font-size: 0.9rem;
-    }
-
-    @media (max-width: 980px) {
-      .pricing-page-grid {
-        grid-template-columns: 1fr;
-      }
-
-      .plan-selector {
-        grid-template-columns: 1fr;
-      }
-
-      .pricing-table-wrap {
-        overflow-x: auto;
-      }
     }
   </style>
 </head>
@@ -176,35 +96,72 @@
     <div class="container">
       <section class="content-card">
         <h1>Pricing</h1>
-        <p>Choose the right VendorVerify package for your vendor verification and supplier due diligence needs.</p>
-        <p>Typical delivery time: 48–72 hours depending on verification scope.</p>
-        <div id="planSelector" class="plan-selector" aria-label="Verification packages"></div>
+        <p>VendorVerify pricing is structured per vendor investigation, so you only pay for the due diligence scope you need.</p>
+        <p>Typical delivery time: 48–72 hours depending on verification depth and documentation readiness.</p>
 
-        <div class="pricing-table-wrap" role="region" aria-label="Pricing comparison table">
+        <div class="pricing-table-wrap" role="region" aria-label="Vendor verification pricing comparison table">
           <table class="pricing-table" id="pricingComparisonTable">
             <thead>
               <tr>
-                <th>Service Scope</th>
-                <th>Basic</th>
-                <th>Enhanced</th>
-                <th>Strategic</th>
+                <th>Feature</th>
+                <th>Basic Verification</th>
+                <th>Enhanced Due Diligence</th>
+                <th>Strategic Investigation</th>
               </tr>
             </thead>
-            <tbody></tbody>
+            <tbody>
+              <tr>
+                <td class="feature-cell">Price</td>
+                <td class="price-cell">₹4,999</td>
+                <td class="price-cell">₹11,999</td>
+                <td class="price-cell">₹24,999</td>
+              </tr>
+              <tr>
+                <td class="feature-cell">GST Verification</td>
+                <td>✔</td>
+                <td>✔</td>
+                <td>✔</td>
+              </tr>
+              <tr>
+                <td class="feature-cell">Business Registration Check</td>
+                <td>✔</td>
+                <td>✔</td>
+                <td>✔</td>
+              </tr>
+              <tr>
+                <td class="feature-cell">Litigation Search</td>
+                <td>✔</td>
+                <td>✔</td>
+                <td>✔</td>
+              </tr>
+              <tr>
+                <td class="feature-cell">Financial Indicators</td>
+                <td>—</td>
+                <td>✔</td>
+                <td>✔</td>
+              </tr>
+              <tr>
+                <td class="feature-cell">Video / Physical Verification</td>
+                <td>—</td>
+                <td>—</td>
+                <td>✔</td>
+              </tr>
+              <tr>
+                <td class="feature-cell">Vendor Risk Report</td>
+                <td>✔</td>
+                <td>✔</td>
+                <td>✔</td>
+              </tr>
+            </tbody>
           </table>
         </div>
-      </section>
 
-      <section class="pricing-page-grid">
-        <article class="content-card selection-summary" id="selectionSummary" aria-live="polite"></article>
-        <article class="content-card">
-          <h2>Package selection</h2>
-          <p>Select a package above to preview included verification scope and due diligence depth. Contact us to begin your verification request.</p>
-          <div class="hero-actions">
-            <a class="btn btn-primary" href="auth/signup.html">Request selected package</a>
-            <a class="btn btn-secondary" href="contact.html">Speak with verification team</a>
-          </div>
-        </article>
+        <p class="model-note">Vendor verification services are priced per vendor investigation depending on the depth of due diligence required.</p>
+
+        <div class="pricing-cta">
+          <a class="btn btn-primary" href="contact.html">Request Vendor Verification</a>
+          <a class="btn btn-secondary" href="../index.html#free-vendor-risk-check">Run Free Vendor Risk Check</a>
+        </div>
       </section>
 
       <section class="content-card">
@@ -229,6 +186,5 @@
   </footer>
 
   <script src="../scripts/main.js"></script>
-  <script src="../scripts/pricing/plans.js"></script>
 </body>
 </html>

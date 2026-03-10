@@ -10,8 +10,8 @@
   <header class="site-header">
     <div class="container navbar">
       <a class="brand" href="index.html">VendorVerify</a>
-      <button class="nav-toggle" aria-label="Toggle navigation">☰</button>
-      <nav class="nav-links">
+      <button class="nav-toggle" aria-label="Toggle navigation" aria-expanded="false" aria-controls="site-nav">☰</button>
+      <nav class="nav-links" id="site-nav">
         <a class="active" href="index.html">Home</a>
         <a href="pages/about.html">About</a>
         <a href="pages/features.html">Features</a>
@@ -29,16 +29,180 @@
         <div>
           <span class="eyebrow">Trusted Vendor Intelligence</span>
           <h1>Verify vendors faster. Reduce risk before onboarding.</h1>
-          <p>VendorVerify helps teams validate suppliers, monitor compliance, and centralize due diligence in one simple workflow.</p>
+          <p class="lead">VendorVerify helps procurement, legal, and compliance teams centralize due diligence, automate checks, and move supplier approvals forward with confidence.</p>
           <div class="hero-actions">
             <a class="btn btn-primary" href="pages/auth/signup.html">Start Free Trial</a>
             <a class="btn btn-secondary" href="pages/features.html">Explore Features</a>
           </div>
+          <ul class="hero-highlights">
+            <li>Automated compliance checks</li>
+            <li>Audit-ready approval trails</li>
+            <li>Fast onboarding workflows</li>
+          </ul>
         </div>
         <aside class="hero-card">
-          <h2>Why teams choose VendorVerify</h2>
-          <p>Automated checks, document tracking, and approval-ready reports that keep procurement and compliance aligned.</p>
+          <h2>Workflow Health Snapshot</h2>
+          <div class="metric-grid">
+            <article class="metric-card">
+              <p class="metric-label">Average review cycle</p>
+              <p class="metric-value">-42%</p>
+            </article>
+            <article class="metric-card">
+              <p class="metric-label">Risk flags auto-detected</p>
+              <p class="metric-value">96%</p>
+            </article>
+            <article class="metric-card">
+              <p class="metric-label">Vendors processed monthly</p>
+              <p class="metric-value">18k+</p>
+            </article>
+            <article class="metric-card">
+              <p class="metric-label">Centralized documents</p>
+              <p class="metric-value">100%</p>
+            </article>
+          </div>
         </aside>
+      </div>
+    </section>
+
+    <section class="page-section section-soft">
+      <div class="container">
+        <div class="section-heading">
+          <span class="eyebrow">How it works</span>
+          <h2>How Vendor Verification Works</h2>
+          <p>From intake to approval, VendorVerify gives every team a single source of truth for faster onboarding.</p>
+        </div>
+        <div class="steps-grid">
+          <article class="content-card step-card">
+            <span class="step-number">1</span>
+            <h3>Collect vendor submissions</h3>
+            <p>Capture business profiles, required documents, and certifications in one secure intake form.</p>
+          </article>
+          <article class="content-card step-card">
+            <span class="step-number">2</span>
+            <h3>Automate verification checks</h3>
+            <p>Run sanctions, insurance, tax, and policy checks automatically with configurable validation rules.</p>
+          </article>
+          <article class="content-card step-card">
+            <span class="step-number">3</span>
+            <h3>Review risk in context</h3>
+            <p>Surface high-priority findings to legal and compliance teams with transparent evidence trails.</p>
+          </article>
+          <article class="content-card step-card">
+            <span class="step-number">4</span>
+            <h3>Approve with confidence</h3>
+            <p>Finalize onboarding with approvals, reminders, and renewal alerts that keep vendors compliant.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="page-section">
+      <div class="container">
+        <div class="section-heading">
+          <span class="eyebrow">Platform value</span>
+          <h2>Key Benefits for Every Stakeholder</h2>
+        </div>
+        <div class="features-grid">
+          <article class="content-card feature-card">
+            <h3>Unified vendor profiles</h3>
+            <p>Store legal docs, certifications, and communication history in one searchable workspace.</p>
+          </article>
+          <article class="content-card feature-card">
+            <h3>Real-time risk visibility</h3>
+            <p>Track high-risk vendors instantly with alerts, scorecards, and monitoring dashboards.</p>
+          </article>
+          <article class="content-card feature-card">
+            <h3>Configurable workflows</h3>
+            <p>Match your internal controls with approval paths by region, spend tier, or category.</p>
+          </article>
+          <article class="content-card feature-card">
+            <h3>Audit-ready reporting</h3>
+            <p>Generate stakeholder reports with full verification history and decision timelines.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="page-section section-soft">
+      <div class="container">
+        <div class="section-heading">
+          <span class="eyebrow">Trusted by teams</span>
+          <h2>Procurement and Compliance Teams Love VendorVerify</h2>
+        </div>
+        <div class="logo-row" aria-label="Trusted by companies">
+          <span>Northpath Logistics</span>
+          <span>BlueArc Manufacturing</span>
+          <span>HarborPeak Energy</span>
+          <span>Cascade Retail Group</span>
+        </div>
+        <div class="testimonials-grid">
+          <article class="content-card testimonial-card">
+            <p>“VendorVerify cut our onboarding cycle from weeks to days and gave compliance total visibility into every approval.”</p>
+            <h3>Priya M.</h3>
+            <span>Head of Procurement, BlueArc</span>
+          </article>
+          <article class="content-card testimonial-card">
+            <p>“The workflow automation and document tracking reduced manual follow-up dramatically across our global teams.”</p>
+            <h3>James T.</h3>
+            <span>Supplier Risk Manager, Northpath</span>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="page-section">
+      <div class="container pricing-preview">
+        <div>
+          <span class="eyebrow">Pricing preview</span>
+          <h2>Flexible Plans for Growing Vendor Programs</h2>
+          <p>Start small and scale as onboarding volume and compliance requirements grow.</p>
+        </div>
+        <div class="content-card pricing-card">
+          <p class="price-label">Plans starting at</p>
+          <p class="price-value">$99<span>/month</span></p>
+          <p>Includes core verification workflows, approval routing, and dashboard reporting.</p>
+          <a class="btn btn-primary" href="pages/pricing.html">View Full Pricing</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="page-section section-soft">
+      <div class="container">
+        <div class="section-heading">
+          <span class="eyebrow">FAQs</span>
+          <h2>Frequently Asked Questions</h2>
+        </div>
+        <div class="faq-list">
+          <article class="faq-item">
+            <button class="faq-question" aria-expanded="false">How quickly can we get started?</button>
+            <div class="faq-answer">
+              <p>Most teams launch a pilot within a week using our onboarding templates and integrations.</p>
+            </div>
+          </article>
+          <article class="faq-item">
+            <button class="faq-question" aria-expanded="false">Can we customize approval workflows?</button>
+            <div class="faq-answer">
+              <p>Yes. VendorVerify supports role-based routing, escalation rules, and custom status stages.</p>
+            </div>
+          </article>
+          <article class="faq-item">
+            <button class="faq-question" aria-expanded="false">Does VendorVerify support recurring compliance checks?</button>
+            <div class="faq-answer">
+              <p>Absolutely. You can automate renewal reminders and periodic re-verification based on your policies.</p>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="page-section final-cta">
+      <div class="container final-cta-card">
+        <h2>Build a faster, safer vendor onboarding process.</h2>
+        <p>Join modern procurement teams using VendorVerify to reduce risk and accelerate approvals.</p>
+        <div class="hero-actions">
+          <a class="btn btn-primary" href="pages/auth/signup.html">Create Your Account</a>
+          <a class="btn btn-secondary" href="pages/contact.html">Talk to Sales</a>
+        </div>
       </div>
     </section>
   </main>

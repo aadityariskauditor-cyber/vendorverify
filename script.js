@@ -257,16 +257,37 @@ if (counterEls.length) {
    ---------------------------------------------------------------- */
 document.querySelectorAll('.year').forEach(el => {
   el.textContent = new Date().getFullYear();
-});
 document.addEventListener("DOMContentLoaded", function () {
 
 const hamburger = document.getElementById("hamburger");
 const mobileNav = document.getElementById("mobileNav");
+const mobileClose = document.getElementById("mobileClose");
 
 if (hamburger && mobileNav) {
-  hamburger.addEventListener("click", function () {
-    mobileNav.classList.toggle("active");
-  });
+hamburger.addEventListener("click", function () {
+mobileNav.classList.add("active");
+document.body.style.overflow = "hidden";
+});
+}
+
+if (mobileClose && mobileNav) {
+mobileClose.addEventListener("click", function () {
+mobileNav.classList.remove("active");
+document.body.style.overflow = "";
+});
+}
+
+/* close menu when tapping outside */
+document.addEventListener("click", function(e){
+
+if(
+mobileNav.classList.contains("active") &&
+!mobileNav.contains(e.target) &&
+!hamburger.contains(e.target)
+){
+mobileNav.classList.remove("active");
+document.body.style.overflow = "";
 }
 
 });
+

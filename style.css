@@ -1626,8 +1626,8 @@ transform: none !important;
 .mobile-nav{
 position: fixed;
 top:0;
-right:-280px;
-width:260px;
+right:-100%;
+width:100%;
 height:100vh;
 background:#ffffff;
 padding:40px 20px;

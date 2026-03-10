@@ -44,7 +44,7 @@
         <a href="pages/pricing.html">Pricing</a>
         <a href="pages/contact.html">Contact</a>
         <a href="pages/auth/login.html">Login</a>
-        <a class="cta" href="pages/auth/signup.html">Sign Up</a>
+        <a class="cta" href="#free-vendor-risk-check" data-open-risk-check="true">Start Free Vendor Risk Check</a>
       </nav>
     </div>
   </header>
@@ -60,7 +60,7 @@
           <p class="lead">Verify suppliers before sending advance payments. VendorVerify conducts independent checks on business identity, GST status, compliance signals, and risk indicators so your team can make safer decisions.</p>
           <div class="hero-actions">
             <a class="btn btn-primary" href="pages/contact.html">Verify a Vendor</a>
-            <a class="btn btn-outline" href="#free-vendor-risk-check">Run Free Vendor Risk Check</a>
+            <a class="btn btn-outline" href="#free-vendor-risk-check" data-open-risk-check="true">Start Free Vendor Risk Check</a>
           </div>
           <ul class="hero-highlights">
             <li>Business identity and ownership checks</li>
@@ -432,8 +432,10 @@
           <p>Submit your details to receive a preliminary vendor risk snapshot via email in PDF format.</p>
         </div>
         <article class="content-card">
-          <h3>Request your free check</h3>
-          <form class="auth-form" aria-label="Free vendor risk check form">
+          <h3>Free Vendor Risk Check</h3>
+          <p>Use this free tool to submit vendor details and receive an initial risk signal before making payment decisions.</p>
+          <button class="btn btn-primary" type="button" data-open-risk-check="true">Start Free Vendor Risk Check</button>
+          <form class="auth-form risk-check-form is-hidden" id="freeRiskCheckForm" aria-label="Free vendor risk check form">
             <div class="form-field">
               <label for="risk-vendor-name">Vendor name</label>
               <input id="risk-vendor-name" name="vendorName" type="text" required />
@@ -444,7 +446,11 @@
             </div>
             <div class="form-field">
               <label for="risk-company-name">Company name</label>
-              <input id="risk-company-name" name="companyName" type="text" required />
+              <input id="risk-company-name" name="companyName" type="text" />
+            </div>
+            <div class="form-field">
+              <label for="risk-transaction-value">Transaction value</label>
+              <input id="risk-transaction-value" name="transactionValue" type="text" />
             </div>
             <div class="form-field">
               <label for="risk-email">Email</label>
@@ -452,10 +458,34 @@
             </div>
             <div class="form-field">
               <label for="risk-phone">Phone</label>
-              <input id="risk-phone" name="phone" type="tel" required />
+              <input id="risk-phone" name="phone" type="tel" />
             </div>
-            <button class="btn btn-primary" type="submit">Get Free Vendor Risk Check</button>
+            <button class="btn btn-primary" type="submit">Run Risk Check</button>
           </form>
+          <p class="risk-check-note">This preliminary check provides an initial risk signal. A detailed vendor due diligence report can provide deeper insights including litigation screening, operational verification, and transaction risk recommendations.</p>
+
+          <article class="content-card risk-result-card is-hidden" id="riskCheckResult" aria-live="polite">
+            <h4>Preliminary Vendor Risk Signal</h4>
+            <dl class="risk-summary-list">
+              <div>
+                <dt>GST Status</dt>
+                <dd>Active</dd>
+              </div>
+              <div>
+                <dt>Compliance Signals</dt>
+                <dd>Moderate</dd>
+              </div>
+              <div>
+                <dt>Litigation Signals</dt>
+                <dd>None</dd>
+              </div>
+              <div>
+                <dt>Risk Level</dt>
+                <dd>Moderate Risk</dd>
+              </div>
+            </dl>
+            <button class="btn btn-secondary" type="button">Download Full Vendor Due Diligence Report</button>
+          </article>
         </article>
       </div>
     </section>

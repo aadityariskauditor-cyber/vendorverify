@@ -60,22 +60,7 @@
   </footer>
 
   <script src="../../scripts/main.js"></script>
-  <script>
-    const loginForm = document.getElementById('loginForm');
-
-    if (loginForm) {
-      loginForm.addEventListener('submit', (event) => {
-        event.preventDefault();
-
-        const role = document.getElementById('role')?.value;
-        if (role === 'admin') {
-          window.location.href = '../admin/dashboard.html';
-          return;
-        }
-
-        window.location.href = '../vendor/dashboard.html';
-      });
-    }
-  </script>
+  <script src="../../scripts/api/api-client.js"></script>
+  <script src="../../scripts/auth/auth.js"></script>
 </body>
 </html>

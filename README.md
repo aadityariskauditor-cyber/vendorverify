@@ -60,3 +60,25 @@ vendorverify/
 ├── backend/
 ├── tests/
 └── docs/
+
+## Backend API (Node.js + Express)
+
+A new backend service is available under `backend/` with JWT auth and PostgreSQL.
+
+### Endpoints
+- `POST /api/auth/register`
+- `POST /api/auth/login`
+- `GET /api/vendors`
+- `POST /api/vendors`
+- `PUT /api/vendors/:id`
+- `DELETE /api/vendors/:id`
+- `POST /api/vendors/:id/approve`
+- `POST /api/vendors/:id/reject`
+
+### Run backend
+```bash
+cd backend
+cp .env.example .env
+npm install
+npm run dev
+```

@@ -6,52 +6,46 @@ const submissionMessage = document.getElementById('submissionMessage');
 if (documentsInput && selectedFiles) {
   documentsInput.addEventListener('change', () => {
     const files = Array.from(documentsInput.files || []);
-
-    if (!files.length) {
-      selectedFiles.innerHTML = '';
-      return;
-    }
-
-    selectedFiles.innerHTML = files
-      .map((file) => `<span class="file-chip">${file.name}</span>`)
-      .join('');
+    selectedFiles.innerHTML = files.map((file) => `<span class="file-chip">${file.name}</span>`).join('');
   });
 }
 
 if (requestForm) {
-  requestForm.addEventListener('submit', (event) => {
+  requestForm.addEventListener('submit', async (event) => {
     event.preventDefault();
 
     const formData = new FormData(requestForm);
     const uploadedFiles = Array.from(documentsInput?.files || []).map((file) => file.name);
 
-    const request = {
-      id: `VR-${Math.floor(1000 + Math.random() * 9000)}`,
+    const payload = {
       companyName: formData.get('companyName'),
-      contactName: formData.get('contactName'),
-      contactEmail: formData.get('contactEmail'),
+      contactPerson: formData.get('contactName'),
+      email: formData.get('contactEmail'),
       serviceCategory: formData.get('serviceCategory'),
       documents: uploadedFiles,
-      submittedOn: new Date().toISOString(),
-      status: 'Pending Review'
+      status: 'Pending',
+      riskScore: 0,
+      phone: '',
+      country: ''
     };
 
-    const existingRequests = JSON.parse(localStorage.getItem('vendorRequests') || '[]');
-    existingRequests.unshift(request);
-    localStorage.setItem('vendorRequests', JSON.stringify(existingRequests));
+    try {
+      await ApiClient.createVendor(payload);
+      if (submissionMessage) {
+        submissionMessage.textContent = 'Verification request submitted successfully. Redirecting to status page...';
+        submissionMessage.classList.add('success');
+      }
 
-    if (submissionMessage) {
-      submissionMessage.textContent = 'Verification request submitted successfully. Redirecting to status page...';
-      submissionMessage.classList.add('success');
-    }
-
-    requestForm.reset();
-    if (selectedFiles) {
+      requestForm.reset();
       selectedFiles.innerHTML = '';
-    }
 
-    setTimeout(() => {
-      window.location.href = 'status.html';
-    }, 1200);
+      setTimeout(() => {
+        window.location.href = 'status.html';
+      }, 1200);
+    } catch (error) {
+      if (submissionMessage) {
+        submissionMessage.textContent = error.message;
+      }
+    }
   });
 }

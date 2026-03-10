@@ -350,6 +350,36 @@ function applyPricingContent() {
   }
 }
 
+
+const riskCheckTriggers = document.querySelectorAll('[data-open-risk-check="true"]');
+const freeRiskCheckForm = document.getElementById('freeRiskCheckForm');
+const riskCheckResult = document.getElementById('riskCheckResult');
+const riskVendorNameField = document.getElementById('risk-vendor-name');
+
+function openRiskCheckForm() {
+  if (!freeRiskCheckForm) {
+    return;
+  }
+
+  freeRiskCheckForm.classList.remove('is-hidden');
+  riskVendorNameField?.focus();
+}
+
+riskCheckTriggers.forEach((trigger) => {
+  trigger.addEventListener('click', () => {
+    window.setTimeout(openRiskCheckForm, 200);
+  });
+});
+
+if (freeRiskCheckForm && riskCheckResult) {
+  freeRiskCheckForm.addEventListener('submit', (event) => {
+    event.preventDefault();
+    riskCheckResult.classList.remove('is-hidden');
+    showAlert('Preliminary vendor risk signal is ready.', 'success');
+    riskCheckResult.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+  });
+}
+
 highlightActiveLinks();
 applySiteInfo();
 applyPricingContent();

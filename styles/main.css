@@ -913,6 +913,33 @@ p {
   color: var(--text);
 }
 
+
+
+.risk-check-form {
+  margin-top: 1rem;
+}
+
+.is-hidden {
+  display: none;
+}
+
+.risk-check-note {
+  margin-top: 0.95rem;
+  color: var(--muted);
+  font-size: 0.92rem;
+  line-height: 1.55;
+}
+
+.risk-result-card {
+  margin-top: 1rem;
+  border: 1px solid rgba(95, 124, 255, 0.35);
+  background: rgba(95, 124, 255, 0.08);
+}
+
+.risk-result-card h4 {
+  margin-bottom: 0.8rem;
+}
+
 .admin-layout {
   display: grid;
   grid-template-columns: 250px 1fr;

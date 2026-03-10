@@ -31,7 +31,7 @@
       <form class="auth-form" id="signupForm">
         <div class="form-field">
           <label for="name">Full Name</label>
-          <input id="name" name="name" type="text" placeholder="Alex Johnson" required />
+          <input id="name" name="name" type="text" placeholder="Jane Doe" required />
         </div>
 
         <div class="form-field">
@@ -41,7 +41,7 @@
 
         <div class="form-field">
           <label for="password">Password</label>
-          <input id="password" name="password" type="password" placeholder="••••••••" minlength="8" required />
+          <input id="password" name="password" type="password" placeholder="••••••••" required />
         </div>
 
         <div class="form-field">
@@ -51,8 +51,6 @@
             <option value="admin">Administrator</option>
           </select>
         </div>
-
-        <p id="signupMessage" aria-live="polite"></p>
 
         <div class="hero-actions">
           <button class="btn btn-primary" type="submit">Create Account</button>
@@ -69,45 +67,7 @@
   <script src="../../scripts/auth/auth.js"></script>
   <script src="../../scripts/auth/frontend-auth.js"></script>
   <script src="../../scripts/main.js"></script>
-  <script>
-    const signupForm = document.getElementById('signupForm');
-    const signupMessage = document.getElementById('signupMessage');
-
-    if (signupForm) {
-      signupForm.addEventListener('submit', async (event) => {
-        event.preventDefault();
-
-        const name = document.getElementById('name')?.value;
-        const email = document.getElementById('email')?.value;
-        const password = document.getElementById('password')?.value;
-        const role = document.getElementById('role')?.value || 'vendor';
-
-        if (!name || !email || !password) {
-          signupMessage.textContent = 'Please fill in all required fields.';
-          return;
-        }
-
-        signupMessage.textContent = 'Creating your account...';
-
-        try {
-          const result = await window.VendorVerifyFrontendAuth.register({
-            name,
-            email,
-            password,
-            role,
-          });
-
-          if (window.VendorVerifyAuth) {
-            window.VendorVerifyAuth.redirectToRoleHome(result?.user?.role || role);
-            return;
-          }
-
-          window.location.href = '../vendor/dashboard.html';
-        } catch (error) {
-          signupMessage.textContent = error.message;
-        }
-      });
-    }
-  </script>
+  <script src="../../scripts/api/api-client.js"></script>
+  <script src="../../scripts/auth/auth.js"></script>
 </body>
 </html>

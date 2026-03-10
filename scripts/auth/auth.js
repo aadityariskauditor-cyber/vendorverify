@@ -15,12 +15,11 @@
 
   function normalizeRole(value) {
     const role = String(value || '').trim().toLowerCase();
+    return Object.values(ROLES).includes(role) ? role : null;
+  }
 
-    if (Object.values(ROLES).includes(role)) {
-      return role;
-    }
-
-    return null;
+  function saveAuthState(state) {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
   }
 
   function loadAuthState() {
@@ -31,24 +30,11 @@
     }
   }
 
-  function saveAuthState(state) {
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
-  }
-
-  function login({ email, role, name }) {
-    const normalizedRole = normalizeRole(role);
-
-    if (!normalizedRole) {
-      throw new Error('Invalid role selected.');
-    }
-
+  function loginState({ token, user }) {
     const state = {
       isAuthenticated: true,
-      user: {
-        email: String(email || '').trim().toLowerCase(),
-        name: String(name || '').trim(),
-        role: normalizedRole,
-      },
+      token,
+      user,
       loggedInAt: new Date().toISOString(),
     };
 
@@ -61,21 +47,7 @@
   }
 
   function getState() {
-    const state = loadAuthState();
-
-    if (!state || !state.isAuthenticated) {
-      return {
-        isAuthenticated: false,
-        user: null,
-        loggedInAt: null,
-      };
-    }
-
-    return state;
-  }
-
-  function isAuthenticated() {
-    return getState().isAuthenticated;
+    return loadAuthState() || { isAuthenticated: false, user: null, token: null };
   }
 
   function getCurrentUser() {
@@ -91,34 +63,57 @@
     return normalizedRole ? HOME_BY_ROLE[normalizedRole] : null;
   }
 
-  function getHomeUrlForRole(role) {
-    const path = getHomePathForRole(role);
-
-    if (!path) {
-      return null;
-    }
-
-    return new URL(path, window.location.origin).toString();
-  }
-
   function redirectToRoleHome(role) {
-    const targetUrl = getHomeUrlForRole(role);
+    const homePath = getHomePathForRole(role);
 
-    if (!targetUrl) {
-      throw new Error('Unable to resolve home URL for role.');
+    if (homePath) {
+      window.location.href = new URL(homePath, window.location.origin).toString();
     }
-
-    window.location.href = targetUrl;
   }
+
+  async function handleLoginSubmit(event) {
+    event.preventDefault();
+
+    const form = event.currentTarget;
+    const email = form.querySelector('#email')?.value;
+    const password = form.querySelector('#password')?.value;
+
+    try {
+      const result = await ApiClient.login({ email, password });
+      loginState(result);
+      redirectToRoleHome(result.user.role);
+    } catch (error) {
+      alert(error.message);
+    }
+  }
+
+  async function handleSignupSubmit(event) {
+    event.preventDefault();
+
+    const form = event.currentTarget;
+    const name = form.querySelector('#name')?.value;
+    const email = form.querySelector('#email')?.value;
+    const password = form.querySelector('#password')?.value;
+    const role = form.querySelector('#role')?.value || ROLES.VENDOR;
+
+    try {
+      const result = await ApiClient.register({ name, email, password, role });
+      loginState(result);
+      redirectToRoleHome(result.user.role);
+    } catch (error) {
+      alert(error.message);
+    }
+  }
+
+  document.getElementById('loginForm')?.addEventListener('submit', handleLoginSubmit);
+  document.getElementById('signupForm')?.addEventListener('submit', handleSignupSubmit);
 
   global.VendorVerifyAuth = {
     ROLES,
-    login,
     logout,
     getState,
     getCurrentUser,
     getCurrentRole,
-    isAuthenticated,
     getHomePathForRole,
     redirectToRoleHome,
   };

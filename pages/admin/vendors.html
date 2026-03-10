@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Vendors | Admin | VendorVerify</title>
   <link rel="stylesheet" href="../../styles/main.css" />
+  <link rel="stylesheet" href="../../styles/admin/dashboard.css" />
 </head>
 <body>
   <div class="admin-layout">
@@ -29,74 +30,121 @@
         <button class="admin-menu-toggle" type="button" id="adminMenuToggle">Menu</button>
       </div>
 
+      <section class="content-card vendor-workflow-grid">
+        <article>
+          <div class="section-header">
+            <h2>Vendors</h2>
+            <input type="search" class="admin-search" id="vendorSearch" placeholder="Search vendors by company, contact, email, or status" />
+          </div>
+          <div class="admin-table-wrap">
+            <table class="admin-table" id="vendorsTable">
+              <thead>
+                <tr>
+                  <th>Company</th>
+                  <th>Contact</th>
+                  <th>Email</th>
+                  <th>Country</th>
+                  <th>Status</th>
+                  <th>Risk</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody id="vendorTableBody"></tbody>
+            </table>
+          </div>
+        </article>
+
+        <article class="vendor-profile-card">
+          <div class="section-header">
+            <h2>Vendor Profile</h2>
+            <span class="status-badge pending" id="profileStatusBadge">Pending</span>
+          </div>
+          <div class="info-list" id="vendorProfileDetails"></div>
+
+          <h3>Documents Submitted</h3>
+          <ul id="profileDocuments" class="docs-list"></ul>
+
+          <h3>Verification Notes</h3>
+          <div id="profileNotes" class="notes-list"></div>
+
+          <div class="action-row">
+            <button class="btn btn-primary" type="button" id="approveVendorBtn">Approve Vendor</button>
+            <button class="btn btn-danger" type="button" id="rejectVendorBtn">Reject Vendor</button>
+            <button class="btn btn-secondary" type="button" id="deleteVendorBtn">Delete Vendor</button>
+          </div>
+
+          <div class="form-field">
+            <label for="adminNoteInput">Add verification note</label>
+            <textarea id="adminNoteInput" rows="3" placeholder="Add a review note for this vendor"></textarea>
+          </div>
+          <button class="btn btn-secondary" type="button" id="addNoteBtn">Add Note</button>
+        </article>
+      </section>
+
       <section class="content-card">
         <div class="section-header">
-          <h2>Vendors</h2>
-          <input type="search" class="admin-search" id="vendorSearch" data-table-filter="#vendorsTable" placeholder="Search vendors by name, company, email, or status" />
+          <h2 id="formTitle">Create Vendor</h2>
+          <p id="formHint">Fill in details to create a new vendor record.</p>
         </div>
+        <form id="vendorForm" class="vendor-form-grid">
+          <input type="hidden" id="vendorId" name="vendorId" />
+          <div class="form-field">
+            <label for="companyName">Company Name</label>
+            <input id="companyName" name="companyName" required />
+          </div>
+          <div class="form-field">
+            <label for="contactPerson">Contact Person</label>
+            <input id="contactPerson" name="contactPerson" required />
+          </div>
+          <div class="form-field">
+            <label for="email">Email</label>
+            <input id="email" name="email" type="email" required />
+          </div>
+          <div class="form-field">
+            <label for="phone">Phone</label>
+            <input id="phone" name="phone" required />
+          </div>
+          <div class="form-field">
+            <label for="country">Country</label>
+            <input id="country" name="country" required />
+          </div>
+          <div class="form-field">
+            <label for="vendorStatus">Status</label>
+            <select id="vendorStatus" name="vendorStatus" required>
+              <option>Pending</option>
+              <option>Under Review</option>
+              <option>Approved</option>
+              <option>Rejected</option>
+            </select>
+          </div>
+          <div class="form-field">
+            <label for="riskScore">Risk Score (0-100)</label>
+            <input id="riskScore" name="riskScore" type="number" min="0" max="100" required />
+          </div>
 
-        <div class="admin-table-wrap">
-          <table class="admin-table" id="vendorsTable">
-            <thead>
-              <tr>
-                <th>Vendor Name</th>
-                <th>Company</th>
-                <th>Email</th>
-                <th>Status</th>
-                <th>Documents</th>
-                <th>Actions</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>Alex Morgan</td>
-                <td>BluePeak Logistics</td>
-                <td>alex@bluepeak.com</td>
-                <td><span class="status-badge pending" data-status-badge>Pending</span></td>
-                <td>3 Uploaded</td>
-                <td>
-                  <div class="action-row compact">
-                    <button class="btn btn-secondary" type="button">View</button>
-                    <button class="btn btn-primary" type="button" data-vendor-action="approve">Approve</button>
-                    <button class="btn btn-danger" type="button" data-vendor-action="reject">Reject</button>
-                  </div>
-                </td>
-              </tr>
-              <tr>
-                <td>Sofia Bennett</td>
-                <td>Nova Chemical Supply</td>
-                <td>sofia@novachem.com</td>
-                <td><span class="status-badge approved" data-status-badge>Approved</span></td>
-                <td>5 Uploaded</td>
-                <td>
-                  <div class="action-row compact">
-                    <button class="btn btn-secondary" type="button">View</button>
-                    <button class="btn btn-primary" type="button" data-vendor-action="approve">Approve</button>
-                    <button class="btn btn-danger" type="button" data-vendor-action="reject">Reject</button>
-                  </div>
-                </td>
-              </tr>
-              <tr>
-                <td>Daniel Kim</td>
-                <td>CloudForge IT</td>
-                <td>daniel@cloudforge.io</td>
-                <td><span class="status-badge rejected" data-status-badge>Rejected</span></td>
-                <td>2 Uploaded</td>
-                <td>
-                  <div class="action-row compact">
-                    <button class="btn btn-secondary" type="button">View</button>
-                    <button class="btn btn-primary" type="button" data-vendor-action="approve">Approve</button>
-                    <button class="btn btn-danger" type="button" data-vendor-action="reject">Reject</button>
-                  </div>
-                </td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
+          <div class="form-field file-upload-grid">
+            <label for="gstCertificate">GST certificate</label>
+            <input id="gstCertificate" type="file" accept=".pdf,.jpg,.jpeg,.png" />
+          </div>
+          <div class="form-field file-upload-grid">
+            <label for="businessRegistration">Business registration</label>
+            <input id="businessRegistration" type="file" accept=".pdf,.jpg,.jpeg,.png" />
+          </div>
+          <div class="form-field file-upload-grid">
+            <label for="complianceCertificates">Compliance certificates</label>
+            <input id="complianceCertificates" type="file" multiple accept=".pdf,.jpg,.jpeg,.png" />
+          </div>
+
+          <div class="action-row">
+            <button class="btn btn-primary" type="submit" id="saveVendorBtn">Create Vendor</button>
+            <button class="btn btn-secondary" type="button" id="resetVendorFormBtn">Clear</button>
+          </div>
+        </form>
       </section>
     </main>
   </div>
 
   <script src="../../scripts/main.js"></script>
+  <script src="../../scripts/admin/vendors.js"></script>
 </body>
 </html>

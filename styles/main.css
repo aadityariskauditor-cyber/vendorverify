@@ -1264,3 +1264,74 @@ p {
     grid-template-columns: 1fr;
   }
 }
+
+.verification-included-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.included-workflow,
+.included-indicators {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: grid;
+  gap: 0.7rem;
+}
+
+.included-workflow li,
+.included-indicators li {
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  background: rgba(8, 14, 30, 0.75);
+}
+
+.included-workflow li {
+  padding: 0.75rem 0.85rem;
+  position: relative;
+}
+
+.included-workflow li span {
+  font-weight: 600;
+}
+
+.included-workflow li:not(:last-child)::after {
+  content: "↓";
+  position: absolute;
+  left: 50%;
+  bottom: -1rem;
+  transform: translateX(-50%);
+  color: var(--primary-dark);
+  font-weight: 700;
+}
+
+.included-indicators li {
+  padding: 0.75rem 0.85rem;
+  display: grid;
+  gap: 0.2rem;
+}
+
+.included-indicators span {
+  color: var(--muted);
+  font-size: 0.92rem;
+}
+
+.risk-insight-box {
+  border-left: 4px solid var(--color-warning);
+  margin: 1.1rem 0;
+  padding: 0.9rem 1rem;
+  border-radius: 12px;
+  background: rgba(255, 196, 87, 0.08);
+}
+
+.risk-insight-box h3 {
+  margin-bottom: 0.5rem;
+}
+
+@media (max-width: 980px) {
+  .verification-included-grid {
+    grid-template-columns: 1fr;
+  }
+}

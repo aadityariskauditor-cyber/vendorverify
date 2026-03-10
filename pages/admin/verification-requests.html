@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Verification Requests | Admin | VendorVerify</title>
+  <link rel="stylesheet" href="../../styles/main.css" />
+</head>
+<body>
+  <div class="admin-layout">
+    <aside class="admin-sidebar" id="adminSidebar">
+      <a class="admin-brand" href="dashboard.html">VendorVerify Admin</a>
+      <nav class="admin-nav">
+        <a href="dashboard.html">Dashboard</a>
+        <a href="vendors.html">Vendors</a>
+        <a class="active" href="verification-requests.html">Verification Requests</a>
+        <a href="reports.html">Reports</a>
+        <a href="users.html">Users</a>
+        <a href="settings.html">Settings</a>
+      </nav>
+    </aside>
+
+    <main class="admin-main">
+      <div class="admin-topbar">
+        <div>
+          <p class="eyebrow">Approval Queue</p>
+          <h1>Verification Requests</h1>
+        </div>
+        <button class="admin-menu-toggle" type="button" id="adminMenuToggle">Menu</button>
+      </div>
+
+      <section class="content-card">
+        <h2>Pending Request: Horizon Metals</h2>
+        <p>Request ID: VR-4471 · Submitted by procurement team · Awaiting legal review for compliance documentation.</p>
+        <div class="action-row">
+          <a class="btn btn-primary" href="#">Approve Request</a>
+          <a class="btn btn-secondary" href="#">Request More Documents</a>
+          <a class="btn btn-secondary" href="#">Reject</a>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <script>
+    const adminSidebar = document.getElementById('adminSidebar');
+    const adminMenuToggle = document.getElementById('adminMenuToggle');
+    if (adminSidebar && adminMenuToggle) {
+      adminMenuToggle.addEventListener('click', () => adminSidebar.classList.toggle('open'));
+    }
+  </script>
+</body>
+</html>

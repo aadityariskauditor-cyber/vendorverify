@@ -27,6 +27,31 @@
     <div class="container content-card">
       <h1>Login</h1>
       <p>Access your VendorVerify dashboard to review vendor records and compliance status.</p>
+
+      <form class="auth-form" id="loginForm">
+        <div class="form-field">
+          <label for="email">Email</label>
+          <input id="email" name="email" type="email" placeholder="you@company.com" required />
+        </div>
+
+        <div class="form-field">
+          <label for="password">Password</label>
+          <input id="password" name="password" type="password" placeholder="••••••••" required />
+        </div>
+
+        <div class="form-field">
+          <label for="role">Role</label>
+          <select id="role" name="role">
+            <option value="vendor">Vendor User</option>
+            <option value="admin">Administrator</option>
+          </select>
+        </div>
+
+        <div class="hero-actions">
+          <button class="btn btn-primary" type="submit">Sign In</button>
+          <a class="btn btn-secondary" href="../admin/dashboard.html">Go to Admin Dashboard</a>
+        </div>
+      </form>
     </div>
   </main>
 
@@ -35,5 +60,22 @@
   </footer>
 
   <script src="../../scripts/main.js"></script>
+  <script>
+    const loginForm = document.getElementById('loginForm');
+
+    if (loginForm) {
+      loginForm.addEventListener('submit', (event) => {
+        event.preventDefault();
+
+        const role = document.getElementById('role')?.value;
+        if (role === 'admin') {
+          window.location.href = '../admin/dashboard.html';
+          return;
+        }
+
+        window.location.href = '../../index.html';
+      });
+    }
+  </script>
 </body>
 </html>

@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Admin Dashboard | VendorVerify</title>
+  <link rel="stylesheet" href="../../styles/main.css" />
+</head>
+<body>
+  <div class="admin-layout">
+    <aside class="admin-sidebar" id="adminSidebar">
+      <a class="admin-brand" href="dashboard.html">VendorVerify Admin</a>
+      <nav class="admin-nav">
+        <a class="active" href="dashboard.html">Dashboard</a>
+        <a href="vendors.html">Vendors</a>
+        <a href="verification-requests.html">Verification Requests</a>
+        <a href="reports.html">Reports</a>
+        <a href="users.html">Users</a>
+        <a href="settings.html">Settings</a>
+      </nav>
+    </aside>
+
+    <main class="admin-main">
+      <div class="admin-topbar">
+        <div>
+          <p class="eyebrow">Admin Console</p>
+          <h1>Dashboard</h1>
+        </div>
+        <button class="admin-menu-toggle" type="button" id="adminMenuToggle">Menu</button>
+      </div>
+
+      <section class="admin-cards">
+        <article class="admin-card">
+          <p>Total Vendors</p>
+          <h3>1,284</h3>
+        </article>
+        <article class="admin-card">
+          <p>Pending Verifications</p>
+          <h3>34</h3>
+        </article>
+        <article class="admin-card">
+          <p>Compliance Rate</p>
+          <h3>92.7%</h3>
+        </article>
+        <article class="admin-card">
+          <p>New Requests (7d)</p>
+          <h3>118</h3>
+        </article>
+      </section>
+
+      <section class="content-card" style="margin-top: 1rem;">
+        <h2>Operations Overview</h2>
+        <p>Monitor recent vendor activity, escalations, and approval queue health from a single panel.</p>
+      </section>
+    </main>
+  </div>
+
+  <script>
+    const adminSidebar = document.getElementById('adminSidebar');
+    const adminMenuToggle = document.getElementById('adminMenuToggle');
+    if (adminSidebar && adminMenuToggle) {
+      adminMenuToggle.addEventListener('click', () => {
+        adminSidebar.classList.toggle('open');
+      });
+    }
+  </script>
+</body>
+</html>

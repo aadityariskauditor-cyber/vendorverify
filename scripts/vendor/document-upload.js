@@ -1,28 +1,41 @@
 const requestForm = document.getElementById('verificationRequestForm');
 const selectedFiles = document.getElementById('selectedFiles');
 const submissionMessage = document.getElementById('submissionMessage');
+const submitButton = requestForm?.querySelector('button[type="submit"]');
 
-if (documentsInput && selectedFiles) {
-  documentsInput.addEventListener('change', () => {
-    const files = Array.from(documentsInput.files || []);
-    selectedFiles.innerHTML = files.map((file) => `<span class="file-chip">${file.name}</span>`).join('');
-  });
+const documentInputs = [
+  { input: document.getElementById('gstCertificate'), label: 'GST Certificate' },
+  { input: document.getElementById('companyRegistration'), label: 'Company Registration' },
+  { input: document.getElementById('complianceCertificates'), label: 'Compliance Certificates' }
+];
 
-  selectedFiles.innerHTML = chips.join('');
-};
+function renderSelectedFiles() {
+  if (!selectedFiles) return;
+
+  const chips = documentInputs
+    .flatMap(({ input, label }) => {
+      const files = Array.from(input?.files || []);
+      return files.map((file) => `<span class="file-chip">${label}: ${file.name}</span>`);
+    });
+
+  selectedFiles.innerHTML = chips.length
+    ? chips.join('')
+    : '<div class="empty-state"><p>No documents uploaded yet.</p></div>';
+}
 
 documentInputs.forEach(({ input }) => {
-  if (input) {
-    input.addEventListener('change', renderSelectedFiles);
-  }
+  input?.addEventListener('change', renderSelectedFiles);
 });
 
 if (requestForm) {
+  renderSelectedFiles();
+
   requestForm.addEventListener('submit', async (event) => {
     event.preventDefault();
+    window.VendorVerifyUI?.setButtonLoading?.(submitButton, true);
 
     const formData = new FormData(requestForm);
-    const uploadedFiles = Array.from(documentsInput?.files || []).map((file) => file.name);
+    const uploadedFiles = documentInputs.flatMap(({ input }) => Array.from(input?.files || []).map((file) => file.name));
 
     const payload = {
       companyName: formData.get('companyName'),
@@ -38,13 +51,15 @@ if (requestForm) {
 
     try {
       await ApiClient.createVendor(payload);
+
       if (submissionMessage) {
         submissionMessage.textContent = 'Verification request submitted successfully. Redirecting to status page...';
-        submissionMessage.classList.add('success');
+        submissionMessage.className = 'submission-message success';
       }
+      window.VendorVerifyUI?.showAlert?.('Verification request submitted.', 'success');
 
       requestForm.reset();
-      selectedFiles.innerHTML = '';
+      renderSelectedFiles();
 
       setTimeout(() => {
         window.location.href = 'status.html';
@@ -52,7 +67,11 @@ if (requestForm) {
     } catch (error) {
       if (submissionMessage) {
         submissionMessage.textContent = error.message;
+        submissionMessage.className = 'submission-message';
       }
+      window.VendorVerifyUI?.showAlert?.(error.message, 'error');
+    } finally {
+      window.VendorVerifyUI?.setButtonLoading?.(submitButton, false);
     }
   });
 }

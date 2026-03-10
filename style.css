@@ -1587,6 +1587,30 @@ transform: none !important;
   padding: 28px;
 }
 
+/* Mobile Hamburger Menu Fix */
+
+@media (max-width: 768px) {
+
+  .nav-menu {
+    display: none;
+    flex-direction: column;
+    background: #ffffff;
+    position: absolute;
+    top: 70px;
+    right: 0;
+    width: 220px;
+    padding: 20px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+  }
+
+  .nav-menu.active {
+    display: flex;
+  }
+
+}
+
+
+
 .form-group input,
 .form-group textarea {
   width: 100%;

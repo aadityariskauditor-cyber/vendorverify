@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Admin Dashboard | VendorVerify</title>
   <link rel="stylesheet" href="../../styles/main.css" />
+  <link rel="stylesheet" href="../../styles/admin/dashboard.css" />
 </head>
 <body>
   <div class="admin-layout">
@@ -35,17 +36,45 @@
           <h3>1,284</h3>
         </article>
         <article class="admin-card">
-          <p>Pending Verifications</p>
-          <h3>34</h3>
+          <p>Verified Vendors</p>
+          <h3>1,189</h3>
         </article>
         <article class="admin-card">
-          <p>Approved Vendors</p>
-          <h3>1,189</h3>
+          <p>Pending Reviews</p>
+          <h3>34</h3>
         </article>
         <article class="admin-card">
           <p>Rejected Vendors</p>
           <h3>61</h3>
         </article>
+      </section>
+
+      <section class="content-card chart-section">
+        <div class="section-header">
+          <h2>Analytics &amp; Monitoring</h2>
+        </div>
+        <div class="chart-grid">
+          <article class="chart-widget">
+            <h3>Vendor Verification Trends</h3>
+            <div class="chart-canvas-wrap">
+              <canvas id="verificationTrendsChart" aria-label="Vendor verification trends chart"></canvas>
+            </div>
+          </article>
+
+          <article class="chart-widget">
+            <h3>Monthly Approvals</h3>
+            <div class="chart-canvas-wrap">
+              <canvas id="monthlyApprovalsChart" aria-label="Monthly vendor approvals chart"></canvas>
+            </div>
+          </article>
+
+          <article class="chart-widget chart-widget-wide">
+            <h3>Vendor Risk Distribution</h3>
+            <div class="chart-canvas-wrap">
+              <canvas id="riskDistributionChart" aria-label="Vendor risk distribution chart"></canvas>
+            </div>
+          </article>
+        </div>
       </section>
 
       <section class="content-card">
@@ -101,6 +130,8 @@
     </main>
   </div>
 
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <script src="../../scripts/main.js"></script>
+  <script src="../../scripts/admin/dashboard-charts.js"></script>
 </body>
 </html>

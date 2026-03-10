@@ -5,6 +5,143 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Pricing | VendorVerify</title>
   <link rel="stylesheet" href="../styles/main.css" />
+  <style>
+    .pricing-page-grid {
+      display: grid;
+      grid-template-columns: 1.15fr 0.85fr;
+      gap: 1rem;
+      margin-top: 1.3rem;
+    }
+
+    .plan-selector {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 0.9rem;
+      margin-top: 1.2rem;
+    }
+
+    .plan-option {
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 1rem;
+      background: rgba(8, 14, 30, 0.7);
+      cursor: pointer;
+      transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+      text-align: left;
+      color: var(--text);
+      width: 100%;
+    }
+
+    .plan-option:hover,
+    .plan-option.active {
+      border-color: rgba(124, 151, 255, 0.7);
+      box-shadow: 0 16px 36px rgba(65, 87, 176, 0.26);
+      transform: translateY(-2px);
+    }
+
+    .plan-option h3 {
+      margin-bottom: 0.3rem;
+    }
+
+    .plan-option .price-value {
+      margin-bottom: 0.3rem;
+      font-size: 1.6rem;
+    }
+
+    .plan-option p {
+      margin-bottom: 0;
+      font-size: 0.9rem;
+    }
+
+    .pricing-table-wrap {
+      margin-top: 1.2rem;
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      overflow: hidden;
+      background: rgba(8, 14, 30, 0.78);
+    }
+
+    .pricing-table {
+      width: 100%;
+      border-collapse: collapse;
+      min-width: 520px;
+    }
+
+    .pricing-table th,
+    .pricing-table td {
+      padding: 0.85rem 0.9rem;
+      border-bottom: 1px solid rgba(173, 194, 255, 0.16);
+      text-align: left;
+    }
+
+    .pricing-table tbody tr:last-child td {
+      border-bottom: 0;
+    }
+
+    .pricing-table th {
+      color: #c3d2f5;
+      font-size: 0.82rem;
+      text-transform: uppercase;
+      letter-spacing: 0.07em;
+    }
+
+    .feature-cell {
+      color: #dce6ff;
+      font-weight: 600;
+      width: 25%;
+    }
+
+    .comparison-cell {
+      color: var(--muted);
+    }
+
+    .comparison-cell.is-available {
+      color: var(--accent);
+      font-weight: 700;
+    }
+
+    .selection-summary {
+      display: grid;
+      gap: 0.95rem;
+      align-content: start;
+      height: fit-content;
+    }
+
+    .summary-plan-name {
+      margin-bottom: 0.25rem;
+    }
+
+    .summary-list {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      display: grid;
+      gap: 0.6rem;
+    }
+
+    .summary-list li {
+      border: 1px solid var(--border);
+      border-radius: 11px;
+      padding: 0.65rem 0.75rem;
+      background: rgba(255, 255, 255, 0.03);
+      color: #dce6ff;
+      font-size: 0.9rem;
+    }
+
+    @media (max-width: 980px) {
+      .pricing-page-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .plan-selector {
+        grid-template-columns: 1fr;
+      }
+
+      .pricing-table-wrap {
+        overflow-x: auto;
+      }
+    }
+  </style>
 </head>
 <body>
   <header class="site-header">
@@ -24,9 +161,38 @@
   </header>
 
   <main class="page-section">
-    <div class="container content-card">
-      <h1>Pricing</h1>
-      <p>Choose a plan that scales with your vendor volume—from startup teams to enterprise procurement operations.</p>
+    <div class="container">
+      <section class="content-card">
+        <h1>Pricing</h1>
+        <p>Choose the right VendorVerify subscription for your verification workflow.</p>
+        <div id="planSelector" class="plan-selector" aria-label="Subscription plans"></div>
+
+        <div class="pricing-table-wrap" role="region" aria-label="Pricing comparison table">
+          <table class="pricing-table" id="pricingComparisonTable">
+            <thead>
+              <tr>
+                <th>Feature</th>
+                <th>Starter</th>
+                <th>Professional</th>
+                <th>Enterprise</th>
+              </tr>
+            </thead>
+            <tbody></tbody>
+          </table>
+        </div>
+      </section>
+
+      <section class="pricing-page-grid">
+        <article class="content-card selection-summary" id="selectionSummary" aria-live="polite"></article>
+        <article class="content-card">
+          <h2>Subscription selection</h2>
+          <p>Select a plan above to preview included verification limits and feature access. Proceed to signup to activate your subscription.</p>
+          <div class="hero-actions">
+            <a class="btn btn-primary" href="auth/signup.html">Continue with selected plan</a>
+            <a class="btn btn-secondary" href="contact.html">Talk to sales</a>
+          </div>
+        </article>
+      </section>
     </div>
   </main>
 
@@ -35,5 +201,6 @@
   </footer>
 
   <script src="../scripts/main.js"></script>
+  <script src="../scripts/pricing/plans.js"></script>
 </body>
 </html>

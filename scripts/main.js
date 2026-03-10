@@ -289,6 +289,68 @@ function setButtonLoading(button, isLoading) {
   }
 }
 
+function applyPricingContent() {
+  const pricingConfig = window.vendorVerifyPricing;
+
+  if (!pricingConfig?.plans?.length) {
+    return;
+  }
+
+  const plansById = new Map(pricingConfig.plans.map((plan) => [plan.id, plan]));
+  const formatInr = (value) => `₹${value.toLocaleString('en-IN')}`;
+
+  document.querySelectorAll('[data-plan-name]').forEach((element) => {
+    const planId = element.getAttribute('data-plan-name');
+    const plan = planId ? plansById.get(planId) : null;
+
+    if (plan) {
+      element.textContent = plan.name;
+    }
+  });
+
+  document.querySelectorAll('[data-plan-price]').forEach((element) => {
+    const planId = element.getAttribute('data-plan-price');
+    const plan = planId ? plansById.get(planId) : null;
+
+    if (!plan) {
+      return;
+    }
+
+    const billingSpan = element.querySelector('span:not(.price-secondary)');
+    const usdSpan = element.querySelector('.price-secondary');
+
+    if (billingSpan) {
+      element.innerHTML = `${formatInr(plan.priceInr)}${billingSpan.outerHTML}`;
+      return;
+    }
+
+    if (usdSpan) {
+      element.innerHTML = `${formatInr(plan.priceInr)} ${usdSpan.outerHTML}`;
+      return;
+    }
+
+    element.textContent = formatInr(plan.priceInr);
+  });
+
+  document.querySelectorAll('[data-plan-usd]').forEach((element) => {
+    const planId = element.getAttribute('data-plan-usd');
+    const plan = planId ? plansById.get(planId) : null;
+
+    if (plan?.usdApprox) {
+      element.textContent = `(≈ $${plan.usdApprox})`;
+    }
+  });
+
+  const addOnList = document.getElementById('addonList');
+
+  if (addOnList && Array.isArray(pricingConfig.addOns)) {
+    addOnList.innerHTML = pricingConfig.addOns
+      .map((item) => `<li>${item.label} – ${item.inr}</li>`)
+      .join('');
+  }
+}
+
 highlightActiveLinks();
 applySiteInfo();
+applyPricingContent();
 window.VendorVerifyUI = { showAlert, setButtonLoading, siteInfo };

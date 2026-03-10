@@ -1,41 +1,14 @@
-const pricingPlans = [
-  {
-    id: 'basic',
-    name: 'Basic Vendor Verification',
-    price: 4999,
-    billingLabel: '',
-    description: 'Ideal for foundational checks and onboarding confidence.',
-    features: {
-      verificationLimits: 'Core verification scope',
-      priorityVerification: false,
-      apiAccess: false,
-    },
-  },
-  {
-    id: 'enhanced',
-    name: 'Enhanced Vendor Risk Evaluation',
-    price: 11999,
-    billingLabel: '',
-    description: 'Expanded risk checks for deeper supplier confidence.',
-    features: {
-      verificationLimits: 'Expanded verification scope',
-      priorityVerification: true,
-      apiAccess: false,
-    },
-  },
-  {
-    id: 'strategic',
-    name: 'Strategic Vendor Due Diligence',
-    price: 24999,
-    billingLabel: '',
-    description: 'Comprehensive due diligence for critical vendor decisions.',
-    features: {
-      verificationLimits: 'Comprehensive verification scope',
-      priorityVerification: true,
-      apiAccess: true,
-    },
-  },
-];
+const pricingConfig = window.vendorVerifyPricing;
+
+const pricingPlans = pricingConfig?.plans?.map((plan) => ({
+  id: plan.id,
+  name: plan.name,
+  price: plan.priceInr,
+  usdApprox: plan.usdApprox,
+  billingLabel: '',
+  description: plan.description,
+  features: plan.features,
+})) ?? [];
 
 const comparisonRows = [
   {
@@ -59,7 +32,7 @@ const planSelector = document.getElementById('planSelector');
 const comparisonTableBody = document.querySelector('#pricingComparisonTable tbody');
 const selectionSummary = document.getElementById('selectionSummary');
 
-if (planSelector && comparisonTableBody && selectionSummary) {
+if (planSelector && comparisonTableBody && selectionSummary && pricingPlans.length) {
   let selectedPlanId = pricingPlans[1].id;
 
   const formatPrice = (plan) => {
@@ -67,7 +40,13 @@ if (planSelector && comparisonTableBody && selectionSummary) {
       return 'Custom';
     }
 
-    return `₹${plan.price.toLocaleString('en-IN')}`;
+    const formattedPrice = `₹${plan.price.toLocaleString('en-IN')}`;
+
+    if (!plan.usdApprox) {
+      return formattedPrice;
+    }
+
+    return `${formattedPrice} <span class="price-secondary">(≈ $${plan.usdApprox})</span>`;
   };
 
   const renderSelector = () => {

@@ -6,6 +6,15 @@ if (navToggle && navLinks) {
     const isOpen = navLinks.classList.toggle('open');
     navToggle.setAttribute('aria-expanded', String(isOpen));
   });
+
+  navLinks.querySelectorAll('a').forEach((link) => {
+    link.addEventListener('click', () => {
+      if (navLinks.classList.contains('open')) {
+        navLinks.classList.remove('open');
+        navToggle.setAttribute('aria-expanded', 'false');
+      }
+    });
+  });
 }
 
 const faqQuestions = document.querySelectorAll('.faq-question');
@@ -22,7 +31,6 @@ faqQuestions.forEach((question) => {
     question.setAttribute('aria-expanded', String(isOpen));
   });
 });
-
 
 const featureTabs = document.querySelectorAll('.feature-tab');
 const featurePanels = document.querySelectorAll('.tab-panel');
@@ -47,6 +55,10 @@ featureTabs.forEach((tab) => {
 
 const animatedSections = document.querySelectorAll('[data-animate]');
 
+animatedSections.forEach((section, index) => {
+  section.style.transitionDelay = `${Math.min(index * 80, 360)}ms`;
+});
+
 if ('IntersectionObserver' in window && animatedSections.length) {
   const observer = new IntersectionObserver((entries, observerInstance) => {
     entries.forEach((entry) => {
@@ -57,9 +69,31 @@ if ('IntersectionObserver' in window && animatedSections.length) {
     });
   }, {
     threshold: 0.2,
+    rootMargin: '0px 0px -8% 0px',
   });
 
   animatedSections.forEach((section) => observer.observe(section));
 } else {
   animatedSections.forEach((section) => section.classList.add('visible'));
 }
+
+const samePageLinks = document.querySelectorAll('a[href^="#"]');
+
+samePageLinks.forEach((link) => {
+  link.addEventListener('click', (event) => {
+    const targetId = link.getAttribute('href');
+
+    if (!targetId || targetId === '#') {
+      return;
+    }
+
+    const target = document.querySelector(targetId);
+
+    if (!target) {
+      return;
+    }
+
+    event.preventDefault();
+    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  });
+});

@@ -24,12 +24,12 @@
   </header>
 
   <main>
-    <section class="hero">
+    <section class="hero" data-animate>
       <div class="container hero-grid">
         <div>
           <span class="eyebrow">Trusted Vendor Intelligence</span>
-          <h1>Verify vendors faster. Reduce risk before onboarding.</h1>
-          <p class="lead">VendorVerify helps procurement, legal, and compliance teams centralize due diligence, automate checks, and move supplier approvals forward with confidence.</p>
+          <h1>Vendor onboarding that feels as fast as your team works.</h1>
+          <p class="lead">VendorVerify gives procurement, legal, and compliance teams a premium command center to automate due diligence, surface risk instantly, and approve suppliers with confidence.</p>
           <div class="hero-actions">
             <a class="btn btn-primary" href="pages/auth/signup.html">Start Free Trial</a>
             <a class="btn btn-secondary" href="pages/features.html">Explore Features</a>
@@ -41,6 +41,9 @@
           </ul>
         </div>
         <aside class="hero-card">
+          <div class="hero-illustration" aria-hidden="true">
+            <span>Illustration Placeholder</span>
+          </div>
           <h2>Workflow Health Snapshot</h2>
           <div class="metric-grid">
             <article class="metric-card">
@@ -139,51 +142,27 @@
     <section class="page-section" data-animate>
       <div class="container">
         <div class="section-heading">
-          <span class="eyebrow">Feature tabs</span>
-          <h2>Explore Platform Capabilities</h2>
-        </div>
-        <div class="feature-tabs" role="tablist" aria-label="VendorVerify feature tabs">
-          <button class="feature-tab active" role="tab" aria-selected="true" aria-controls="tab-compliance" id="tab-btn-compliance" data-tab="compliance">Compliance Monitoring</button>
-          <button class="feature-tab" role="tab" aria-selected="false" aria-controls="tab-risk" id="tab-btn-risk" data-tab="risk">Vendor Risk Scoring</button>
-          <button class="feature-tab" role="tab" aria-selected="false" aria-controls="tab-validation" id="tab-btn-validation" data-tab="validation">Document Validation</button>
-        </div>
-        <div class="tab-panels">
-          <article class="content-card tab-panel active" id="tab-compliance" role="tabpanel" aria-labelledby="tab-btn-compliance" data-tab-panel="compliance">
-            <h3>Continuous Compliance Monitoring</h3>
-            <p>Track policy adherence with automatic alerts for expiring certificates, sanctions updates, and coverage gaps.</p>
-          </article>
-          <article class="content-card tab-panel" id="tab-risk" role="tabpanel" aria-labelledby="tab-btn-risk" data-tab-panel="risk" hidden>
-            <h3>Dynamic Vendor Risk Scoring</h3>
-            <p>Prioritize review queues using weighted scoring models based on geography, spend, and compliance findings.</p>
-          </article>
-          <article class="content-card tab-panel" id="tab-validation" role="tabpanel" aria-labelledby="tab-btn-validation" data-tab-panel="validation" hidden>
-            <h3>Automated Document Validation</h3>
-            <p>Validate required files instantly and flag incomplete, expired, or mismatched documentation before approval.</p>
-          </article>
-        </div>
-      </div>
-    </section>
-
-    <section class="page-section">
-      <div class="container">
-        <div class="section-heading">
           <span class="eyebrow">Platform value</span>
           <h2>Key Benefits for Every Stakeholder</h2>
         </div>
         <div class="features-grid">
           <article class="content-card feature-card">
+            <div class="feature-icon" aria-hidden="true">◈</div>
             <h3>Unified vendor profiles</h3>
             <p>Store legal docs, certifications, and communication history in one searchable workspace.</p>
           </article>
           <article class="content-card feature-card">
+            <div class="feature-icon" aria-hidden="true">◎</div>
             <h3>Real-time risk visibility</h3>
             <p>Track high-risk vendors instantly with alerts, scorecards, and monitoring dashboards.</p>
           </article>
           <article class="content-card feature-card">
+            <div class="feature-icon" aria-hidden="true">✦</div>
             <h3>Configurable workflows</h3>
             <p>Match your internal controls with approval paths by region, spend tier, or category.</p>
           </article>
           <article class="content-card feature-card">
+            <div class="feature-icon" aria-hidden="true">◌</div>
             <h3>Audit-ready reporting</h3>
             <p>Generate stakeholder reports with full verification history and decision timelines.</p>
           </article>
@@ -219,17 +198,31 @@
     </section>
 
     <section class="page-section" data-animate>
-      <div class="container pricing-preview">
-        <div>
+      <div class="container">
+        <div class="section-heading">
           <span class="eyebrow">Pricing preview</span>
           <h2>Flexible Plans for Growing Vendor Programs</h2>
           <p>Start small and scale as onboarding volume and compliance requirements grow.</p>
         </div>
-        <div class="content-card pricing-card">
-          <p class="price-label">Plans starting at</p>
-          <p class="price-value">$99<span>/month</span></p>
-          <p>Includes core verification workflows, approval routing, and dashboard reporting.</p>
-          <a class="btn btn-primary" href="pages/pricing.html">View Full Pricing</a>
+        <div class="pricing-grid">
+          <article class="content-card pricing-card">
+            <p class="price-label">Starter</p>
+            <p class="price-value">$99<span>/month</span></p>
+            <p>Core verification workflows, vendor intake, and task routing for lean teams.</p>
+            <a class="btn btn-secondary" href="pages/pricing.html">Choose Starter</a>
+          </article>
+          <article class="content-card pricing-card pricing-card-featured">
+            <p class="price-label">Growth · Recommended</p>
+            <p class="price-value">$249<span>/month</span></p>
+            <p>Advanced risk rules, custom approvals, and reporting for scaling operations.</p>
+            <a class="btn btn-primary" href="pages/pricing.html">Choose Growth</a>
+          </article>
+          <article class="content-card pricing-card">
+            <p class="price-label">Enterprise</p>
+            <p class="price-value">Custom<span> pricing</span></p>
+            <p>Dedicated success support, SSO, and global policy controls for large teams.</p>
+            <a class="btn btn-secondary" href="pages/contact.html">Talk to Sales</a>
+          </article>
         </div>
       </div>
     </section>

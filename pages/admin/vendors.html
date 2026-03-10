@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Vendors | Admin | VendorVerify</title>
+  <link rel="stylesheet" href="../../styles/main.css" />
+</head>
+<body>
+  <div class="admin-layout">
+    <aside class="admin-sidebar" id="adminSidebar">
+      <a class="admin-brand" href="dashboard.html">VendorVerify Admin</a>
+      <nav class="admin-nav">
+        <a href="dashboard.html">Dashboard</a>
+        <a class="active" href="vendors.html">Vendors</a>
+        <a href="verification-requests.html">Verification Requests</a>
+        <a href="reports.html">Reports</a>
+        <a href="users.html">Users</a>
+        <a href="settings.html">Settings</a>
+      </nav>
+    </aside>
+
+    <main class="admin-main">
+      <div class="admin-topbar">
+        <div>
+          <p class="eyebrow">Admin Console</p>
+          <h1>Vendor Management</h1>
+        </div>
+        <button class="admin-menu-toggle" type="button" id="adminMenuToggle">Menu</button>
+      </div>
+
+      <div class="admin-table-wrap">
+        <table class="admin-table">
+          <thead>
+            <tr>
+              <th>Vendor</th>
+              <th>Category</th>
+              <th>Region</th>
+              <th>Risk Score</th>
+              <th>Status</th>
+              <th>Last Review</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>BluePeak Logistics</td>
+              <td>Transport</td>
+              <td>North America</td>
+              <td>18</td>
+              <td><span class="status-pill success">Verified</span></td>
+              <td>2026-01-12</td>
+            </tr>
+            <tr>
+              <td>Nova Chemical Supply</td>
+              <td>Raw Materials</td>
+              <td>EMEA</td>
+              <td>64</td>
+              <td><span class="status-pill warning">Review Needed</span></td>
+              <td>2025-12-21</td>
+            </tr>
+            <tr>
+              <td>CloudForge IT</td>
+              <td>Software</td>
+              <td>APAC</td>
+              <td>27</td>
+              <td><span class="status-pill info">In Progress</span></td>
+              <td>2026-01-02</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </main>
+  </div>
+
+  <script>
+    const adminSidebar = document.getElementById('adminSidebar');
+    const adminMenuToggle = document.getElementById('adminMenuToggle');
+    if (adminSidebar && adminMenuToggle) {
+      adminMenuToggle.addEventListener('click', () => adminSidebar.classList.toggle('open'));
+    }
+  </script>
+</body>
+</html>

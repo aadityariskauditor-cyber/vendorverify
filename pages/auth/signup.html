@@ -27,6 +27,38 @@
     <div class="container content-card">
       <h1>Create Your Account</h1>
       <p>Start your free VendorVerify workspace and streamline vendor validation in minutes.</p>
+
+      <form class="auth-form" id="signupForm">
+        <div class="form-field">
+          <label for="name">Full Name</label>
+          <input id="name" name="name" type="text" placeholder="Alex Johnson" required />
+        </div>
+
+        <div class="form-field">
+          <label for="email">Email</label>
+          <input id="email" name="email" type="email" placeholder="you@company.com" required />
+        </div>
+
+        <div class="form-field">
+          <label for="password">Password</label>
+          <input id="password" name="password" type="password" placeholder="••••••••" minlength="8" required />
+        </div>
+
+        <div class="form-field">
+          <label for="role">Role</label>
+          <select id="role" name="role">
+            <option value="vendor">Vendor User</option>
+            <option value="admin">Administrator</option>
+          </select>
+        </div>
+
+        <p id="signupMessage" aria-live="polite"></p>
+
+        <div class="hero-actions">
+          <button class="btn btn-primary" type="submit">Create Account</button>
+          <a class="btn btn-secondary" href="login.html">Already have an account?</a>
+        </div>
+      </form>
     </div>
   </main>
 
@@ -34,6 +66,48 @@
     <div class="container">© 2026 VendorVerify. All rights reserved.</div>
   </footer>
 
+  <script src="../../scripts/auth/auth.js"></script>
+  <script src="../../scripts/auth/frontend-auth.js"></script>
   <script src="../../scripts/main.js"></script>
+  <script>
+    const signupForm = document.getElementById('signupForm');
+    const signupMessage = document.getElementById('signupMessage');
+
+    if (signupForm) {
+      signupForm.addEventListener('submit', async (event) => {
+        event.preventDefault();
+
+        const name = document.getElementById('name')?.value;
+        const email = document.getElementById('email')?.value;
+        const password = document.getElementById('password')?.value;
+        const role = document.getElementById('role')?.value || 'vendor';
+
+        if (!name || !email || !password) {
+          signupMessage.textContent = 'Please fill in all required fields.';
+          return;
+        }
+
+        signupMessage.textContent = 'Creating your account...';
+
+        try {
+          const result = await window.VendorVerifyFrontendAuth.register({
+            name,
+            email,
+            password,
+            role,
+          });
+
+          if (window.VendorVerifyAuth) {
+            window.VendorVerifyAuth.redirectToRoleHome(result?.user?.role || role);
+            return;
+          }
+
+          window.location.href = '../vendor/dashboard.html';
+        } catch (error) {
+          signupMessage.textContent = error.message;
+        }
+      });
+    }
+  </script>
 </body>
 </html>

@@ -1,5 +1,4 @@
 const requestForm = document.getElementById('verificationRequestForm');
-const documentsInput = document.getElementById('companyDocuments');
 const selectedFiles = document.getElementById('selectedFiles');
 const submissionMessage = document.getElementById('submissionMessage');
 
@@ -8,7 +7,15 @@ if (documentsInput && selectedFiles) {
     const files = Array.from(documentsInput.files || []);
     selectedFiles.innerHTML = files.map((file) => `<span class="file-chip">${file.name}</span>`).join('');
   });
-}
+
+  selectedFiles.innerHTML = chips.join('');
+};
+
+documentInputs.forEach(({ input }) => {
+  if (input) {
+    input.addEventListener('change', renderSelectedFiles);
+  }
+});
 
 if (requestForm) {
   requestForm.addEventListener('submit', async (event) => {

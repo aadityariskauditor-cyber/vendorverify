@@ -54,9 +54,21 @@
         </div>
 
         <div class="form-field">
-          <label for="companyDocuments">Upload Company Documents</label>
-          <input id="companyDocuments" name="companyDocuments" type="file" multiple accept=".pdf,.doc,.docx,.png,.jpg,.jpeg" required />
-          <small class="helper-text">Accepted formats: PDF, DOC, DOCX, PNG, JPG.</small>
+          <label for="gstCertificate">GST Certificate</label>
+          <input id="gstCertificate" name="gstCertificate" type="file" accept=".pdf,.png,.jpg,.jpeg" required />
+          <small class="helper-text">Accepted formats: PDF, PNG, JPG.</small>
+        </div>
+
+        <div class="form-field">
+          <label for="companyRegistration">Company Registration</label>
+          <input id="companyRegistration" name="companyRegistration" type="file" accept=".pdf,.png,.jpg,.jpeg" required />
+          <small class="helper-text">Accepted formats: PDF, PNG, JPG.</small>
+        </div>
+
+        <div class="form-field">
+          <label for="complianceCertificates">Compliance Certificates</label>
+          <input id="complianceCertificates" name="complianceCertificates" type="file" multiple accept=".pdf,.png,.jpg,.jpeg" required />
+          <small class="helper-text">Upload one or more compliance certificates.</small>
         </div>
 
         <div id="selectedFiles" class="selected-files" aria-live="polite"></div>

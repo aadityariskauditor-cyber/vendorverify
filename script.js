@@ -258,10 +258,15 @@ if (counterEls.length) {
 document.querySelectorAll('.year').forEach(el => {
   el.textContent = new Date().getFullYear();
 });
-// Mobile Menu Toggle
+document.addEventListener("DOMContentLoaded", function () {
+
 const hamburger = document.getElementById("hamburger");
 const mobileNav = document.getElementById("mobileNav");
 
-hamburger.onclick = function () {
-  mobileNav.classList.toggle("active");
-};
+if (hamburger && mobileNav) {
+  hamburger.addEventListener("click", function () {
+    mobileNav.classList.toggle("active");
+  });
+}
+
+});

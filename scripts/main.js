@@ -97,3 +97,103 @@ samePageLinks.forEach((link) => {
     target.scrollIntoView({ behavior: 'smooth', block: 'start' });
   });
 });
+
+const adminSidebar = document.getElementById('adminSidebar');
+const adminMenuToggle = document.getElementById('adminMenuToggle');
+
+if (adminSidebar && adminMenuToggle) {
+  adminMenuToggle.addEventListener('click', () => {
+    const isOpen = adminSidebar.classList.toggle('open');
+    adminMenuToggle.setAttribute('aria-expanded', String(isOpen));
+  });
+}
+
+const filterInput = document.querySelector('[data-table-filter]');
+
+if (filterInput) {
+  filterInput.addEventListener('input', (event) => {
+    const target = event.target;
+
+    if (!(target instanceof HTMLInputElement)) {
+      return;
+    }
+
+    const selector = target.dataset.tableFilter;
+
+    if (!selector) {
+      return;
+    }
+
+    const table = document.querySelector(selector);
+
+    if (!(table instanceof HTMLTableElement)) {
+      return;
+    }
+
+    const query = target.value.toLowerCase().trim();
+    const rows = table.querySelectorAll('tbody tr');
+
+    rows.forEach((row) => {
+      const content = row.textContent?.toLowerCase() ?? '';
+      row.style.display = content.includes(query) ? '' : 'none';
+    });
+  });
+}
+
+const vendorActionButtons = document.querySelectorAll('[data-vendor-action]');
+
+vendorActionButtons.forEach((button) => {
+  button.addEventListener('click', () => {
+    const action = button.getAttribute('data-vendor-action');
+    const row = button.closest('tr');
+
+    if (!row) {
+      return;
+    }
+
+    const statusBadge = row.querySelector('[data-status-badge]');
+
+    if (!statusBadge) {
+      return;
+    }
+
+    statusBadge.classList.remove('approved', 'pending', 'rejected');
+
+    if (action === 'approve') {
+      statusBadge.classList.add('approved');
+      statusBadge.textContent = 'Approved';
+      return;
+    }
+
+    if (action === 'reject') {
+      statusBadge.classList.add('rejected');
+      statusBadge.textContent = 'Rejected';
+    }
+  });
+});
+
+const verificationButtons = document.querySelectorAll('[data-verification-action]');
+const verificationStatus = document.querySelector('[data-verification-status]');
+
+verificationButtons.forEach((button) => {
+  button.addEventListener('click', () => {
+    if (!verificationStatus) {
+      return;
+    }
+
+    const action = button.getAttribute('data-verification-action');
+
+    verificationStatus.classList.remove('approved', 'pending', 'rejected');
+
+    if (action === 'approve') {
+      verificationStatus.classList.add('approved');
+      verificationStatus.textContent = 'Approved';
+      return;
+    }
+
+    if (action === 'reject') {
+      verificationStatus.classList.add('rejected');
+      verificationStatus.textContent = 'Rejected';
+    }
+  });
+});

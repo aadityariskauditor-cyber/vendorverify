@@ -13,7 +13,7 @@
       <nav class="admin-nav">
         <a href="dashboard.html">Dashboard</a>
         <a class="active" href="vendors.html">Vendors</a>
-        <a href="verification-requests.html">Verification Requests</a>
+        <a href="verification.html">Verification Requests</a>
         <a href="reports.html">Reports</a>
         <a href="users.html">Users</a>
         <a href="settings.html">Settings</a>
@@ -29,55 +29,74 @@
         <button class="admin-menu-toggle" type="button" id="adminMenuToggle">Menu</button>
       </div>
 
-      <div class="admin-table-wrap">
-        <table class="admin-table">
-          <thead>
-            <tr>
-              <th>Vendor</th>
-              <th>Category</th>
-              <th>Region</th>
-              <th>Risk Score</th>
-              <th>Status</th>
-              <th>Last Review</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>BluePeak Logistics</td>
-              <td>Transport</td>
-              <td>North America</td>
-              <td>18</td>
-              <td><span class="status-pill success">Verified</span></td>
-              <td>2026-01-12</td>
-            </tr>
-            <tr>
-              <td>Nova Chemical Supply</td>
-              <td>Raw Materials</td>
-              <td>EMEA</td>
-              <td>64</td>
-              <td><span class="status-pill warning">Review Needed</span></td>
-              <td>2025-12-21</td>
-            </tr>
-            <tr>
-              <td>CloudForge IT</td>
-              <td>Software</td>
-              <td>APAC</td>
-              <td>27</td>
-              <td><span class="status-pill info">In Progress</span></td>
-              <td>2026-01-02</td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
+      <section class="content-card">
+        <div class="section-header">
+          <h2>Vendors</h2>
+          <input type="search" class="admin-search" id="vendorSearch" data-table-filter="#vendorsTable" placeholder="Search vendors by name, company, email, or status" />
+        </div>
+
+        <div class="admin-table-wrap">
+          <table class="admin-table" id="vendorsTable">
+            <thead>
+              <tr>
+                <th>Vendor Name</th>
+                <th>Company</th>
+                <th>Email</th>
+                <th>Status</th>
+                <th>Documents</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Alex Morgan</td>
+                <td>BluePeak Logistics</td>
+                <td>alex@bluepeak.com</td>
+                <td><span class="status-badge pending" data-status-badge>Pending</span></td>
+                <td>3 Uploaded</td>
+                <td>
+                  <div class="action-row compact">
+                    <button class="btn btn-secondary" type="button">View</button>
+                    <button class="btn btn-primary" type="button" data-vendor-action="approve">Approve</button>
+                    <button class="btn btn-danger" type="button" data-vendor-action="reject">Reject</button>
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td>Sofia Bennett</td>
+                <td>Nova Chemical Supply</td>
+                <td>sofia@novachem.com</td>
+                <td><span class="status-badge approved" data-status-badge>Approved</span></td>
+                <td>5 Uploaded</td>
+                <td>
+                  <div class="action-row compact">
+                    <button class="btn btn-secondary" type="button">View</button>
+                    <button class="btn btn-primary" type="button" data-vendor-action="approve">Approve</button>
+                    <button class="btn btn-danger" type="button" data-vendor-action="reject">Reject</button>
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td>Daniel Kim</td>
+                <td>CloudForge IT</td>
+                <td>daniel@cloudforge.io</td>
+                <td><span class="status-badge rejected" data-status-badge>Rejected</span></td>
+                <td>2 Uploaded</td>
+                <td>
+                  <div class="action-row compact">
+                    <button class="btn btn-secondary" type="button">View</button>
+                    <button class="btn btn-primary" type="button" data-vendor-action="approve">Approve</button>
+                    <button class="btn btn-danger" type="button" data-vendor-action="reject">Reject</button>
+                  </div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
     </main>
   </div>
 
-  <script>
-    const adminSidebar = document.getElementById('adminSidebar');
-    const adminMenuToggle = document.getElementById('adminMenuToggle');
-    if (adminSidebar && adminMenuToggle) {
-      adminMenuToggle.addEventListener('click', () => adminSidebar.classList.toggle('open'));
-    }
-  </script>
+  <script src="../../scripts/main.js"></script>
 </body>
 </html>

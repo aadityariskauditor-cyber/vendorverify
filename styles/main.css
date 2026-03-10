@@ -767,6 +767,9 @@ p {
   color: #dfe8ff;
   padding: 1.2rem;
   border-right: 1px solid rgba(255, 255, 255, 0.12);
+  position: sticky;
+  top: 0;
+  height: 100vh;
 }
 
 .admin-brand {
@@ -797,13 +800,14 @@ p {
 
 .admin-main {
   padding: 1.4rem;
+  display: grid;
+  gap: 1rem;
 }
 
 .admin-topbar {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 1rem;
   gap: 1rem;
 }
 
@@ -833,6 +837,24 @@ p {
   color: var(--primary-dark);
 }
 
+.section-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 0.7rem;
+}
+
+.admin-search {
+  width: min(420px, 100%);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 0.65rem 0.8rem;
+  font: inherit;
+  background: rgba(255, 255, 255, 0.04);
+  color: var(--text);
+}
+
 .admin-table-wrap {
   margin-top: 1rem;
   border: 1px solid var(--border);
@@ -852,6 +874,83 @@ p {
   text-align: left;
   padding: 0.85rem;
   border-bottom: 1px solid rgba(232, 237, 250, 0.2);
+}
+
+.status-badge {
+  display: inline-block;
+  padding: 0.2rem 0.55rem;
+  border-radius: 999px;
+  font-size: 0.82rem;
+  font-weight: 600;
+}
+
+.status-badge.approved {
+  background: rgba(27, 171, 116, 0.22);
+  color: #7ce9be;
+}
+
+.status-badge.pending {
+  background: rgba(233, 166, 37, 0.2);
+  color: #ffd483;
+}
+
+.status-badge.rejected {
+  background: rgba(220, 76, 100, 0.22);
+  color: #ff9db2;
+}
+
+.action-row {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.action-row.compact .btn {
+  padding: 0.42rem 0.68rem;
+}
+
+.btn-danger {
+  background: rgba(220, 76, 100, 0.2);
+  color: #ffbed0;
+  border: 1px solid rgba(255, 157, 178, 0.45);
+}
+
+.btn-danger:hover {
+  background: rgba(220, 76, 100, 0.32);
+}
+
+.verification-grid,
+.chart-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1rem;
+}
+
+.info-list p {
+  margin-bottom: 0.4rem;
+}
+
+.doc-preview-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0.8rem;
+  margin-top: 0.8rem;
+}
+
+.doc-placeholder,
+.chart-box {
+  border: 1px dashed rgba(196, 211, 255, 0.45);
+  border-radius: 12px;
+  min-height: 120px;
+  display: grid;
+  place-items: center;
+  background: rgba(255, 255, 255, 0.03);
+  color: #cddcff;
+  font-weight: 600;
+}
+
+.chart-box {
+  min-height: 220px;
 }
 
 .status-pill {
@@ -875,12 +974,6 @@ p {
 .status-pill.info {
   background: rgba(95, 124, 255, 0.28);
   color: #b8c8ff;
-}
-
-.action-row {
-  display: flex;
-  gap: 0.5rem;
-  flex-wrap: wrap;
 }
 
 @media (max-width: 960px) {
@@ -915,5 +1008,24 @@ p {
 @media (max-width: 640px) {
   .admin-cards {
     grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 960px) {
+  .verification-grid,
+  .chart-grid,
+  .doc-preview-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 640px) {
+  .section-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .admin-search {
+    width: 100%;
   }
 }

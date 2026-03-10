@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Verification Requests | Admin | VendorVerify</title>
+  <link rel="stylesheet" href="../../styles/main.css" />
+</head>
+<body>
+  <div class="admin-layout">
+    <aside class="admin-sidebar" id="adminSidebar">
+      <a class="admin-brand" href="dashboard.html">VendorVerify Admin</a>
+      <nav class="admin-nav">
+        <a href="dashboard.html">Dashboard</a>
+        <a href="vendors.html">Vendors</a>
+        <a class="active" href="verification.html">Verification Requests</a>
+        <a href="reports.html">Reports</a>
+        <a href="users.html">Users</a>
+        <a href="settings.html">Settings</a>
+      </nav>
+    </aside>
+
+    <main class="admin-main">
+      <div class="admin-topbar">
+        <div>
+          <p class="eyebrow">Approval Queue</p>
+          <h1>Verification Requests</h1>
+        </div>
+        <button class="admin-menu-toggle" type="button" id="adminMenuToggle">Menu</button>
+      </div>
+
+      <section class="verification-grid">
+        <article class="content-card">
+          <h2>Vendor Information</h2>
+          <div class="info-list">
+            <p><strong>Vendor:</strong> Horizon Metals</p>
+            <p><strong>Company:</strong> Horizon Metals LLC</p>
+            <p><strong>Email:</strong> compliance@horizonmetals.com</p>
+            <p><strong>Submitted:</strong> 2026-02-12</p>
+            <p><strong>Request ID:</strong> VR-4471</p>
+          </div>
+          <p>
+            <strong>Status:</strong>
+            <span class="status-badge pending" data-verification-status>Pending</span>
+          </p>
+          <div class="action-row">
+            <button type="button" class="btn btn-primary" data-verification-action="approve">Approve</button>
+            <button type="button" class="btn btn-danger" data-verification-action="reject">Reject</button>
+          </div>
+        </article>
+
+        <article class="content-card">
+          <h2>Document Review Panel</h2>
+          <p>Review submitted files and verify the vendor's identity and compliance details.</p>
+          <div class="doc-preview-grid">
+            <div class="doc-placeholder">Business License Preview</div>
+            <div class="doc-placeholder">Tax Certificate Preview</div>
+            <div class="doc-placeholder">Insurance Proof Preview</div>
+          </div>
+        </article>
+      </section>
+    </main>
+  </div>
+
+  <script src="../../scripts/main.js"></script>
+</body>
+</html>

@@ -13,7 +13,7 @@
       <nav class="admin-nav">
         <a href="dashboard.html">Dashboard</a>
         <a href="vendors.html">Vendors</a>
-        <a href="verification-requests.html">Verification Requests</a>
+        <a href="verification.html">Verification Requests</a>
         <a class="active" href="reports.html">Reports</a>
         <a href="users.html">Users</a>
         <a href="settings.html">Settings</a>
@@ -29,19 +29,78 @@
         <button class="admin-menu-toggle" type="button" id="adminMenuToggle">Menu</button>
       </div>
 
+      <section class="admin-cards">
+        <article class="admin-card">
+          <p>Total Verifications</p>
+          <h3>3,942</h3>
+        </article>
+        <article class="admin-card">
+          <p>Approval Rate</p>
+          <h3>88%</h3>
+        </article>
+        <article class="admin-card">
+          <p>Average Review Time</p>
+          <h3>2.3 days</h3>
+        </article>
+        <article class="admin-card">
+          <p>Open Cases</p>
+          <h3>57</h3>
+        </article>
+      </section>
+
+      <section class="chart-grid">
+        <article class="content-card chart-placeholder">
+          <h2>Verification Trend</h2>
+          <div class="chart-box">Line Chart Placeholder</div>
+        </article>
+        <article class="content-card chart-placeholder">
+          <h2>Status Breakdown</h2>
+          <div class="chart-box">Bar Chart Placeholder</div>
+        </article>
+      </section>
+
       <section class="content-card">
-        <h2>Compliance Reporting</h2>
-        <p>Generate monthly compliance summaries, audit exports, and risk trend reports for leadership teams.</p>
+        <h2>Monthly Verification Summary</h2>
+        <div class="admin-table-wrap">
+          <table class="admin-table">
+            <thead>
+              <tr>
+                <th>Month</th>
+                <th>Total Requests</th>
+                <th>Approved</th>
+                <th>Rejected</th>
+                <th>Pending</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>January 2026</td>
+                <td>421</td>
+                <td>368</td>
+                <td>34</td>
+                <td>19</td>
+              </tr>
+              <tr>
+                <td>December 2025</td>
+                <td>389</td>
+                <td>339</td>
+                <td>31</td>
+                <td>19</td>
+              </tr>
+              <tr>
+                <td>November 2025</td>
+                <td>352</td>
+                <td>302</td>
+                <td>28</td>
+                <td>22</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
       </section>
     </main>
   </div>
 
-  <script>
-    const adminSidebar = document.getElementById('adminSidebar');
-    const adminMenuToggle = document.getElementById('adminMenuToggle');
-    if (adminSidebar && adminMenuToggle) {
-      adminMenuToggle.addEventListener('click', () => adminSidebar.classList.toggle('open'));
-    }
-  </script>
+  <script src="../../scripts/main.js"></script>
 </body>
 </html>

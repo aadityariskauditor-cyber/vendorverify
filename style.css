@@ -1627,13 +1627,14 @@ transform: none !important;
 position: fixed;
 top:0;
 right:-100%;
-width:100%;
+width:280px;
 height:100vh;
 background:#ffffff;
 padding:40px 20px;
 box-shadow:-10px 0 25px rgba(0,0,0,0.15);
 z-index:9999;
 transition:right 0.3s ease;
+}
 .mobile-nav.active{
 right:0;
 }

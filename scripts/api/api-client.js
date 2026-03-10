@@ -1,129 +1,56 @@
 const ApiClient = (() => {
-  const STORAGE_KEY = 'vendorverify.vendors';
-  const DEFAULT_DELAY_MS = 250;
+  const API_BASE_URL = window.VENDORVERIFY_API_BASE_URL || 'http://localhost:5000';
+  const AUTH_STORAGE_KEY = 'vv_auth_state';
 
-  const seedVendors = [
-    {
-      id: 'V-1001',
-      companyName: 'Northwind Logistics',
-      contactName: 'Avery Cole',
-      contactEmail: 'avery@northwind.example',
-      serviceCategory: 'Transportation',
-      status: 'Pending Review',
-      documents: []
-    },
-    {
-      id: 'V-1002',
-      companyName: 'Summit Facilities',
-      contactName: 'Jordan Lee',
-      contactEmail: 'jordan@summit.example',
-      serviceCategory: 'Maintenance',
-      status: 'Approved',
-      documents: []
+  const getAuthState = () => {
+    try {
+      return JSON.parse(localStorage.getItem(AUTH_STORAGE_KEY) || 'null');
+    } catch (error) {
+      return null;
     }
-  ];
+  };
 
-  const wait = (ms = DEFAULT_DELAY_MS) =>
-    new Promise((resolve) => {
-      setTimeout(resolve, ms);
+  const getToken = () => getAuthState()?.token || null;
+
+  async function request(path, { method = 'GET', body, requiresAuth = false } = {}) {
+    const headers = {
+      'Content-Type': 'application/json',
+    };
+
+    if (requiresAuth) {
+      const token = getToken();
+
+      if (!token) {
+        throw new Error('You must be logged in to perform this action.');
+      }
+
+      headers.Authorization = `Bearer ${token}`;
+    }
+
+    const response = await fetch(`${API_BASE_URL}${path}`, {
+      method,
+      headers,
+      body: body ? JSON.stringify(body) : undefined,
     });
 
-  const getStoredVendors = () => {
-    const rawValue = localStorage.getItem(STORAGE_KEY);
+    const isJson = response.headers.get('content-type')?.includes('application/json');
+    const payload = isJson ? await response.json() : null;
 
-    if (!rawValue) {
-      localStorage.setItem(STORAGE_KEY, JSON.stringify(seedVendors));
-      return [...seedVendors];
+    if (!response.ok) {
+      throw new Error(payload?.message || `Request failed with status ${response.status}`);
     }
 
-    try {
-      const parsed = JSON.parse(rawValue);
-      return Array.isArray(parsed) ? parsed : [...seedVendors];
-    } catch (_) {
-      return [...seedVendors];
-    }
-  };
-
-  const saveVendors = (vendors) => {
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(vendors));
-  };
-
-  const createVendor = async (vendorPayload = {}) => {
-    await wait();
-
-    const vendors = getStoredVendors();
-    const createdVendor = {
-      id: `V-${Date.now()}`,
-      status: 'Pending Review',
-      documents: [],
-      createdAt: new Date().toISOString(),
-      ...vendorPayload
-    };
-
-    vendors.unshift(createdVendor);
-    saveVendors(vendors);
-
-    return createdVendor;
-  };
-
-  const getVendors = async () => {
-    await wait();
-    return getStoredVendors();
-  };
-
-  const updateVendorStatus = async (vendorId, status) => {
-    await wait();
-
-    const vendors = getStoredVendors();
-    const vendorIndex = vendors.findIndex((vendor) => vendor.id === vendorId);
-
-    if (vendorIndex === -1) {
-      throw new Error('Vendor not found.');
-    }
-
-    vendors[vendorIndex] = {
-      ...vendors[vendorIndex],
-      status,
-      updatedAt: new Date().toISOString()
-    };
-
-    saveVendors(vendors);
-    return vendors[vendorIndex];
-  };
-
-  const uploadDocument = async (vendorId, file) => {
-    await wait();
-
-    const vendors = getStoredVendors();
-    const vendorIndex = vendors.findIndex((vendor) => vendor.id === vendorId);
-
-    if (vendorIndex === -1) {
-      throw new Error('Vendor not found.');
-    }
-
-    const documentRecord = {
-      id: `DOC-${Date.now()}`,
-      fileName: file?.name || 'mock-document.pdf',
-      mimeType: file?.type || 'application/pdf',
-      size: file?.size || 0,
-      uploadedAt: new Date().toISOString()
-    };
-
-    const existingDocuments = vendors[vendorIndex].documents || [];
-    vendors[vendorIndex] = {
-      ...vendors[vendorIndex],
-      documents: [...existingDocuments, documentRecord],
-      updatedAt: new Date().toISOString()
-    };
-
-    saveVendors(vendors);
-    return documentRecord;
-  };
+    return payload;
+  }
 
   return {
-    createVendor,
-    getVendors,
-    updateVendorStatus,
-    uploadDocument
+    register: (payload) => request('/api/auth/register', { method: 'POST', body: payload }),
+    login: (payload) => request('/api/auth/login', { method: 'POST', body: payload }),
+    getVendors: () => request('/api/vendors', { requiresAuth: true }),
+    createVendor: (payload) => request('/api/vendors', { method: 'POST', body: payload, requiresAuth: true }),
+    updateVendor: (id, payload) => request(`/api/vendors/${id}`, { method: 'PUT', body: payload, requiresAuth: true }),
+    deleteVendor: (id) => request(`/api/vendors/${id}`, { method: 'DELETE', requiresAuth: true }),
+    approveVendor: (id) => request(`/api/vendors/${id}/approve`, { method: 'POST', requiresAuth: true }),
+    rejectVendor: (id) => request(`/api/vendors/${id}/reject`, { method: 'POST', requiresAuth: true }),
   };
 })();

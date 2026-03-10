@@ -64,33 +64,101 @@
       </div>
     </section>
 
-    <section class="page-section section-soft">
+    <section class="page-section" data-animate>
       <div class="container">
         <div class="section-heading">
-          <span class="eyebrow">How it works</span>
-          <h2>How Vendor Verification Works</h2>
-          <p>From intake to approval, VendorVerify gives every team a single source of truth for faster onboarding.</p>
+          <span class="eyebrow">Product demo</span>
+          <h2>See VendorVerify in Action</h2>
+          <p>A live-style preview of the verification pipeline with instant visibility into every vendor decision.</p>
         </div>
-        <div class="steps-grid">
-          <article class="content-card step-card">
+        <div class="demo-grid">
+          <article class="content-card demo-dashboard">
+            <h3>Verification dashboard</h3>
+            <ul class="workflow-list" aria-label="Vendor verification workflow preview">
+              <li>
+                <span>Acme Supply Co.</span>
+                <span class="status-pill info">Document review</span>
+              </li>
+              <li>
+                <span>Nimbus Freight Ltd.</span>
+                <span class="status-pill warning">Risk assessment</span>
+              </li>
+              <li>
+                <span>Clearline Packaging</span>
+                <span class="status-pill success">Final approval</span>
+              </li>
+            </ul>
+          </article>
+          <div class="status-cards">
+            <article class="content-card vendor-status-card approved">
+              <h3>Approved</h3>
+              <p>44 vendors</p>
+            </article>
+            <article class="content-card vendor-status-card pending">
+              <h3>Pending</h3>
+              <p>12 vendors</p>
+            </article>
+            <article class="content-card vendor-status-card rejected">
+              <h3>Rejected</h3>
+              <p>6 vendors</p>
+            </article>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="page-section section-soft" data-animate>
+      <div class="container">
+        <div class="section-heading">
+          <span class="eyebrow">Verification workflow</span>
+          <h2>Simple and Auditable Approval Flow</h2>
+          <p>Vendor submits documents → Admin reviews → Approval issued.</p>
+        </div>
+        <div class="workflow-steps">
+          <article class="content-card workflow-step-card">
             <span class="step-number">1</span>
-            <h3>Collect vendor submissions</h3>
-            <p>Capture business profiles, required documents, and certifications in one secure intake form.</p>
+            <h3>Vendor submits documents</h3>
+            <p>Suppliers upload licenses, certifications, and insurance documents through a secure intake portal.</p>
           </article>
-          <article class="content-card step-card">
+          <span class="workflow-arrow" aria-hidden="true">→</span>
+          <article class="content-card workflow-step-card">
             <span class="step-number">2</span>
-            <h3>Automate verification checks</h3>
-            <p>Run sanctions, insurance, tax, and policy checks automatically with configurable validation rules.</p>
+            <h3>Admin reviews</h3>
+            <p>Compliance teams inspect risks, validate documents, and request follow-ups if requirements are missing.</p>
           </article>
-          <article class="content-card step-card">
+          <span class="workflow-arrow" aria-hidden="true">→</span>
+          <article class="content-card workflow-step-card">
             <span class="step-number">3</span>
-            <h3>Review risk in context</h3>
-            <p>Surface high-priority findings to legal and compliance teams with transparent evidence trails.</p>
+            <h3>Approval issued</h3>
+            <p>Qualified vendors are approved with a full audit trail, status notifications, and renewal reminders.</p>
           </article>
-          <article class="content-card step-card">
-            <span class="step-number">4</span>
-            <h3>Approve with confidence</h3>
-            <p>Finalize onboarding with approvals, reminders, and renewal alerts that keep vendors compliant.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="page-section" data-animate>
+      <div class="container">
+        <div class="section-heading">
+          <span class="eyebrow">Feature tabs</span>
+          <h2>Explore Platform Capabilities</h2>
+        </div>
+        <div class="feature-tabs" role="tablist" aria-label="VendorVerify feature tabs">
+          <button class="feature-tab active" role="tab" aria-selected="true" aria-controls="tab-compliance" id="tab-btn-compliance" data-tab="compliance">Compliance Monitoring</button>
+          <button class="feature-tab" role="tab" aria-selected="false" aria-controls="tab-risk" id="tab-btn-risk" data-tab="risk">Vendor Risk Scoring</button>
+          <button class="feature-tab" role="tab" aria-selected="false" aria-controls="tab-validation" id="tab-btn-validation" data-tab="validation">Document Validation</button>
+        </div>
+        <div class="tab-panels">
+          <article class="content-card tab-panel active" id="tab-compliance" role="tabpanel" aria-labelledby="tab-btn-compliance" data-tab-panel="compliance">
+            <h3>Continuous Compliance Monitoring</h3>
+            <p>Track policy adherence with automatic alerts for expiring certificates, sanctions updates, and coverage gaps.</p>
+          </article>
+          <article class="content-card tab-panel" id="tab-risk" role="tabpanel" aria-labelledby="tab-btn-risk" data-tab-panel="risk" hidden>
+            <h3>Dynamic Vendor Risk Scoring</h3>
+            <p>Prioritize review queues using weighted scoring models based on geography, spend, and compliance findings.</p>
+          </article>
+          <article class="content-card tab-panel" id="tab-validation" role="tabpanel" aria-labelledby="tab-btn-validation" data-tab-panel="validation" hidden>
+            <h3>Automated Document Validation</h3>
+            <p>Validate required files instantly and flag incomplete, expired, or mismatched documentation before approval.</p>
           </article>
         </div>
       </div>
@@ -123,17 +191,17 @@
       </div>
     </section>
 
-    <section class="page-section section-soft">
+    <section class="page-section section-soft" data-animate>
       <div class="container">
         <div class="section-heading">
-          <span class="eyebrow">Trusted by teams</span>
-          <h2>Procurement and Compliance Teams Love VendorVerify</h2>
+          <span class="eyebrow">Trust</span>
+          <h2>Trusted by Companies Worldwide</h2>
         </div>
-        <div class="logo-row" aria-label="Trusted by companies">
-          <span>Northpath Logistics</span>
-          <span>BlueArc Manufacturing</span>
-          <span>HarborPeak Energy</span>
-          <span>Cascade Retail Group</span>
+        <div class="logo-row trusted-logos" aria-label="Trusted by companies">
+          <span>Logo Placeholder 1</span>
+          <span>Logo Placeholder 2</span>
+          <span>Logo Placeholder 3</span>
+          <span>Logo Placeholder 4</span>
         </div>
         <div class="testimonials-grid">
           <article class="content-card testimonial-card">
@@ -150,7 +218,7 @@
       </div>
     </section>
 
-    <section class="page-section">
+    <section class="page-section" data-animate>
       <div class="container pricing-preview">
         <div>
           <span class="eyebrow">Pricing preview</span>
@@ -166,7 +234,7 @@
       </div>
     </section>
 
-    <section class="page-section section-soft">
+    <section class="page-section section-soft" data-animate>
       <div class="container">
         <div class="section-heading">
           <span class="eyebrow">FAQs</span>
@@ -195,7 +263,7 @@
       </div>
     </section>
 
-    <section class="page-section final-cta">
+    <section class="page-section final-cta" data-animate>
       <div class="container final-cta-card">
         <h2>Build a faster, safer vendor onboarding process.</h2>
         <p>Join modern procurement teams using VendorVerify to reduce risk and accelerate approvals.</p>

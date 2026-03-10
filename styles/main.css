@@ -1029,3 +1029,61 @@ p {
     width: 100%;
   }
 }
+
+.vendor-summary-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.vendor-summary-card h3 {
+  margin: 0;
+  color: var(--primary-dark);
+  font-size: 1.75rem;
+}
+
+.vendor-status-layout {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}
+
+.vendor-form {
+  max-width: 720px;
+}
+
+.helper-text {
+  color: var(--muted);
+  font-size: 0.82rem;
+}
+
+.selected-files {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.file-chip {
+  padding: 0.35rem 0.6rem;
+  border-radius: 999px;
+  border: 1px solid var(--border);
+  background: rgba(255, 255, 255, 0.08);
+  font-size: 0.82rem;
+}
+
+.submission-message {
+  margin: 0;
+  font-weight: 600;
+}
+
+.submission-message.success {
+  color: #83efb6;
+}
+
+@media (max-width: 840px) {
+  .vendor-summary-grid,
+  .vendor-status-layout {
+    grid-template-columns: 1fr;
+  }
+}

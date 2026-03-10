@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Verification Status | VendorVerify</title>
+  <link rel="stylesheet" href="../../styles/main.css" />
+</head>
+<body>
+  <header class="site-header">
+    <div class="container navbar">
+      <a class="brand" href="../../index.html">VendorVerify</a>
+      <button class="nav-toggle" aria-label="Toggle navigation">☰</button>
+      <nav class="nav-links">
+        <a href="dashboard.html">Vendor Dashboard</a>
+        <a href="submit-documents.html">Submit Request</a>
+        <a class="active" href="status.html">Status</a>
+        <a href="../auth/login.html">Logout</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="page-section">
+    <div class="container">
+      <div class="section-heading">
+        <p class="eyebrow">Vendor Portal</p>
+        <h1>Track Verification Status</h1>
+        <p class="lead">Review current verification progress and submission details for your most recent request.</p>
+      </div>
+
+      <section class="vendor-status-layout">
+        <article class="content-card">
+          <h2>Current Request</h2>
+          <div class="status-cards" id="currentRequestStatus">
+            <article class="content-card vendor-status-card pending">
+              <h3>Status</h3>
+              <p id="statusLabel">Not Submitted</p>
+            </article>
+            <article class="content-card vendor-status-card">
+              <h3>Request ID</h3>
+              <p id="statusRequestId">-</p>
+            </article>
+            <article class="content-card vendor-status-card">
+              <h3>Last Updated</h3>
+              <p id="statusUpdatedAt">-</p>
+            </article>
+          </div>
+        </article>
+
+        <article class="content-card">
+          <h2>Progress Checklist</h2>
+          <ul class="workflow-list" id="statusChecklist">
+            <li><span>Request Submitted</span><span class="status-pill info">Pending</span></li>
+            <li><span>Documents Uploaded</span><span class="status-pill info">Pending</span></li>
+            <li><span>Compliance Review</span><span class="status-pill info">Pending</span></li>
+            <li><span>Final Verification</span><span class="status-pill info">Pending</span></li>
+          </ul>
+          <div class="hero-actions">
+            <a class="btn btn-primary" href="submit-documents.html">Upload / Update Documents</a>
+          </div>
+        </article>
+      </section>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">© 2026 VendorVerify. All rights reserved.</div>
+  </footer>
+
+  <script src="../../scripts/main.js"></script>
+  <script src="../../scripts/vendor/vendor-dashboard.js"></script>
+</body>
+</html>

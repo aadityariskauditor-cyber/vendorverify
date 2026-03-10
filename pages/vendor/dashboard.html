@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Vendor Dashboard | VendorVerify</title>
+  <link rel="stylesheet" href="../../styles/main.css" />
+</head>
+<body>
+  <header class="site-header">
+    <div class="container navbar">
+      <a class="brand" href="../../index.html">VendorVerify</a>
+      <button class="nav-toggle" aria-label="Toggle navigation">☰</button>
+      <nav class="nav-links">
+        <a href="../../index.html">Home</a>
+        <a class="active" href="dashboard.html">Vendor Dashboard</a>
+        <a href="submit-documents.html">Submit Request</a>
+        <a href="status.html">Status</a>
+        <a href="../auth/login.html">Logout</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="page-section">
+    <div class="container">
+      <div class="section-heading">
+        <p class="eyebrow">Vendor Portal</p>
+        <h1>Welcome back, <span id="vendorCompany">Your Company</span></h1>
+        <p class="lead">Use your dashboard to submit verification requests, upload required documents, and track the review progress in one place.</p>
+      </div>
+
+      <section class="vendor-summary-grid">
+        <article class="content-card vendor-summary-card">
+          <p>Open Requests</p>
+          <h3 id="openRequestsCount">0</h3>
+        </article>
+        <article class="content-card vendor-summary-card">
+          <p>Documents Uploaded</p>
+          <h3 id="documentCount">0</h3>
+        </article>
+        <article class="content-card vendor-summary-card">
+          <p>Latest Status</p>
+          <h3 id="latestStatus">Not Submitted</h3>
+        </article>
+      </section>
+
+      <section class="content-card">
+        <div class="section-header">
+          <h2>Quick Actions</h2>
+        </div>
+        <div class="hero-actions">
+          <a class="btn btn-primary" href="submit-documents.html">Submit Verification Request</a>
+          <a class="btn btn-secondary" href="status.html">Track Verification Status</a>
+        </div>
+      </section>
+
+      <section class="content-card">
+        <div class="section-header">
+          <h2>Recent Verification Activity</h2>
+        </div>
+        <div class="admin-table-wrap">
+          <table class="admin-table" id="vendorActivityTable">
+            <thead>
+              <tr>
+                <th>Request ID</th>
+                <th>Submitted On</th>
+                <th>Documents</th>
+                <th>Status</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td colspan="4">No requests submitted yet.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">© 2026 VendorVerify. All rights reserved.</div>
+  </footer>
+
+  <script src="../../scripts/main.js"></script>
+  <script src="../../scripts/vendor/vendor-dashboard.js"></script>
+</body>
+</html>

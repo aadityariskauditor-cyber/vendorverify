@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Submit Documents | VendorVerify</title>
+  <link rel="stylesheet" href="../../styles/main.css" />
+</head>
+<body>
+  <header class="site-header">
+    <div class="container navbar">
+      <a class="brand" href="../../index.html">VendorVerify</a>
+      <button class="nav-toggle" aria-label="Toggle navigation">☰</button>
+      <nav class="nav-links">
+        <a href="dashboard.html">Vendor Dashboard</a>
+        <a class="active" href="submit-documents.html">Submit Request</a>
+        <a href="status.html">Status</a>
+        <a href="../auth/login.html">Logout</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="page-section">
+    <div class="container content-card">
+      <p class="eyebrow">Vendor Portal</p>
+      <h1>Submit Verification Request</h1>
+      <p>Complete the form below to start vendor verification and upload company documents for review.</p>
+
+      <form class="auth-form vendor-form" id="verificationRequestForm">
+        <div class="form-field">
+          <label for="companyName">Company Name</label>
+          <input id="companyName" name="companyName" type="text" placeholder="Acme Manufacturing Ltd." required />
+        </div>
+
+        <div class="form-field">
+          <label for="contactName">Primary Contact Name</label>
+          <input id="contactName" name="contactName" type="text" placeholder="Jane Doe" required />
+        </div>
+
+        <div class="form-field">
+          <label for="contactEmail">Primary Contact Email</label>
+          <input id="contactEmail" name="contactEmail" type="email" placeholder="jane@acme.com" required />
+        </div>
+
+        <div class="form-field">
+          <label for="serviceCategory">Service Category</label>
+          <select id="serviceCategory" name="serviceCategory" required>
+            <option value="">Select category</option>
+            <option value="manufacturing">Manufacturing</option>
+            <option value="logistics">Logistics</option>
+            <option value="technology">Technology</option>
+            <option value="consulting">Consulting</option>
+          </select>
+        </div>
+
+        <div class="form-field">
+          <label for="companyDocuments">Upload Company Documents</label>
+          <input id="companyDocuments" name="companyDocuments" type="file" multiple accept=".pdf,.doc,.docx,.png,.jpg,.jpeg" required />
+          <small class="helper-text">Accepted formats: PDF, DOC, DOCX, PNG, JPG.</small>
+        </div>
+
+        <div id="selectedFiles" class="selected-files" aria-live="polite"></div>
+
+        <div class="hero-actions">
+          <button class="btn btn-primary" type="submit">Submit Verification Request</button>
+          <a class="btn btn-secondary" href="dashboard.html">Back to Dashboard</a>
+        </div>
+
+        <p id="submissionMessage" class="submission-message" aria-live="polite"></p>
+      </form>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">© 2026 VendorVerify. All rights reserved.</div>
+  </footer>
+
+  <script src="../../scripts/main.js"></script>
+  <script src="../../scripts/vendor/document-upload.js"></script>
+</body>
+</html>

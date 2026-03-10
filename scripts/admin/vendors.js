@@ -56,7 +56,7 @@ function renderVendorTable() {
         <td><button class="btn btn-secondary" type="button" data-action="edit">Edit</button></td>
       </tr>
     `).join('')
-    : '<tr><td colspan="7">No vendors found.</td></tr>';
+    : '<tr><td colspan="7"><div class="empty-state"><p>No vendors yet. Start by adding your first vendor.</p><button type="button" class="btn btn-outline" id="emptyCreateVendorBtn">Create Vendor</button></div></td></tr>';
 }
 
 function renderVendorProfile() {
@@ -75,10 +75,10 @@ function renderVendorProfile() {
   `;
   profileDocuments.innerHTML = (vendor.documents || []).length
     ? vendor.documents.map((file) => `<li>${escapeHtml(file)}</li>`).join('')
-    : '<li>No documents uploaded yet.</li>';
+    : '<li><div class="empty-state"><p>No documents uploaded yet.</p></div></li>'; 
   profileNotes.innerHTML = (vendor.notes || []).length
     ? vendor.notes.map((note) => `<p>${escapeHtml(note)}</p>`).join('')
-    : '<p>No verification notes yet.</p>';
+    : '<div class="empty-state"><p>No verification notes yet. Add a note to capture your review.</p></div>'; 
 }
 
 function populateForm(vendor) {
@@ -111,7 +111,7 @@ async function loadVendors() {
     renderVendorTable();
     renderVendorProfile();
   } catch (error) {
-    alert(error.message);
+    window.VendorVerifyUI?.showAlert?.(error.message, "error");
   }
 }
 
@@ -141,7 +141,7 @@ vendorForm?.addEventListener('submit', async (event) => {
     await loadVendors();
     resetFormToCreateMode();
   } catch (error) {
-    alert(error.message);
+    window.VendorVerifyUI?.showAlert?.(error.message, "error");
   }
 });
 
@@ -165,26 +165,52 @@ tableBody?.addEventListener('click', (event) => {
 approveVendorBtn?.addEventListener('click', async () => {
   const vendor = getSelectedVendor();
   if (!vendor) return;
-  await ApiClient.approveVendor(vendor.id);
-  await loadVendors();
+  window.VendorVerifyUI?.setButtonLoading?.(approveVendorBtn, true);
+  try {
+    await ApiClient.approveVendor(vendor.id);
+    await loadVendors();
+    window.VendorVerifyUI?.showAlert?.('Vendor approved.', 'success');
+  } finally {
+    window.VendorVerifyUI?.setButtonLoading?.(approveVendorBtn, false);
+  }
 });
 
 rejectVendorBtn?.addEventListener('click', async () => {
   const vendor = getSelectedVendor();
   if (!vendor) return;
-  await ApiClient.rejectVendor(vendor.id);
-  await loadVendors();
+  window.VendorVerifyUI?.setButtonLoading?.(rejectVendorBtn, true);
+  try {
+    await ApiClient.rejectVendor(vendor.id);
+    await loadVendors();
+    window.VendorVerifyUI?.showAlert?.('Vendor rejected.', 'info');
+  } finally {
+    window.VendorVerifyUI?.setButtonLoading?.(rejectVendorBtn, false);
+  }
 });
 
 deleteVendorBtn?.addEventListener('click', async () => {
   const vendor = getSelectedVendor();
   if (!vendor) return;
-  await ApiClient.deleteVendor(vendor.id);
-  await loadVendors();
-  resetFormToCreateMode();
+  window.VendorVerifyUI?.setButtonLoading?.(deleteVendorBtn, true);
+  try {
+    await ApiClient.deleteVendor(vendor.id);
+    await loadVendors();
+    resetFormToCreateMode();
+    window.VendorVerifyUI?.showAlert?.('Vendor deleted.', 'info');
+  } finally {
+    window.VendorVerifyUI?.setButtonLoading?.(deleteVendorBtn, false);
+  }
 });
 
 searchInput?.addEventListener('input', renderVendorTable);
 resetVendorFormBtn?.addEventListener('click', resetFormToCreateMode);
 
 loadVendors();
+
+
+tableBody?.addEventListener('click', (event) => {
+  if (!(event.target instanceof HTMLButtonElement)) return;
+  if (event.target.id === 'emptyCreateVendorBtn') {
+    document.getElementById('companyName')?.focus();
+  }
+});

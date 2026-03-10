@@ -42,7 +42,8 @@
   resize: vertical;
 }
 
-.selected-row {
+.selected-row,
+.is-selected {
   background: rgba(95, 124, 255, 0.14);
 }
 

@@ -1,3 +1,10 @@
+function getVendorStatusClass(status) {
+  const normalized = String(status || '').toLowerCase();
+  if (normalized.includes('approved')) return 'approved';
+  if (normalized.includes('reject')) return 'rejected';
+  return 'pending';
+}
+
 async function loadVendorDashboard() {
   const companyNameLabel = document.getElementById('vendorCompany');
   const openRequestsCount = document.getElementById('openRequestsCount');
@@ -37,10 +44,10 @@ async function loadVendorDashboard() {
             <td>${request.id}</td>
             <td>${new Date(request.createdAt).toLocaleDateString()}</td>
             <td>${request.documents?.length || 0} file(s)</td>
-            <td><span class="status-badge ${request.status === 'Approved' ? 'approved' : request.status === 'Rejected' ? 'rejected' : 'pending'}">${request.status}</span></td>
+            <td><span class="status-badge ${getVendorStatusClass(request.status)}">${request.status}</span></td>
           </tr>
         `).join('')
-        : '<tr><td colspan="4">No requests submitted yet.</td></tr>';
+        : '<tr><td colspan="4"><div class="empty-state"><p>No vendors yet. Start by adding your first vendor.</p><a class="btn btn-outline" href="submit-documents.html">Submit your first request</a></div></td></tr>';
     }
 
     const latestRequest = vendorRequests[0];
@@ -48,6 +55,11 @@ async function loadVendorDashboard() {
       statusLabel.textContent = latestRequest?.status || 'Not Submitted';
       statusRequestId.textContent = latestRequest?.id || '-';
       statusUpdatedAt.textContent = latestRequest ? new Date(latestRequest.updatedAt).toLocaleString() : '-';
+      const statusCard = statusLabel.closest('.vendor-status-card');
+      if (statusCard) {
+        statusCard.classList.remove('approved', 'pending', 'rejected');
+        statusCard.classList.add(getVendorStatusClass(latestRequest?.status));
+      }
     }
   } catch (error) {
     // no-op fallback for static pages

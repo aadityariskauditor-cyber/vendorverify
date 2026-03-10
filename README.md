@@ -1,2 +1,62 @@
-# vendorverify
-Official website for VendorVerify.in
+# VendorVerify
+
+Official website for VendorVerify.in.
+
+## Recommended Project Structure
+
+vendorverify/
+├── index.html
+├── pages/
+│   ├── about.html
+│   ├── contact.html
+│   ├── pricing.html
+│   ├── features.html
+│   └── auth/
+│       ├── login.html
+│       └── signup.html
+├── styles/
+│   ├── main.css
+│   ├── reset.css
+│   ├── variables.css
+│   ├── layout/
+│   │   ├── grid.css
+│   │   └── responsive.css
+│   ├── components/
+│   │   ├── navbar.css
+│   │   ├── footer.css
+│   │   ├── buttons.css
+│   │   └── cards.css
+│   └── pages/
+│       ├── home.css
+│       ├── about.css
+│       └── pricing.css
+├── scripts/
+│   ├── main.js
+│   ├── utils/
+│   │   ├── dom.js
+│   │   ├── api.js
+│   │   └── validators.js
+│   ├── components/
+│   │   ├── navbar.js
+│   │   └── footer.js
+│   └── pages/
+│       ├── home.js
+│       ├── contact.js
+│       └── pricing.js
+├── assets/
+│   ├── images/
+│   ├── fonts/
+│   ├── illustrations/
+│   └── favicons/
+├── components/
+│   ├── navbar.html
+│   ├── footer.html
+│   ├── cta-banner.html
+│   └── testimonial-card.html
+├── data/
+│   ├── testimonials.json
+│   ├── faqs.json
+│   └── plans.json
+├── backend/
+├── tests/
+└── docs/

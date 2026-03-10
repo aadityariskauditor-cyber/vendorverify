@@ -61,22 +61,24 @@ vendorverify/
 ├── tests/
 └── docs/
 
-## Backend vendor document upload
+## Backend API (Node.js + Express)
 
-A minimal Express backend is available in `backend/` with multer-based multi-part uploads.
+A new backend service is available under `backend/` with JWT auth and PostgreSQL.
 
-### Features
-- `POST /api/vendors/:vendorId/documents`
-- Accepts `gstCertificate`, `companyRegistration`, and `complianceCertificates` files
-- Uploads files to Cloudinary and saves document metadata (including file URL) in `vendor_documents`
+### Endpoints
+- `POST /api/auth/register`
+- `POST /api/auth/login`
+- `GET /api/vendors`
+- `POST /api/vendors`
+- `PUT /api/vendors/:id`
+- `DELETE /api/vendors/:id`
+- `POST /api/vendors/:id/approve`
+- `POST /api/vendors/:id/reject`
 
 ### Run backend
 ```bash
 cd backend
-npm install
 cp .env.example .env
-npm run start
+npm install
+npm run dev
 ```
-
-### Database migration
-Run the SQL script in `backend/migrations/001_create_vendor_documents.sql` on your Postgres database.

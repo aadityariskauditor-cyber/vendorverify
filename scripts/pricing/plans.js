@@ -1,36 +1,36 @@
 const pricingPlans = [
   {
-    id: 'starter',
-    name: 'Starter',
-    price: 49,
-    billingLabel: '/month',
-    description: 'Best for early-stage teams validating a growing vendor base.',
+    id: 'basic',
+    name: 'Basic Vendor Verification',
+    price: 4999,
+    billingLabel: '',
+    description: 'Ideal for foundational checks and onboarding confidence.',
     features: {
-      verificationLimits: 'Up to 100 verifications/month',
+      verificationLimits: 'Core verification scope',
       priorityVerification: false,
       apiAccess: false,
     },
   },
   {
-    id: 'professional',
-    name: 'Professional',
-    price: 149,
-    billingLabel: '/month',
-    description: 'For teams that need faster turnaround and operational integrations.',
+    id: 'enhanced',
+    name: 'Enhanced Vendor Risk Evaluation',
+    price: 11999,
+    billingLabel: '',
+    description: 'Expanded risk checks for deeper supplier confidence.',
     features: {
-      verificationLimits: 'Up to 1,000 verifications/month',
+      verificationLimits: 'Expanded verification scope',
       priorityVerification: true,
-      apiAccess: true,
+      apiAccess: false,
     },
   },
   {
-    id: 'enterprise',
-    name: 'Enterprise',
-    price: null,
-    billingLabel: 'custom',
-    description: 'For complex procurement operations with high-volume verification.',
+    id: 'strategic',
+    name: 'Strategic Vendor Due Diligence',
+    price: 24999,
+    billingLabel: '',
+    description: 'Comprehensive due diligence for critical vendor decisions.',
     features: {
-      verificationLimits: 'Unlimited verifications',
+      verificationLimits: 'Comprehensive verification scope',
       priorityVerification: true,
       apiAccess: true,
     },
@@ -67,7 +67,7 @@ if (planSelector && comparisonTableBody && selectionSummary) {
       return 'Custom';
     }
 
-    return `$${plan.price}`;
+    return `₹${plan.price.toLocaleString('en-IN')}`;
   };
 
   const renderSelector = () => {

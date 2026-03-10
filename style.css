@@ -1624,7 +1624,7 @@ transform: none !important;
 /* MOBILE MENU FIX */
 
 .mobile-nav{
-position:fixed;
+position: fixed;
 top:0;
 right:-280px;
 width:260px;
@@ -1634,7 +1634,16 @@ padding:40px 20px;
 box-shadow:-10px 0 25px rgba(0,0,0,0.15);
 z-index:9999;
 transition:right 0.3s ease;
-}
 .mobile-nav.active{
 right:0;
+}
+
+.mobile-nav-close{
+position:absolute;
+top:15px;
+right:20px;
+font-size:26px;
+background:none;
+border:none;
+cursor:pointer;
 }

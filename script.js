@@ -265,8 +265,8 @@ const mobileClose = document.getElementById("mobileClose");
 
 if (hamburger && mobileNav) {
 hamburger.addEventListener("click", function () {
-mobileNav.classList.add("active");
-document.body.style.overflow = "hidden";
+mobileNav.classList.toggle("active");
+document.body.style.overflow = mobileNav.classList.contains("active") ? "hidden" : "";
 });
 }
 

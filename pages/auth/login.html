@@ -39,13 +39,7 @@
           <input id="password" name="password" type="password" placeholder="••••••••" required />
         </div>
 
-        <div class="form-field">
-          <label for="role">Role</label>
-          <select id="role" name="role">
-            <option value="vendor">Vendor User</option>
-            <option value="admin">Administrator</option>
-          </select>
-        </div>
+        <p id="loginMessage" aria-live="polite"></p>
 
         <div class="hero-actions">
           <button class="btn btn-primary" type="submit">Sign In</button>
@@ -59,6 +53,8 @@
     <div class="container">© 2026 VendorVerify. All rights reserved.</div>
   </footer>
 
+  <script src="../../scripts/auth/auth.js"></script>
+  <script src="../../scripts/auth/frontend-auth.js"></script>
   <script src="../../scripts/main.js"></script>
   <script src="../../scripts/api/api-client.js"></script>
   <script src="../../scripts/auth/auth.js"></script>

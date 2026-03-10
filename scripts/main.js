@@ -1,3 +1,12 @@
+const siteInfo = {
+  founderName: 'Aditya',
+  phone: '+91 9637439000',
+  emailPrimary: 'aditya@vendorverify.in',
+  emailSecondary: 'aaditya.riskauditor@gmail.com',
+  serviceDeliveryTime: '3-5 business days',
+  riskScoreRange: '0-100',
+};
+
 const navToggle = document.querySelector('.nav-toggle');
 const navLinks = document.querySelector('.nav-links');
 
@@ -199,6 +208,39 @@ verificationButtons.forEach((button) => {
 });
 
 
+
+function applySiteInfo() {
+  document.querySelectorAll('[data-site-info]').forEach((element) => {
+    const key = element.getAttribute('data-site-info');
+
+    if (!key || !(key in siteInfo)) {
+      return;
+    }
+
+    element.textContent = siteInfo[key];
+  });
+
+  document.querySelectorAll('[data-site-info-link]').forEach((link) => {
+    const key = link.getAttribute('data-site-info-link');
+
+    if (!key || !(key in siteInfo)) {
+      return;
+    }
+
+    const value = siteInfo[key];
+
+    if (key.toLowerCase().includes('email')) {
+      link.setAttribute('href', `mailto:${value}`);
+      return;
+    }
+
+    if (key === 'phone') {
+      const normalizedPhone = value.replace(/\s+/g, '');
+      link.setAttribute('href', `tel:${normalizedPhone}`);
+    }
+  });
+}
+
 function getCurrentPath() {
   return window.location.pathname.split('/').pop() || 'index.html';
 }
@@ -248,4 +290,5 @@ function setButtonLoading(button, isLoading) {
 }
 
 highlightActiveLinks();
-window.VendorVerifyUI = { showAlert, setButtonLoading };
+applySiteInfo();
+window.VendorVerifyUI = { showAlert, setButtonLoading, siteInfo };

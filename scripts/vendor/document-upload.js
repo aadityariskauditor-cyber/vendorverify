@@ -1,57 +1,90 @@
 const requestForm = document.getElementById('verificationRequestForm');
-const documentsInput = document.getElementById('companyDocuments');
 const selectedFiles = document.getElementById('selectedFiles');
 const submissionMessage = document.getElementById('submissionMessage');
 
-if (documentsInput && selectedFiles) {
-  documentsInput.addEventListener('change', () => {
-    const files = Array.from(documentsInput.files || []);
+const documentInputs = [
+  { input: document.getElementById('gstCertificate'), label: 'GST Certificate' },
+  { input: document.getElementById('companyRegistration'), label: 'Company Registration' },
+  { input: document.getElementById('complianceCertificates'), label: 'Compliance Certificate' }
+];
 
-    if (!files.length) {
-      selectedFiles.innerHTML = '';
-      return;
-    }
+const renderSelectedFiles = () => {
+  if (!selectedFiles) {
+    return;
+  }
 
-    selectedFiles.innerHTML = files
-      .map((file) => `<span class="file-chip">${file.name}</span>`)
-      .join('');
+  const chips = documentInputs.flatMap(({ input, label }) => {
+    const files = Array.from(input?.files || []);
+    return files.map((file) => `<span class="file-chip">${label}: ${file.name}</span>`);
   });
-}
+
+  selectedFiles.innerHTML = chips.join('');
+};
+
+documentInputs.forEach(({ input }) => {
+  if (input) {
+    input.addEventListener('change', renderSelectedFiles);
+  }
+});
 
 if (requestForm) {
-  requestForm.addEventListener('submit', (event) => {
+  requestForm.addEventListener('submit', async (event) => {
     event.preventDefault();
 
     const formData = new FormData(requestForm);
-    const uploadedFiles = Array.from(documentsInput?.files || []).map((file) => file.name);
+    const vendorId = `V-${Date.now()}`;
 
-    const request = {
-      id: `VR-${Math.floor(1000 + Math.random() * 9000)}`,
-      companyName: formData.get('companyName'),
-      contactName: formData.get('contactName'),
-      contactEmail: formData.get('contactEmail'),
-      serviceCategory: formData.get('serviceCategory'),
-      documents: uploadedFiles,
-      submittedOn: new Date().toISOString(),
-      status: 'Pending Review'
-    };
+    const uploadPayload = new FormData();
+    uploadPayload.append('gstCertificate', documentInputs[0].input.files[0]);
+    uploadPayload.append('companyRegistration', documentInputs[1].input.files[0]);
 
-    const existingRequests = JSON.parse(localStorage.getItem('vendorRequests') || '[]');
-    existingRequests.unshift(request);
-    localStorage.setItem('vendorRequests', JSON.stringify(existingRequests));
+    Array.from(documentInputs[2].input.files || []).forEach((file) => {
+      uploadPayload.append('complianceCertificates', file);
+    });
 
-    if (submissionMessage) {
-      submissionMessage.textContent = 'Verification request submitted successfully. Redirecting to status page...';
-      submissionMessage.classList.add('success');
+    try {
+      const response = await fetch(`http://localhost:4000/api/vendors/${vendorId}/documents`, {
+        method: 'POST',
+        body: uploadPayload
+      });
+
+      if (!response.ok) {
+        throw new Error('Upload failed.');
+      }
+
+      const uploadResult = await response.json();
+      const request = {
+        id: `VR-${Math.floor(1000 + Math.random() * 9000)}`,
+        vendorId,
+        companyName: formData.get('companyName'),
+        contactName: formData.get('contactName'),
+        contactEmail: formData.get('contactEmail'),
+        serviceCategory: formData.get('serviceCategory'),
+        documents: uploadResult.documents,
+        submittedOn: new Date().toISOString(),
+        status: 'Pending Review'
+      };
+
+      const existingRequests = JSON.parse(localStorage.getItem('vendorRequests') || '[]');
+      existingRequests.unshift(request);
+      localStorage.setItem('vendorRequests', JSON.stringify(existingRequests));
+
+      if (submissionMessage) {
+        submissionMessage.textContent = 'Documents uploaded and verification request submitted successfully. Redirecting to status page...';
+        submissionMessage.classList.add('success');
+      }
+
+      requestForm.reset();
+      renderSelectedFiles();
+
+      setTimeout(() => {
+        window.location.href = 'status.html';
+      }, 1200);
+    } catch (error) {
+      if (submissionMessage) {
+        submissionMessage.textContent = error.message || 'Unable to submit verification request.';
+        submissionMessage.classList.remove('success');
+      }
     }
-
-    requestForm.reset();
-    if (selectedFiles) {
-      selectedFiles.innerHTML = '';
-    }
-
-    setTimeout(() => {
-      window.location.href = 'status.html';
-    }, 1200);
   });
 }

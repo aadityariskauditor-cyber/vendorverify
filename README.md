@@ -60,3 +60,23 @@ vendorverify/
 ├── backend/
 ├── tests/
 └── docs/
+
+## Backend vendor document upload
+
+A minimal Express backend is available in `backend/` with multer-based multi-part uploads.
+
+### Features
+- `POST /api/vendors/:vendorId/documents`
+- Accepts `gstCertificate`, `companyRegistration`, and `complianceCertificates` files
+- Uploads files to Cloudinary and saves document metadata (including file URL) in `vendor_documents`
+
+### Run backend
+```bash
+cd backend
+npm install
+cp .env.example .env
+npm run start
+```
+
+### Database migration
+Run the SQL script in `backend/migrations/001_create_vendor_documents.sql` on your Postgres database.

@@ -13,7 +13,7 @@
       <nav class="admin-nav">
         <a href="dashboard.html">Dashboard</a>
         <a href="vendors.html">Vendors</a>
-        <a href="verification-requests.html">Verification Requests</a>
+        <a href="verification.html">Verification Requests</a>
         <a href="reports.html">Reports</a>
         <a class="active" href="users.html">Users</a>
         <a href="settings.html">Settings</a>
@@ -36,12 +36,6 @@
     </main>
   </div>
 
-  <script>
-    const adminSidebar = document.getElementById('adminSidebar');
-    const adminMenuToggle = document.getElementById('adminMenuToggle');
-    if (adminSidebar && adminMenuToggle) {
-      adminMenuToggle.addEventListener('click', () => adminSidebar.classList.toggle('open'));
-    }
-  </script>
+  <script src="../../scripts/main.js"></script>
 </body>
 </html>

@@ -13,7 +13,7 @@
       <nav class="admin-nav">
         <a class="active" href="dashboard.html">Dashboard</a>
         <a href="vendors.html">Vendors</a>
-        <a href="verification-requests.html">Verification Requests</a>
+        <a href="verification.html">Verification Requests</a>
         <a href="reports.html">Reports</a>
         <a href="users.html">Users</a>
         <a href="settings.html">Settings</a>
@@ -39,30 +39,68 @@
           <h3>34</h3>
         </article>
         <article class="admin-card">
-          <p>Compliance Rate</p>
-          <h3>92.7%</h3>
+          <p>Approved Vendors</p>
+          <h3>1,189</h3>
         </article>
         <article class="admin-card">
-          <p>New Requests (7d)</p>
-          <h3>118</h3>
+          <p>Rejected Vendors</p>
+          <h3>61</h3>
         </article>
       </section>
 
-      <section class="content-card" style="margin-top: 1rem;">
-        <h2>Operations Overview</h2>
-        <p>Monitor recent vendor activity, escalations, and approval queue health from a single panel.</p>
+      <section class="content-card">
+        <div class="section-header">
+          <h2>Recent Verification Requests</h2>
+        </div>
+        <div class="admin-table-wrap">
+          <table class="admin-table">
+            <thead>
+              <tr>
+                <th>Request ID</th>
+                <th>Vendor</th>
+                <th>Submitted</th>
+                <th>Reviewer</th>
+                <th>Status</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>VR-4471</td>
+                <td>Horizon Metals</td>
+                <td>2026-02-12</td>
+                <td>Priya Desai</td>
+                <td><span class="status-badge pending">Pending</span></td>
+              </tr>
+              <tr>
+                <td>VR-4470</td>
+                <td>BluePeak Logistics</td>
+                <td>2026-02-11</td>
+                <td>Liam Carter</td>
+                <td><span class="status-badge approved">Approved</span></td>
+              </tr>
+              <tr>
+                <td>VR-4469</td>
+                <td>Northfield Health Supplies</td>
+                <td>2026-02-11</td>
+                <td>Emma Rivera</td>
+                <td><span class="status-badge rejected">Rejected</span></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <section class="content-card">
+        <h2>Quick Actions</h2>
+        <div class="action-row">
+          <a class="btn btn-primary" href="verification.html">Review Pending Requests</a>
+          <a class="btn btn-secondary" href="vendors.html">Manage Vendors</a>
+          <a class="btn btn-secondary" href="reports.html">View Reports</a>
+        </div>
       </section>
     </main>
   </div>
 
-  <script>
-    const adminSidebar = document.getElementById('adminSidebar');
-    const adminMenuToggle = document.getElementById('adminMenuToggle');
-    if (adminSidebar && adminMenuToggle) {
-      adminMenuToggle.addEventListener('click', () => {
-        adminSidebar.classList.toggle('open');
-      });
-    }
-  </script>
+  <script src="../../scripts/main.js"></script>
 </body>
 </html>

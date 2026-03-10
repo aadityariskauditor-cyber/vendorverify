@@ -258,4 +258,13 @@ if (counterEls.length) {
 document.querySelectorAll('.year').forEach(el => {
   el.textContent = new Date().getFullYear();
 });
+// Mobile Hamburger Menu Toggle
+const hamburger = document.querySelector(".hamburger");
+const mobileNav = document.getElementById("mobileNav");
+
+if (hamburger && mobileNav) {
+  hamburger.addEventListener("click", () => {
+    mobileNav.classList.toggle("active");
+  });
+}
 

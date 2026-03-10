@@ -263,6 +263,5 @@ const hamburger = document.getElementById("hamburger");
 const mobileNav = document.getElementById("mobileNav");
 
 hamburger.onclick = function () {
-mobileNav.classList.toggle("active");
+  mobileNav.classList.toggle("active");
 };
-

@@ -1590,103 +1590,97 @@ p {
   }
 }
 
-.hero{
-position:relative;
-background-image:url('/images/vendorverify-hero.jpg');
-background-size:cover;
-background-position:center;
-height:80vh;
-display:flex;
-align-items:center;
-justify-content:center;
-padding:0;
+
+.hero {
+  background-image: url('/images/vendorverify-hero.jpg');
+  background-size: cover;
+  background-position: center;
+  min-height: 80vh;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-.hero-overlay{
-position:absolute;
-inset:0;
-background:rgba(0,0,0,0.55);
-display:flex;
-align-items:center;
-justify-content:center;
+.hero-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.55);
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-.hero-content{
-position:relative;
-text-align:center;
-color:white;
-max-width:700px;
-padding:20px;
+.hero-content {
+  position: relative;
+  color: white;
+  text-align: center;
+  max-width: 720px;
+  padding: 20px;
 }
 
-.hero-content p{
-color:white;
+.hero-content p {
+  color: white;
 }
 
-.cta-button{
-display:inline-block;
-padding:12px 24px;
-background:#2563eb;
-color:white;
-border-radius:6px;
-margin-top:20px;
-text-decoration:none;
+.cta-button {
+  display: inline-block;
+  padding: 12px 24px;
+  background: #2563eb;
+  color: white;
+  border-radius: 6px;
+  margin-top: 20px;
+  text-decoration: none;
 }
 
-.founder-section{
-padding:60px 20px;
+.founder-section {
+  display: flex;
+  align-items: center;
+  gap: 40px;
+  padding: 60px 20px;
+  flex-wrap: wrap;
 }
 
-.founder-container{
-display:flex;
-align-items:center;
-gap:40px;
-max-width:1100px;
-margin:auto;
+.founder-photo {
+  width: 220px;
+  border-radius: 10px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
 }
 
-.founder-container img{
-width:280px;
-border-radius:10px;
-box-shadow:0 10px 25px rgba(0,0,0,0.15);
+.illustration-image {
+  max-width: 100%;
+  border-radius: 10px;
+  margin-top: 30px;
 }
 
-.founder-text{
-max-width:600px;
+.team-visual {
+  padding: 80px 20px;
+  text-align: center;
+  background: #f8fafc;
 }
 
-.capabilities{
-text-align:center;
-padding:60px 20px;
+.team-visual h2 {
+  color: #0f172a;
 }
 
-.capabilities img{
-max-width:100%;
-border-radius:10px;
-margin-top:20px;
+.team-visual img {
+  width: 100%;
+  max-width: 1100px;
+  border-radius: 12px;
+  margin-top: 30px;
 }
 
-.risk-insights{
-padding:60px 20px;
-text-align:center;
-}
+@media (max-width: 768px) {
+  .founder-section {
+    flex-direction: column;
+    text-align: center;
+  }
 
-.risk-insights img{
-width:100%;
-max-width:1100px;
-border-radius:10px;
-margin-top:30px;
-}
+  .founder-photo {
+    width: 180px;
+  }
 
-@media (max-width:768px){
-
-.founder-container{
-flex-direction:column;
-text-align:center;
-}
-
-.hero{
-height:70vh;
-}
-
+  .hero {
+    min-height: 70vh;
+  }
 }

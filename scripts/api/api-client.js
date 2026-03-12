@@ -71,5 +71,6 @@ const ApiClient = (() => {
     approveTestimonial: (id) => request(`/api/marketing/testimonials/${id}/approve`, { method: 'PATCH' }),
     deleteTestimonial: (id) => request(`/api/marketing/testimonials/${id}`, { method: 'DELETE' }),
     submitLeadCapture: (payload) => request('/api/marketing/lead-capture', { method: 'POST', body: payload }),
+    gstRiskCheck: (payload) => request('/api/gst-risk-check', { method: 'POST', body: payload }),
   };
 })();

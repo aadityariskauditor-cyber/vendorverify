@@ -9,6 +9,7 @@ const auditRoutes = require('./routes/auditRoutes');
 const dashboardRoutes = require('./routes/dashboardRoutes');
 const reportRoutes = require('./routes/reportRoutes');
 const marketingRoutes = require('./routes/marketingRoutes');
+const gstRoutes = require('./routes/gst');
 const { authenticateToken } = require('./middleware/authMiddleware');
 const initializeDatabase = require('./config/initDb');
 
@@ -30,6 +31,7 @@ app.use('/api/audits', auditRoutes);
 app.use('/api/dashboard', dashboardRoutes);
 app.use('/api/reports', reportRoutes);
 app.use('/api/marketing', marketingRoutes);
+app.use('/api', gstRoutes);
 
 initializeDatabase()
   .then(() => {

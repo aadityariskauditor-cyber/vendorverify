@@ -499,6 +499,25 @@
       </div>
     </section>
 
+
+    <section class="page-section" id="gst-precheck" data-animate>
+      <div class="container">
+        <div class="section-heading">
+          <span class="eyebrow">Instant intelligence</span>
+          <h2>Run Instant Vendor Risk Pre-Check</h2>
+          <p>Enter a GSTIN to get a preliminary risk signal before ordering a full VendorVerify audit.</p>
+        </div>
+        <article class="content-card gst-precheck-card">
+          <div class="form-field">
+            <label for="gstInput">GSTIN Input</label>
+            <input id="gstInput" placeholder="Enter GST Number" maxlength="15" />
+          </div>
+          <button class="btn btn-primary" id="runGSTCheck" type="button">Check Vendor Risk</button>
+          <div id="gstRiskResult" aria-live="polite"></div>
+        </article>
+      </div>
+    </section>
+
     <section class="page-section section-soft" id="risk-check" data-animate>
       <div class="container free-risk-check-grid">
         <div>
@@ -724,6 +743,8 @@
   <script src="scripts/pricing/config.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <script src="scripts/api/api-client.js"></script>
+  <script src="scripts/vendor/vendor-risk-chart.js"></script>
+  <script src="scripts/vendor/gst-risk-check.js"></script>
   <script src="scripts/main.js"></script>
   <script src="scripts/marketing.js"></script>
 </body>

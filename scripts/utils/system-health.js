@@ -14,6 +14,8 @@
       'scripts/api/api-client.js',
       'scripts/vendor/document-upload.js',
       'scripts/vendor/vendor-dashboard.js',
+      'scripts/vendor/gst-risk-check.js',
+      'scripts/vendor/vendor-risk-chart.js',
     ],
     routes: [
       '/index.html',
@@ -22,7 +24,7 @@
       '/pages/vendor/submit-documents.html',
       '/pages/blog/payment.html',
     ],
-    api: ['/api/vendors'],
+    api: ['/api/vendors', '/api/gst-risk-check'],
   };
 
   async function checkImages() {
@@ -58,7 +60,10 @@
 
     for (const endpoint of HEALTH_CONFIG.api) {
       try {
-        const response = await debug?.apiCheck?.(endpoint, { method: 'GET' });
+        const options = endpoint === '/api/gst-risk-check'
+          ? { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ gstin: '29ABCDE1234F1Z5' }) }
+          : { method: 'GET' };
+        const response = await debug?.apiCheck?.(endpoint, options);
         if (!response || !response.ok) {
           failed.push(endpoint);
         }
@@ -74,6 +79,19 @@
     return routesMissing.includes('/pages/blog/payment.html')
       ? 'Missing /pages/blog/payment.html'
       : 'OK';
+  }
+
+
+  function checkGstRiskEngine(missingScripts, failedApi) {
+    const routeOk = !failedApi.includes('/api/gst-risk-check');
+    const scriptOk = !missingScripts.includes('scripts/vendor/gst-risk-check.js');
+    const chartJsLoaded = typeof window.Chart !== 'undefined';
+
+    if (routeOk && scriptOk && chartJsLoaded) {
+      return 'OK';
+    }
+
+    return `Check route:${routeOk ? 'OK' : 'Missing'} script:${scriptOk ? 'OK' : 'Missing'} chartjs:${chartJsLoaded ? 'OK' : 'Missing'}`;
   }
 
   function checkVendorUpload() {
@@ -95,6 +113,7 @@
     const failedApi = await checkApi();
     const paymentStatus = checkPaymentPage(missingRoutes);
     const vendorUploadOk = checkVendorUpload();
+    const gstRiskEngine = checkGstRiskEngine(missingScripts, failedApi);
 
     const summary = {
       images: missingImages.length ? `Missing ${missingImages.join(', ')}` : 'OK',
@@ -103,6 +122,7 @@
       api: failedApi.length ? `Failed ${failedApi.join(', ')}` : 'OK',
       paymentPage: paymentStatus,
       vendorUpload: vendorUploadOk ? 'OK' : 'Check vendor upload form/scripts',
+      gstRiskEngine,
     };
 
     debug.log('VendorVerify System Health Check');
@@ -112,6 +132,7 @@
     debug.log(`API: ${summary.api}`);
     debug.log(`Payment Page: ${summary.paymentPage}`);
     debug.log(`Vendor Upload: ${summary.vendorUpload}`);
+    debug.log(`GST Risk Engine: ${summary.gstRiskEngine}`);
 
     debug.updatePanelState('imageStatus', summary.images);
     debug.updatePanelState('scriptStatus', summary.scripts);

@@ -27,8 +27,44 @@
       const node = document.getElementById('riskResultContainer');
       const query = new URLSearchParams(window.location.search);
       const id = query.get('id');
-      const store = JSON.parse(localStorage.getItem('vendorverifyRiskResults') || '{}');
-      const entry = id ? store[id] : null;
+      const snapshotParam = query.get('snapshot');
+
+      function getStoredEntry(entryId) {
+        if (!entryId) return null;
+        let store = {};
+
+        try {
+          const raw = localStorage.getItem('vendorverifyRiskResults');
+          store = raw ? JSON.parse(raw) : {};
+        } catch (error) {
+          console.warn('vendorverifyRiskResults storage corrupted. Resetting.', error);
+          store = {};
+        }
+
+        return store[String(entryId)] || null;
+      }
+
+      function decodeSnapshot(snapshot) {
+        if (!snapshot) return null;
+        try {
+          const normalized = snapshot.replace(/-/g, '+').replace(/_/g, '/');
+          const padded = normalized + '='.repeat((4 - (normalized.length % 4)) % 4);
+          const binary = atob(padded);
+          const bytes = Uint8Array.from(binary, (char) => char.charCodeAt(0));
+          const decoded = new TextDecoder().decode(bytes);
+          return JSON.parse(decoded);
+        } catch (error) {
+          return null;
+        }
+      }
+
+      function safeValue(value, suffix = '') {
+        if (value === null || value === undefined || value === '') return '--';
+        return `${value}${suffix}`;
+      }
+
+      const decodedEntry = decodeSnapshot(snapshotParam);
+      const entry = decodedEntry || getStoredEntry(id);
 
       if (!entry) {
         node.innerHTML = '<p><strong>Result not found.</strong> Ask the sender to generate a fresh share link.</p>';
@@ -36,14 +72,14 @@
       }
 
       const payload = entry.payload || {};
-      const riskScore = payload.riskScore ?? payload.score ?? payload.exposure ?? '--';
-      const fraudProbability = payload.probability ?? '--';
+      const riskScore = payload.riskScore ?? payload.score ?? payload.exposure;
+      const fraudProbability = payload.probability;
 
       node.innerHTML = `
-        <p><strong>Source:</strong> ${entry.source}</p>
-        <p><strong>Vendor Risk Score:</strong> ${riskScore}</p>
-        <p><strong>Fraud Probability:</strong> ${fraudProbability}${fraudProbability === '--' ? '' : '%'}</p>
-        <p><strong>Snapshot:</strong> ${JSON.stringify(payload)}</p>
+        <p><strong>Source:</strong> ${safeValue(entry.source)}</p>
+        <p><strong>Vendor Risk Score:</strong> ${safeValue(riskScore)}</p>
+        <p><strong>Fraud Probability:</strong> ${safeValue(fraudProbability, '%')}</p>
+        <p><strong>Snapshot:</strong> <code>${JSON.stringify(payload)}</code></p>
       `;
     })();
   </script>

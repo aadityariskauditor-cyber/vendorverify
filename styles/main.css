@@ -1812,3 +1812,27 @@ p {
     grid-template-columns: 1fr;
   }
 }
+
+.payment-instructions,
+.payment-proof{
+margin-top:20px;
+font-size:16px;
+}
+
+.payment-proof ul{
+margin-top:10px;
+}
+
+.payment-notice{
+background:#fff8e1;
+border-left:4px solid #f59e0b;
+padding:15px;
+margin-top:25px;
+border-radius:6px;
+}
+
+.future-payments{
+margin-top:25px;
+font-size:14px;
+color:#666;
+}

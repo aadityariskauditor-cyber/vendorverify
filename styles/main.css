@@ -1836,3 +1836,27 @@ margin-top:25px;
 font-size:14px;
 color:#666;
 }
+
+.gst-precheck-card {
+  display: grid;
+  gap: 1rem;
+}
+
+.gst-result-card {
+  margin-top: 1rem;
+}
+
+.gst-risk-chart-wrap {
+  height: 260px;
+  max-width: 320px;
+}
+
+.gst-cta-wrap {
+  margin-top: 1rem;
+  border-top: 1px solid var(--border);
+  padding-top: 1rem;
+}
+
+.text-danger {
+  color: #ff7a90;
+}

@@ -522,30 +522,22 @@
           <button class="btn btn-primary" type="button" data-open-risk-check="true">Start Free Vendor Risk Check</button>
           <form class="auth-form risk-check-form is-hidden" id="freeRiskCheckForm" aria-label="Free vendor risk check form">
             <div class="form-field">
-              <label for="risk-vendor-name">Vendor name</label>
+              <label for="risk-vendor-name">Vendor Name</label>
               <input id="risk-vendor-name" name="vendorName" type="text" required />
             </div>
             <div class="form-field">
-              <label for="risk-gst-number">GST number</label>
-              <input id="risk-gst-number" name="gstNumber" type="text" required />
+              <label for="risk-gst-number">GSTIN</label>
+              <input id="risk-gst-number" name="gstin" type="text" required />
             </div>
             <div class="form-field">
-              <label for="risk-company-name">Company name</label>
-              <input id="risk-company-name" name="companyName" type="text" />
-            </div>
-            <div class="form-field">
-              <label for="risk-transaction-value">Transaction value</label>
-              <input id="risk-transaction-value" name="transactionValue" type="text" />
+              <label for="risk-transaction-value">Transaction Value</label>
+              <input id="risk-transaction-value" name="transactionValue" type="text" required />
             </div>
             <div class="form-field">
               <label for="risk-email">Email</label>
               <input id="risk-email" name="email" type="email" required />
             </div>
-            <div class="form-field">
-              <label for="risk-phone">Phone</label>
-              <input id="risk-phone" name="phone" type="tel" />
-            </div>
-            <button class="btn btn-primary" type="submit">Run Risk Check</button>
+            <button class="btn btn-primary" type="submit">Submit Risk Check Request</button>
           </form>
           <p class="risk-check-note">This preliminary check provides an initial risk signal. A detailed vendor due diligence report can provide deeper insights including litigation screening, operational verification, and transaction risk recommendations.</p>
           <div class="hero-actions section-cta">
@@ -590,16 +582,34 @@
           <span>Logo Placeholder 3</span>
           <span>Logo Placeholder 4</span>
         </div>
-        <div class="testimonials-grid">
-          <article class="content-card testimonial-card">
-            <p>“VendorVerify helped us verify a new supplier before releasing an advance payment. The report gave our finance and procurement teams confidence to move forward safely.”</p>
-            <h3>Priya M.</h3>
-            <span>Head of Procurement, BlueArc</span>
+        <div class="testimonials-grid" id="testimonialsGrid" aria-live="polite"></div>
+        <p class="testimonial-empty is-hidden" id="testimonialEmptyState">No approved testimonials yet.</p>
+      </div>
+    </section>
+
+    <section class="page-section" data-animate>
+      <div class="container">
+        <div class="section-heading">
+          <span class="eyebrow">Insights</span>
+          <h2>Vendor Risk &amp; Procurement Intelligence Blog</h2>
+          <p>Read practical guides on GST checks, supplier due diligence, and fraud prevention for stronger procurement decisions.</p>
+        </div>
+        <div class="features-grid">
+          <article class="content-card feature-card">
+            <h3><a href="pages/blog/vendor-fraud-india.html">Vendor Fraud in India: Early Warning Signals for Buyers</a></h3>
+            <p>Understand common fraud patterns and how to reduce losses before vendor onboarding.</p>
           </article>
-          <article class="content-card testimonial-card">
-            <p>“Their analysts identified compliance gaps we had missed during internal checks. The due diligence summary made our final risk decision much clearer.”</p>
-            <h3>James T.</h3>
-            <span>Supplier Risk Manager, Northpath</span>
+          <article class="content-card feature-card">
+            <h3><a href="pages/blog/supplier-verification-guide.html">Supplier Verification Guide for Procurement Teams</a></h3>
+            <p>A structured checklist to validate suppliers before contracts or advance payments.</p>
+          </article>
+          <article class="content-card feature-card">
+            <h3><a href="pages/blog/gst-vendor-verification.html">GST Vendor Verification: What to Check Before Payment</a></h3>
+            <p>Key GSTIN validation steps and risk indicators for finance and compliance teams.</p>
+          </article>
+          <article class="content-card feature-card">
+            <h3><a href="pages/blog/procurement-risk.html">Procurement Risk Management for High-Value Transactions</a></h3>
+            <p>Actionable controls to improve vendor governance and payment safety.</p>
           </article>
         </div>
       </div>
@@ -613,6 +623,7 @@
 
     <section class="page-section" data-animate>
       <div class="container">
+        <!-- Payment integration placeholder: connect plan CTAs to Razorpay/PayPal checkout when enabled. -->
         <div class="section-heading">
           <span class="eyebrow">Service packages</span>
           <h2>Verification Packages for Different Risk Needs</h2>
@@ -712,6 +723,8 @@
 
   <script src="scripts/pricing/config.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="scripts/api/api-client.js"></script>
   <script src="scripts/main.js"></script>
+  <script src="scripts/marketing.js"></script>
 </body>
 </html>

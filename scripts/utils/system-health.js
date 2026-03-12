@@ -118,7 +118,8 @@
     ];
 
     const missing = required.filter((path) => missingScripts.includes(path));
-    return missing.length ? `Missing ${missing.join(', ')}` : 'OK';
+    if (!missing.length) return 'OK';
+    return `Missing ${missing.join(', ')}`;
   }
 
   async function runSystemHealthCheck() {
@@ -157,6 +158,9 @@
     debug.log(`Vendor Upload: ${summary.vendorUpload}`);
     debug.log(`GST Risk Engine: ${summary.gstRiskEngine}`);
     debug.log(`Supplier Risk Intelligence System: ${summary.supplierRiskIntelligence}`);
+    if (summary.supplierRiskIntelligence === 'OK') {
+      debug.log('Supplier Risk Intelligence System: OK');
+    }
 
     debug.updatePanelState('imageStatus', summary.images);
     debug.updatePanelState('scriptStatus', summary.scripts);

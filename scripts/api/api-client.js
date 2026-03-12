@@ -27,7 +27,15 @@ const ApiClient = (() => {
       headers.Authorization = `Bearer ${token}`;
     }
 
-    const response = await fetch(`${API_BASE_URL}${path}`, {
+    const debug = window.VendorVerifyDebug;
+    const endpoint = `${API_BASE_URL}${path}`;
+
+    if (debug?.isEnabled?.()) {
+      debug.log(`API request started → ${path}`);
+      debug.updatePanelState('lastApiCall', path);
+    }
+
+    const response = await fetch(endpoint, {
       method,
       headers,
       body: body ? JSON.stringify(body) : undefined,
@@ -37,7 +45,14 @@ const ApiClient = (() => {
     const payload = isJson ? await response.json() : null;
 
     if (!response.ok) {
+      if (debug?.isEnabled?.()) {
+        debug.error(`API request failed: ${path}`, { status: response.status });
+      }
       throw new Error(payload?.message || `Request failed with status ${response.status}`);
+    }
+
+    if (debug?.isEnabled?.()) {
+      debug.log(`API response received → ${path}`, { status: response.status });
     }
 
     return payload;

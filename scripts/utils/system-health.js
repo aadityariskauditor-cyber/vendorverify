@@ -1,0 +1,125 @@
+(() => {
+  const debug = window.VendorVerifyDebug;
+
+  const HEALTH_CONFIG = {
+    images: [
+      '/images/vendorverify-hero.jpg',
+      '/images/vendor-risk-analysis.jpg',
+      '/images/founder.jpg',
+      '/images/Qr-code.jpeg',
+      '/images/verification-illustration.jpg',
+    ],
+    scripts: [
+      'scripts/main.js',
+      'scripts/api/api-client.js',
+      'scripts/vendor/document-upload.js',
+      'scripts/vendor/vendor-dashboard.js',
+    ],
+    routes: [
+      '/index.html',
+      '/pages/pricing.html',
+      '/pages/payment.html',
+      '/pages/vendor/submit-documents.html',
+      '/pages/blog/payment.html',
+    ],
+    api: ['/api/vendors'],
+  };
+
+  async function checkImages() {
+    const missing = [];
+    for (const path of HEALTH_CONFIG.images) {
+      const ok = await debug?.imageCheck?.(path);
+      if (!ok) missing.push(path);
+    }
+    return missing;
+  }
+
+  function checkScripts() {
+    return HEALTH_CONFIG.scripts.filter((path) => !debug?.scriptCheck?.(path));
+  }
+
+  async function checkRoutes() {
+    const missing = [];
+
+    for (const route of HEALTH_CONFIG.routes) {
+      try {
+        const response = await fetch(route, { method: 'HEAD' });
+        if (!response.ok) missing.push(route);
+      } catch (error) {
+        missing.push(route);
+      }
+    }
+
+    return missing;
+  }
+
+  async function checkApi() {
+    const failed = [];
+
+    for (const endpoint of HEALTH_CONFIG.api) {
+      try {
+        const response = await debug?.apiCheck?.(endpoint, { method: 'GET' });
+        if (!response || !response.ok) {
+          failed.push(endpoint);
+        }
+      } catch (error) {
+        failed.push(endpoint);
+      }
+    }
+
+    return failed;
+  }
+
+  function checkPaymentPage(routesMissing) {
+    return routesMissing.includes('/pages/blog/payment.html')
+      ? 'Missing /pages/blog/payment.html'
+      : 'OK';
+  }
+
+  function checkVendorUpload() {
+    const hasForm = Boolean(document.getElementById('verificationRequestForm'));
+    const hasUploadScript = Boolean(window.location.pathname.includes('submit-documents') || window.ApiClient);
+    return hasForm || hasUploadScript;
+  }
+
+  async function runSystemHealthCheck() {
+    if (!debug?.isEnabled?.()) {
+      return null;
+    }
+
+    debug.log('VendorVerify System Health Check started.');
+
+    const missingImages = await checkImages();
+    const missingScripts = checkScripts();
+    const missingRoutes = await checkRoutes();
+    const failedApi = await checkApi();
+    const paymentStatus = checkPaymentPage(missingRoutes);
+    const vendorUploadOk = checkVendorUpload();
+
+    const summary = {
+      images: missingImages.length ? `Missing ${missingImages.join(', ')}` : 'OK',
+      scripts: missingScripts.length ? `Missing ${missingScripts.join(', ')}` : 'OK',
+      routes: missingRoutes.length ? `Missing ${missingRoutes.join(', ')}` : 'OK',
+      api: failedApi.length ? `Failed ${failedApi.join(', ')}` : 'OK',
+      paymentPage: paymentStatus,
+      vendorUpload: vendorUploadOk ? 'OK' : 'Check vendor upload form/scripts',
+    };
+
+    debug.log('VendorVerify System Health Check');
+    debug.log(`Images: ${summary.images}`);
+    debug.log(`Scripts: ${summary.scripts}`);
+    debug.log(`Routes: ${summary.routes}`);
+    debug.log(`API: ${summary.api}`);
+    debug.log(`Payment Page: ${summary.paymentPage}`);
+    debug.log(`Vendor Upload: ${summary.vendorUpload}`);
+
+    debug.updatePanelState('imageStatus', summary.images);
+    debug.updatePanelState('scriptStatus', summary.scripts);
+
+    return summary;
+  }
+
+  window.VendorVerifySystemHealth = {
+    run: runSystemHealthCheck,
+  };
+})();

@@ -23,8 +23,11 @@ function renderSelectedFiles() {
     : '<div class="empty-state"><p>No documents uploaded yet.</p></div>';
 }
 
-documentInputs.forEach(({ input }) => {
-  input?.addEventListener('change', renderSelectedFiles);
+documentInputs.forEach(({ input, label }) => {
+  input?.addEventListener('change', () => {
+    renderSelectedFiles();
+    window.VendorVerifyDebug?.log?.(`Vendor documents uploaded: ${label}`);
+  });
 });
 
 if (requestForm) {
@@ -57,6 +60,7 @@ if (requestForm) {
         submissionMessage.className = 'submission-message success';
       }
       window.VendorVerifyUI?.showAlert?.('Verification request submitted.', 'success');
+      window.VendorVerifyDebug?.log?.('Vendor verification request submitted.');
 
       requestForm.reset();
       renderSelectedFiles();
@@ -70,6 +74,7 @@ if (requestForm) {
         submissionMessage.className = 'submission-message';
       }
       window.VendorVerifyUI?.showAlert?.(error.message, 'error');
+      window.VendorVerifyDebug?.error?.('Vendor document upload failed.', error);
     } finally {
       window.VendorVerifyUI?.setButtonLoading?.(submitButton, false);
     }

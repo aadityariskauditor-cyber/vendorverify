@@ -69,10 +69,19 @@
       </section>
 
       <p class="message" id="message"></p>
+      <section class="panel">
+        <h2>System Diagnostics</h2>
+        <div class="actions">
+          <button type="button" id="run-health-check-btn" class="secondary">Run System Health Check</button>
+        </div>
+      </section>
     </div>
 
+    <script src="/scripts/utils/debug.js"></script>
+    <script src="/scripts/utils/system-health.js"></script>
     <script>
       const token = localStorage.getItem('token');
+      window.VendorVerifyDebug?.routeCheck?.();
       const body = document.getElementById('audit-table-body');
       const message = document.getElementById('message');
 
@@ -238,6 +247,15 @@
 
       document.getElementById('upload-btn').addEventListener('click', uploadReport);
       document.getElementById('load-logs-btn').addEventListener('click', loadLogs);
+      document.getElementById('run-health-check-btn').addEventListener('click', async () => {
+        const result = await window.VendorVerifySystemHealth?.run?.();
+        if (!result) {
+          showMessage('Debug mode is disabled, so system health check is not active.', true);
+          return;
+        }
+
+        showMessage('System health check completed. Check debug panel and console for full details.');
+      });
       loadAudits();
     </script>
   </body>

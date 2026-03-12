@@ -459,3 +459,67 @@ highlightActiveLinks();
 applySiteInfo();
 applyPricingContent();
 window.VendorVerifyUI = { showAlert, setButtonLoading, siteInfo };
+
+function loadUtilityScript(path) {
+  return new Promise((resolve, reject) => {
+    const existing = document.querySelector(`script[src="${path}"]`);
+    if (existing) {
+      resolve();
+      return;
+    }
+
+    const script = document.createElement('script');
+    script.src = path;
+    script.async = false;
+    script.onload = () => resolve();
+    script.onerror = () => reject(new Error(`Unable to load script: ${path}`));
+    document.head.appendChild(script);
+  });
+}
+
+function setupPaymentDebugging() {
+  const debug = window.VendorVerifyDebug;
+  if (!debug?.isEnabled?.()) {
+    return;
+  }
+
+  if (window.location.pathname.endsWith('/pages/payment.html') || window.location.pathname.endsWith('/payment.html')) {
+    debug.log('Payment page loaded successfully.');
+
+    const paymentForm = document.querySelector('[data-payment-form], form[action*="payment"]');
+    if (paymentForm) {
+      debug.log('Payment form loaded.');
+      paymentForm.addEventListener('submit', () => {
+        debug.log('Payment confirmation submitted.');
+      });
+    } else {
+      debug.warn('Payment form not found on this page.');
+    }
+  }
+}
+
+function setupGlobalDebugging() {
+  const debug = window.VendorVerifyDebug;
+  if (!debug?.isEnabled?.()) {
+    return;
+  }
+
+  debug.routeCheck();
+  ['/images/vendorverify-hero.jpg', '/images/vendor-risk-analysis.jpg', '/images/founder.jpg', '/images/Qr-code.jpeg', '/images/verification-illustration.jpg']
+    .forEach((path) => debug.imageCheck(path));
+
+  ['scripts/main.js', 'scripts/api/api-client.js', 'scripts/vendor/document-upload.js', 'scripts/vendor/vendor-dashboard.js']
+    .forEach((path) => debug.scriptCheck(path));
+
+  setupPaymentDebugging();
+}
+
+window.addEventListener('load', async () => {
+  try {
+    await loadUtilityScript('/scripts/utils/debug.js');
+    await loadUtilityScript('/scripts/utils/system-health.js');
+    setupGlobalDebugging();
+  } catch (error) {
+    console.warn('[VendorVerify Debug] Debug tools could not be initialized.', error);
+  }
+});

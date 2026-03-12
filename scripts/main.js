@@ -351,6 +351,88 @@ function applyPricingContent() {
 }
 
 
+function initializeRiskCharts() {
+  if (typeof window.Chart === 'undefined') {
+    return;
+  }
+
+  const fraudChartCanvas = document.getElementById('vendorFraudRiskChart');
+  const lossesChartCanvas = document.getElementById('vendorLossesChart');
+
+  if (fraudChartCanvas) {
+    new window.Chart(fraudChartCanvas, {
+      type: 'pie',
+      data: {
+        labels: [
+          'Fake suppliers',
+          'Advance payment fraud',
+          'Shell companies',
+          'Litigation-heavy vendors',
+          'Financially unstable suppliers',
+        ],
+        datasets: [{
+          data: [28, 24, 18, 16, 14],
+          backgroundColor: ['#5f7cff', '#25d0be', '#f7b267', '#ff7a90', '#8d99ff'],
+          borderColor: '#0f172e',
+          borderWidth: 2,
+        }],
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: {
+          legend: {
+            position: 'bottom',
+            labels: { color: '#dce6ff' },
+          },
+        },
+      },
+    });
+  }
+
+  if (lossesChartCanvas) {
+    new window.Chart(lossesChartCanvas, {
+      type: 'bar',
+      data: {
+        labels: [
+          'Fake suppliers',
+          'Advance fraud',
+          'Shell entities',
+          'Legal disputes',
+          'Supplier insolvency',
+        ],
+        datasets: [{
+          label: 'Estimated losses (₹ Lakhs)',
+          data: [22, 34, 18, 15, 27],
+          backgroundColor: '#5f7cff',
+          borderRadius: 8,
+        }],
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        scales: {
+          x: {
+            ticks: { color: '#dce6ff' },
+            grid: { color: 'rgba(220, 230, 255, 0.08)' },
+          },
+          y: {
+            beginAtZero: true,
+            ticks: { color: '#dce6ff' },
+            grid: { color: 'rgba(220, 230, 255, 0.08)' },
+          },
+        },
+        plugins: {
+          legend: {
+            labels: { color: '#dce6ff' },
+          },
+        },
+      },
+    });
+  }
+}
+
+
 const riskCheckTriggers = document.querySelectorAll('[data-open-risk-check="true"]');
 const freeRiskCheckForm = document.getElementById('freeRiskCheckForm');
 const riskCheckResult = document.getElementById('riskCheckResult');
@@ -379,6 +461,8 @@ if (freeRiskCheckForm && riskCheckResult) {
     riskCheckResult.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
   });
 }
+
+initializeRiskCharts();
 
 highlightActiveLinks();
 applySiteInfo();

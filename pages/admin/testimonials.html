@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Users | Admin | VendorVerify</title>
+  <title>Testimonial Approvals | VendorVerify Admin</title>
   <link rel="stylesheet" href="../../styles/main.css" />
 </head>
 <body>
@@ -15,28 +15,46 @@
         <a href="vendors.html">Vendors</a>
         <a href="verification.html">Verification Requests</a>
         <a href="reports.html">Reports</a>
-        <a class="active" href="users.html">Users</a>
+        <a href="users.html">Users</a>
         <a href="settings.html">Settings</a>
-        <a href="testimonials.html">Testimonials</a>
+        <a class="active" href="testimonials.html">Testimonials</a>
       </nav>
     </aside>
 
     <main class="admin-main">
       <div class="admin-topbar">
         <div>
-          <p class="eyebrow">Access Control</p>
-          <h1>User Administration</h1>
+          <p class="eyebrow">Marketing Moderation</p>
+          <h1>Testimonial Management</h1>
         </div>
         <button class="admin-menu-toggle" type="button" id="adminMenuToggle">Menu</button>
       </div>
 
       <section class="content-card">
-        <h2>Team Permissions</h2>
-        <p>Manage role access, invite administrators, and enforce least-privilege controls across business units.</p>
+        <div class="section-header">
+          <h2>Approve or Delete Testimonials</h2>
+        </div>
+        <div class="admin-table-wrap">
+          <table class="admin-table" id="testimonialsAdminTable">
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th>Designation</th>
+                <th>Company Type</th>
+                <th>Testimonial</th>
+                <th>Status</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody></tbody>
+          </table>
+        </div>
       </section>
     </main>
   </div>
 
+  <script src="../../scripts/api/api-client.js"></script>
   <script src="../../scripts/main.js"></script>
+  <script src="../../scripts/admin/testimonials.js"></script>
 </body>
 </html>

@@ -1698,3 +1698,9 @@ p {
     min-height: 70vh;
   }
 }
+
+
+.testimonial-empty {
+  margin-top: 1rem;
+  color: var(--muted);
+}

@@ -52,5 +52,9 @@ const ApiClient = (() => {
     deleteVendor: (id) => request(`/api/vendors/${id}`, { method: 'DELETE', requiresAuth: true }),
     approveVendor: (id) => request(`/api/vendors/${id}/approve`, { method: 'POST', requiresAuth: true }),
     rejectVendor: (id) => request(`/api/vendors/${id}/reject`, { method: 'POST', requiresAuth: true }),
+    getTestimonials: (status) => request(`/api/marketing/testimonials${status ? `?status=${status}` : ''}`),
+    approveTestimonial: (id) => request(`/api/marketing/testimonials/${id}/approve`, { method: 'PATCH' }),
+    deleteTestimonial: (id) => request(`/api/marketing/testimonials/${id}`, { method: 'DELETE' }),
+    submitLeadCapture: (payload) => request('/api/marketing/lead-capture', { method: 'POST', body: payload }),
   };
 })();

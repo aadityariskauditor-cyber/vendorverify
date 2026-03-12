@@ -453,15 +453,6 @@ riskCheckTriggers.forEach((trigger) => {
   });
 });
 
-if (freeRiskCheckForm && riskCheckResult) {
-  freeRiskCheckForm.addEventListener('submit', (event) => {
-    event.preventDefault();
-    riskCheckResult.classList.remove('is-hidden');
-    showAlert('Preliminary vendor risk signal is ready.', 'success');
-    riskCheckResult.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-  });
-}
-
 initializeRiskCharts();
 
 highlightActiveLinks();

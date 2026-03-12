@@ -1,0 +1,26 @@
+[
+  {
+    "id": 1,
+    "name": "Priya Mehta",
+    "designation": "Head of Procurement",
+    "company_type": "Manufacturing Enterprise",
+    "testimonial_text": "VendorVerify helped us avoid a risky advance payment by uncovering supplier compliance gaps early.",
+    "status": "approved"
+  },
+  {
+    "id": 2,
+    "name": "James Thomas",
+    "designation": "Supplier Risk Manager",
+    "company_type": "Global Trading Company",
+    "testimonial_text": "The team delivered actionable insights in less than 48 hours, which improved our onboarding decisions.",
+    "status": "pending"
+  },
+  {
+    "id": 3,
+    "name": "Neha Kulkarni",
+    "designation": "Finance Controller",
+    "company_type": "Infrastructure Services",
+    "testimonial_text": "Their due diligence summary gave our finance team the confidence to negotiate safer payment milestones.",
+    "status": "approved"
+  }
+]

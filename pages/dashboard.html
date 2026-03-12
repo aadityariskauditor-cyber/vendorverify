@@ -146,7 +146,7 @@
 
       function createAuditRow(audit, withReport) {
         const reportCell = withReport
-          ? `<td>${audit.report_url ? `<a href="${audit.report_url}" target="_blank" rel="noopener noreferrer">Download</a>` : 'Pending upload'}</td>`
+          ? `<td>${audit.report_url ? `<a href="${audit.report_url}" target="_blank" rel="noopener noreferrer">Download PDF</a>` : 'Pending upload'}</td>`
           : '';
 
         return `

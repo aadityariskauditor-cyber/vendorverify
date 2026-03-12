@@ -2,7 +2,7 @@ const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const { createUser, findUserByEmail } = require('../models/userModel');
 
-const ALLOWED_ROLES = new Set(['client', 'vendor', 'admin']);
+const ALLOWED_ROLES = new Set(['client', 'vendor', 'admin', 'consultant']);
 
 function signToken(user) {
   return jwt.sign(

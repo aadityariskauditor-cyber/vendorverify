@@ -6,6 +6,7 @@ const path = require('path');
 const authRoutes = require('./routes/authRoutes');
 const vendorRoutes = require('./routes/vendorRoutes');
 const auditRoutes = require('./routes/auditRoutes');
+const dashboardRoutes = require('./routes/dashboardRoutes');
 const { authenticateToken } = require('./middleware/authMiddleware');
 const initializeDatabase = require('./config/initDb');
 
@@ -23,6 +24,7 @@ app.get('/health', (req, res) => {
 app.use('/api/auth', authRoutes);
 app.use('/api/vendors', authenticateToken, vendorRoutes);
 app.use('/api/audits', auditRoutes);
+app.use('/api/dashboard', dashboardRoutes);
 
 initializeDatabase()
   .then(() => {

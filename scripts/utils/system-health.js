@@ -16,6 +16,10 @@
       'scripts/vendor/vendor-dashboard.js',
       'scripts/vendor/gst-risk-check.js',
       'scripts/vendor/vendor-risk-chart.js',
+      'scripts/vendor/fraud-slider.js',
+      'scripts/vendor/risk-calculator.js',
+      'scripts/vendor/fraud-probability.js',
+      'scripts/vendor/vendor-risk-dashboard.js',
     ],
     routes: [
       '/index.html',
@@ -100,6 +104,19 @@
     return hasForm || hasUploadScript;
   }
 
+  function checkSupplierRiskIntelligence(missingScripts) {
+    const required = [
+      'scripts/vendor/fraud-slider.js',
+      'scripts/vendor/risk-calculator.js',
+      'scripts/vendor/gst-risk-check.js',
+      'scripts/vendor/fraud-probability.js',
+      'scripts/vendor/vendor-risk-dashboard.js',
+    ];
+
+    const missing = required.filter((path) => missingScripts.includes(path));
+    return missing.length ? `Missing ${missing.join(', ')}` : 'OK';
+  }
+
   async function runSystemHealthCheck() {
     if (!debug?.isEnabled?.()) {
       return null;
@@ -114,6 +131,7 @@
     const paymentStatus = checkPaymentPage(missingRoutes);
     const vendorUploadOk = checkVendorUpload();
     const gstRiskEngine = checkGstRiskEngine(missingScripts, failedApi);
+    const supplierRiskIntelligence = checkSupplierRiskIntelligence(missingScripts);
 
     const summary = {
       images: missingImages.length ? `Missing ${missingImages.join(', ')}` : 'OK',
@@ -123,6 +141,7 @@
       paymentPage: paymentStatus,
       vendorUpload: vendorUploadOk ? 'OK' : 'Check vendor upload form/scripts',
       gstRiskEngine,
+      supplierRiskIntelligence,
     };
 
     debug.log('VendorVerify System Health Check');
@@ -133,6 +152,7 @@
     debug.log(`Payment Page: ${summary.paymentPage}`);
     debug.log(`Vendor Upload: ${summary.vendorUpload}`);
     debug.log(`GST Risk Engine: ${summary.gstRiskEngine}`);
+    debug.log(`Supplier Risk Intelligence System: ${summary.supplierRiskIntelligence}`);
 
     debug.updatePanelState('imageStatus', summary.images);
     debug.updatePanelState('scriptStatus', summary.scripts);

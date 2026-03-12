@@ -508,8 +508,18 @@ function setupGlobalDebugging() {
   ['/images/vendorverify-hero.jpg', '/images/vendor-risk-analysis.jpg', '/images/founder.jpg', '/images/Qr-code.jpeg', '/images/verification-illustration.jpg']
     .forEach((path) => debug.imageCheck(path));
 
-  ['scripts/main.js', 'scripts/api/api-client.js', 'scripts/vendor/document-upload.js', 'scripts/vendor/vendor-dashboard.js', 'scripts/vendor/gst-risk-check.js', 'scripts/vendor/vendor-risk-chart.js']
-    .forEach((path) => debug.scriptCheck(path));
+  [
+    'scripts/main.js',
+    'scripts/api/api-client.js',
+    'scripts/vendor/document-upload.js',
+    'scripts/vendor/vendor-dashboard.js',
+    'scripts/vendor/gst-risk-check.js',
+    'scripts/vendor/vendor-risk-chart.js',
+    'scripts/vendor/fraud-slider.js',
+    'scripts/vendor/risk-calculator.js',
+    'scripts/vendor/fraud-probability.js',
+    'scripts/vendor/vendor-risk-dashboard.js',
+  ].forEach((path) => debug.scriptCheck(path));
 
   setupPaymentDebugging();
 }

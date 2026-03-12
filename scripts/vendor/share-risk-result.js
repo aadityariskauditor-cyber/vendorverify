@@ -7,6 +7,7 @@
   const debug = window.VendorVerifyDebug;
 
   const STORAGE_KEY = 'vendorverifyRiskResults';
+  const SNAPSHOT_PARAM = 'snapshot';
   let latestLink = '';
 
   function getStore() {
@@ -21,8 +22,32 @@
     localStorage.setItem(STORAGE_KEY, JSON.stringify(store));
   }
 
-  function buildLink(id) {
-    return `${window.location.origin}/pages/risk-result.html?id=${encodeURIComponent(id)}`;
+  function encodeSnapshot(data) {
+    try {
+      const json = JSON.stringify(data || {});
+      const utf8Bytes = new TextEncoder().encode(json);
+      let binary = '';
+      utf8Bytes.forEach((byte) => {
+        binary += String.fromCharCode(byte);
+      });
+      return btoa(binary)
+        .replace(/\+/g, '-')
+        .replace(/\//g, '_')
+        .replace(/=+$/g, '');
+    } catch (error) {
+      debug?.warn?.('Could not encode snapshot payload', error);
+      return '';
+    }
+  }
+
+  function buildLink(id, entry) {
+    const snapshot = encodeSnapshot(entry);
+    const url = new URL('/pages/risk-result.html', window.location.origin);
+    url.searchParams.set('id', id);
+    if (snapshot) {
+      url.searchParams.set(SNAPSHOT_PARAM, snapshot);
+    }
+    return url.toString();
   }
 
   function updateShareTargets(link) {
@@ -41,17 +66,32 @@
     updateShareTargets(link);
   }
 
+  function createId() {
+    if (window.crypto?.randomUUID) {
+      return window.crypto.randomUUID();
+    }
+
+    return `${Date.now()}-${Math.random().toString(36).slice(2, 10)}`;
+  }
+
   function createShareLink(source, payload) {
     const store = getStore();
-    const id = `${Date.now()}`;
-    store[id] = {
+    const id = createId();
+    const entry = {
       source,
       payload,
       createdAt: new Date().toISOString(),
     };
-    setStore(store);
 
-    const link = buildLink(id);
+    const link = buildLink(id, entry);
+
+    try {
+      store[id] = entry;
+      setStore(store);
+    } catch (error) {
+      debug?.warn?.('Could not persist share entry in localStorage', error);
+    }
+
     renderLink(link);
     debug?.log?.('Share link created', { source, id });
   }

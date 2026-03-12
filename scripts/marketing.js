@@ -65,8 +65,10 @@ async function submitLeadCapture(event) {
     }
 
     leadCaptureForm.reset();
+    window.VendorVerifyDebug?.log?.('Lead form submitted.');
   } catch (error) {
     window.VendorVerifyUI?.showAlert(error.message || 'Unable to submit request right now.', 'danger');
+    window.VendorVerifyDebug?.error?.('Lead form submission failed.', error);
   } finally {
     window.VendorVerifyUI?.setButtonLoading(submitButton, false);
   }

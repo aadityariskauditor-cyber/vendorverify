@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>VendorVerify | Consultant Dashboard</title>
+    <style>
+      body { font-family: Arial, sans-serif; margin: 0; background: #f3f4f6; color: #111827; }
+      .container { max-width: 1200px; margin: 24px auto; padding: 0 16px; }
+      h1 { margin-bottom: 8px; }
+      .muted { color: #6b7280; }
+      .panel { background: #fff; border: 1px solid #e5e7eb; border-radius: 10px; padding: 16px; margin-top: 16px; }
+      table { width: 100%; border-collapse: collapse; font-size: 14px; }
+      th, td { border-bottom: 1px solid #e5e7eb; text-align: left; padding: 10px 8px; vertical-align: top; }
+      .actions { display: flex; flex-wrap: wrap; gap: 8px; }
+      input, select, button { border: 1px solid #d1d5db; border-radius: 8px; padding: 8px 10px; font-size: 13px; }
+      button { background: #111827; color: white; cursor: pointer; }
+      button.secondary { background: #fff; color: #111827; }
+      .status { display: inline-block; padding: 2px 8px; border-radius: 999px; font-size: 12px; font-weight: 700; }
+      .Submitted { background: #dbeafe; color: #1d4ed8; }
+      .In-Progress { background: #ffedd5; color: #c2410c; }
+      .Completed { background: #dcfce7; color: #047857; }
+      .log-list { list-style: none; margin: 8px 0 0; padding: 0; }
+      .log-list li { border-top: 1px dashed #d1d5db; padding: 8px 0; font-size: 13px; }
+      .message { margin-top: 12px; font-size: 13px; }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h1>Consultant Dashboard</h1>
+      <p class="muted">Manage vendor audits, upload PDF risk reports, track payments, and review audit logs.</p>
+
+      <section class="panel">
+        <h2>All Vendor Audit Requests</h2>
+        <table>
+          <thead>
+            <tr>
+              <th>Audit ID</th>
+              <th>Case ID</th>
+              <th>Vendor</th>
+              <th>Status</th>
+              <th>Payment</th>
+              <th>Report</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody id="audit-table-body">
+            <tr><td colspan="7" class="muted">Loading audits...</td></tr>
+          </tbody>
+        </table>
+      </section>
+
+      <section class="panel">
+        <h2>Upload Report (PDF)</h2>
+        <div class="actions">
+          <input type="number" id="upload-audit-id" placeholder="Audit ID" min="1" />
+          <input type="file" id="upload-file" accept="application/pdf,.pdf" />
+          <button type="button" id="upload-btn">Upload Report</button>
+        </div>
+      </section>
+
+      <section class="panel">
+        <h2>Audit Logs</h2>
+        <div class="actions">
+          <input type="number" id="logs-audit-id" placeholder="Audit ID" min="1" />
+          <button type="button" id="load-logs-btn" class="secondary">Load Logs</button>
+        </div>
+        <ul id="logs-list" class="log-list"></ul>
+      </section>
+
+      <p class="message" id="message"></p>
+    </div>
+
+    <script>
+      const token = localStorage.getItem('token');
+      const body = document.getElementById('audit-table-body');
+      const message = document.getElementById('message');
+
+      function showMessage(text, isError = false) {
+        message.textContent = text;
+        message.style.color = isError ? '#b91c1c' : '#047857';
+      }
+
+      function getStatusClass(status) {
+        return (status || '').replace(/\s+/g, '-');
+      }
+
+      function safe(text) {
+        return String(text ?? '').replace(/[&<>"']/g, (char) => ({
+          '&': '&amp;',
+          '<': '&lt;',
+          '>': '&gt;',
+          '"': '&quot;',
+          "'": '&#39;',
+        }[char]));
+      }
+
+      async function loadAudits() {
+        if (!token) {
+          body.innerHTML = '<tr><td colspan="7" class="muted">Please log in as consultant/admin.</td></tr>';
+          return;
+        }
+
+        try {
+          const res = await fetch('/api/reports/consultant/audits', {
+            headers: { Authorization: `Bearer ${token}` },
+          });
+
+          const audits = await res.json();
+          if (!res.ok) throw new Error(audits.message || 'Unable to load audits.');
+
+          if (!audits.length) {
+            body.innerHTML = '<tr><td colspan="7" class="muted">No audit requests found.</td></tr>';
+            return;
+          }
+
+          body.innerHTML = audits.map((audit) => `
+            <tr>
+              <td>${audit.id}</td>
+              <td>${safe(audit.case_id)}</td>
+              <td>${safe(audit.vendor_name)}</td>
+              <td><span class="status ${getStatusClass(audit.status)}">${safe(audit.status)}</span></td>
+              <td>${safe(audit.payment_status)}</td>
+              <td>${audit.report_url ? `<a href="${safe(audit.report_url)}" target="_blank" rel="noopener noreferrer">Download PDF</a>` : 'Pending'}</td>
+              <td>
+                <div class="actions">
+                  <select data-status-select="${audit.id}">
+                    <option value="Submitted">Submitted</option>
+                    <option value="In Progress">In Progress</option>
+                    <option value="Completed">Completed</option>
+                  </select>
+                  <button type="button" data-update-status="${audit.id}">Update</button>
+                </div>
+              </td>
+            </tr>
+          `).join('');
+
+          audits.forEach((audit) => {
+            const select = document.querySelector(`[data-status-select="${audit.id}"]`);
+            if (select) select.value = audit.status;
+          });
+
+          document.querySelectorAll('[data-update-status]').forEach((button) => {
+            button.addEventListener('click', async () => {
+              const auditId = button.getAttribute('data-update-status');
+              const selected = document.querySelector(`[data-status-select="${auditId}"]`);
+              if (!selected) return;
+
+              try {
+                const resp = await fetch(`/api/reports/audits/${auditId}/status`, {
+                  method: 'PATCH',
+                  headers: {
+                    Authorization: `Bearer ${token}`,
+                    'Content-Type': 'application/json',
+                  },
+                  body: JSON.stringify({ status: selected.value }),
+                });
+                const data = await resp.json();
+                if (!resp.ok) throw new Error(data.message || 'Status update failed.');
+                showMessage(`Audit ${auditId} status updated to ${selected.value}.`);
+                loadAudits();
+              } catch (error) {
+                showMessage(error.message, true);
+              }
+            });
+          });
+        } catch (error) {
+          body.innerHTML = '<tr><td colspan="7" class="muted">Unable to load audit requests.</td></tr>';
+          showMessage(error.message, true);
+        }
+      }
+
+      async function uploadReport() {
+        const auditId = document.getElementById('upload-audit-id').value;
+        const fileInput = document.getElementById('upload-file');
+        const file = fileInput.files?.[0];
+
+        if (!auditId || !file) {
+          showMessage('Please provide audit ID and PDF file.', true);
+          return;
+        }
+
+        const formData = new FormData();
+        formData.append('audit_id', auditId);
+        formData.append('pdf_file', file);
+
+        try {
+          const res = await fetch('/api/reports/upload', {
+            method: 'POST',
+            headers: { Authorization: `Bearer ${token}` },
+            body: formData,
+          });
+
+          const data = await res.json();
+          if (!res.ok) throw new Error(data.message || 'Upload failed.');
+
+          showMessage(`Report uploaded for audit ${auditId}. Status moved to Completed.`);
+          fileInput.value = '';
+          loadAudits();
+        } catch (error) {
+          showMessage(error.message, true);
+        }
+      }
+
+      async function loadLogs() {
+        const auditId = document.getElementById('logs-audit-id').value;
+        const logList = document.getElementById('logs-list');
+
+        if (!auditId) {
+          showMessage('Please enter an audit ID to view logs.', true);
+          return;
+        }
+
+        logList.innerHTML = '<li>Loading logs...</li>';
+
+        try {
+          const res = await fetch(`/api/reports/audits/${auditId}/logs`, {
+            headers: { Authorization: `Bearer ${token}` },
+          });
+          const logs = await res.json();
+          if (!res.ok) throw new Error(logs.message || 'Unable to fetch logs.');
+
+          if (!logs.length) {
+            logList.innerHTML = '<li>No audit logs found for this audit.</li>';
+            return;
+          }
+
+          logList.innerHTML = logs.map((entry) => {
+            const details = JSON.stringify(entry.event_details || {});
+            const timestamp = new Date(entry.created_at).toLocaleString();
+            return `<li><strong>${safe(entry.event_type)}</strong> · ${safe(timestamp)}<br/>${safe(details)}</li>`;
+          }).join('');
+        } catch (error) {
+          logList.innerHTML = '<li>Unable to load logs.</li>';
+          showMessage(error.message, true);
+        }
+      }
+
+      document.getElementById('upload-btn').addEventListener('click', uploadReport);
+      document.getElementById('load-logs-btn').addEventListener('click', loadLogs);
+      loadAudits();
+    </script>
+  </body>
+</html>

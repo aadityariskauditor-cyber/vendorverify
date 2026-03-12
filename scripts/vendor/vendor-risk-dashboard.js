@@ -2,9 +2,24 @@
   let radarChart;
   const debug = window.VendorVerifyDebug;
 
+  function normalizeFilingScore(filingScore) {
+    const numericScore = Number(filingScore);
+    if (Number.isFinite(numericScore)) {
+      return numericScore;
+    }
+
+    const filingScoreMap = {
+      regular: 90,
+      medium: 65,
+      irregular: 35,
+    };
+
+    return filingScoreMap[String(filingScore || '').trim().toLowerCase()] ?? 60;
+  }
+
   function getPillarValues(payload) {
     const riskScore = Number(payload?.riskScore || 0);
-    const complianceSignals = Math.max(10, Math.min(100, Number(payload?.filingScore || 60)));
+    const complianceSignals = Math.max(10, Math.min(100, normalizeFilingScore(payload?.filingScore)));
     const operationalPresence = Math.max(10, Math.min(100, Number(payload?.operationalPresenceScore || (100 - riskScore + 20))));
     const litigationSignals = Math.max(10, Math.min(100, 100 - Number(payload?.litigationSignals || 30)));
 

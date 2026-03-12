@@ -1704,3 +1704,111 @@ p {
   margin-top: 1rem;
   color: var(--muted);
 }
+
+
+.payment-confirmation-card,
+.conversion-card {
+  margin-top: 1rem;
+}
+
+.payment-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.payment-panel {
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  background: rgba(6, 12, 25, 0.7);
+  padding: 1rem;
+}
+
+.payment-details-list,
+.payment-steps {
+  margin: 0 0 0.8rem;
+  padding-left: 1rem;
+}
+
+.payment-steps li p {
+  margin: 0.35rem 0 0.65rem;
+}
+
+.payment-qr {
+  width: min(240px, 100%);
+  border-radius: 12px;
+  border: 1px solid var(--border);
+  display: block;
+}
+
+.payment-proof-block {
+  border-top: 1px dashed var(--border);
+  margin-top: 0.8rem;
+  padding-top: 0.8rem;
+}
+
+.payment-proof-block p {
+  margin: 0.3rem 0;
+}
+
+.payment-reconciliation-note {
+  margin-top: 1rem;
+  border: 1px solid rgba(255, 183, 77, 0.35);
+  background: rgba(255, 183, 77, 0.08);
+  color: #ffe4b8;
+  border-radius: var(--radius-sm);
+  padding: 0.75rem 0.9rem;
+  font-weight: 500;
+}
+
+.audit-status-tracker {
+  margin-top: 0.8rem;
+}
+
+.audit-status-tracker p {
+  margin: 0.35rem 0;
+}
+
+.conversion-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1rem;
+  margin: 1rem 0;
+}
+
+.conversion-metric {
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  padding: 0.9rem;
+  background: rgba(8, 14, 30, 0.72);
+}
+
+.conversion-metric h3 {
+  margin: 0 0 0.4rem;
+  font-size: 1rem;
+}
+
+.conversion-metric p {
+  margin: 0;
+  font-size: 1.55rem;
+  font-weight: 700;
+  color: #abf7d8;
+}
+
+.conversion-message {
+  margin-bottom: 0.7rem;
+  font-weight: 600;
+}
+
+.urgency-message {
+  color: #dbe5ff;
+}
+
+
+@media (max-width: 840px) {
+  .payment-grid,
+  .conversion-grid {
+    grid-template-columns: 1fr;
+  }
+}

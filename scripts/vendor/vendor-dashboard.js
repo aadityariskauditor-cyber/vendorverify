@@ -14,6 +14,7 @@ async function loadVendorDashboard() {
   const statusLabel = document.getElementById('statusLabel');
   const statusRequestId = document.getElementById('statusRequestId');
   const statusUpdatedAt = document.getElementById('statusUpdatedAt');
+  const auditPaymentStatus = document.getElementById('auditPaymentStatus');
 
   try {
     const currentUser = window.VendorVerifyAuth?.getCurrentUser?.();
@@ -51,6 +52,12 @@ async function loadVendorDashboard() {
     }
 
     const latestRequest = vendorRequests[0];
+
+    if (auditPaymentStatus) {
+      const normalizedStatus = String(latestRequest?.status || '').toLowerCase();
+      const isAuditSubmitted = ['approved', 'completed', 'submitted'].some((keyword) => normalizedStatus.includes(keyword));
+      auditPaymentStatus.textContent = isAuditSubmitted ? 'Audit Submitted' : 'Waiting for Payment Confirmation';
+    }
     if (statusLabel && statusRequestId && statusUpdatedAt) {
       statusLabel.textContent = latestRequest?.status || 'Not Submitted';
       statusRequestId.textContent = latestRequest?.id || '-';
@@ -67,3 +74,7 @@ async function loadVendorDashboard() {
 }
 
 loadVendorDashboard();
+
+// Future integration point
+// Razorpay payment gateway
+// PayPal payment gateway

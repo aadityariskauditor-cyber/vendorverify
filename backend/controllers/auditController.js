@@ -11,7 +11,12 @@ function generateCaseId() {
 }
 
 async function submitAudit(req, res) {
-  const { vendor_name: vendorName, vendor_email: vendorEmail, vendor_country: vendorCountry } = req.body;
+  const {
+    vendor_name: vendorName,
+    vendor_email: vendorEmail,
+    vendor_country: vendorCountry,
+    transaction_value: transactionValue,
+  } = req.body;
 
   if (!vendorName) {
     return res.status(400).json({ message: 'vendor_name is required.' });
@@ -19,6 +24,7 @@ async function submitAudit(req, res) {
 
   const caseId = generateCaseId();
   const requestedBy = req.user?.id || null;
+  const normalizedTransactionValue = Number(transactionValue || 0);
 
   const client = await pool.connect();
 
@@ -26,9 +32,18 @@ async function submitAudit(req, res) {
     await client.query('BEGIN');
 
     const insertAuditQuery = `
-      INSERT INTO audits (case_id, requested_by, vendor_name, vendor_email, vendor_country, request_data, status)
-      VALUES ($1, $2, $3, $4, $5, $6, $7)
-      RETURNING id, case_id, vendor_name, vendor_email, vendor_country, status, created_at;
+      INSERT INTO audits (
+        case_id,
+        requested_by,
+        vendor_name,
+        vendor_email,
+        vendor_country,
+        transaction_value,
+        request_data,
+        status
+      )
+      VALUES ($1, $2, $3, $4, $5, $6, $7, $8)
+      RETURNING id, case_id, vendor_name, vendor_email, vendor_country, transaction_value, status, created_at;
     `;
 
     const { rows } = await client.query(insertAuditQuery, [
@@ -37,6 +52,7 @@ async function submitAudit(req, res) {
       vendorName,
       vendorEmail || null,
       vendorCountry || null,
+      normalizedTransactionValue,
       req.body,
       'Submitted',
     ]);

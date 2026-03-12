@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>VendorVerify | Client Dashboard</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        background: #f7f9fc;
+        color: #1f2937;
+        margin: 0;
+      }
+
+      .container {
+        max-width: 1080px;
+        margin: 40px auto;
+        padding: 0 20px;
+      }
+
+      h1 {
+        font-size: 30px;
+        margin-bottom: 8px;
+      }
+
+      .subtitle {
+        margin-bottom: 24px;
+        color: #4b5563;
+      }
+
+      .section {
+        background: #ffffff;
+        border: 1px solid #e5e7eb;
+        border-radius: 10px;
+        padding: 20px;
+        margin-bottom: 18px;
+      }
+
+      .section h2 {
+        margin-top: 0;
+        font-size: 20px;
+      }
+
+      table {
+        width: 100%;
+        border-collapse: collapse;
+      }
+
+      th,
+      td {
+        text-align: left;
+        border-bottom: 1px solid #e5e7eb;
+        padding: 10px 8px;
+        font-size: 14px;
+      }
+
+      .status {
+        display: inline-block;
+        border-radius: 999px;
+        padding: 4px 10px;
+        font-size: 12px;
+        font-weight: 600;
+      }
+
+      .submitted { background: #eff6ff; color: #1d4ed8; }
+      .in-progress { background: #fff7ed; color: #c2410c; }
+      .completed { background: #ecfdf5; color: #047857; }
+
+      .cta {
+        display: inline-block;
+        background: #111827;
+        color: #fff;
+        text-decoration: none;
+        padding: 10px 16px;
+        border-radius: 8px;
+      }
+
+      .empty {
+        color: #6b7280;
+        font-size: 14px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h1>Client Dashboard</h1>
+      <p class="subtitle">Track vendor audit progress and download completed verification reports.</p>
+
+      <section class="section">
+        <h2>Active Audits</h2>
+        <table>
+          <thead>
+            <tr>
+              <th>Case ID</th>
+              <th>Vendor</th>
+              <th>Transaction Value</th>
+              <th>Status</th>
+            </tr>
+          </thead>
+          <tbody id="active-audits-body">
+            <tr><td colspan="4" class="empty">Loading active audits...</td></tr>
+          </tbody>
+        </table>
+      </section>
+
+      <section class="section">
+        <h2>Completed Reports</h2>
+        <table>
+          <thead>
+            <tr>
+              <th>Case ID</th>
+              <th>Vendor</th>
+              <th>Transaction Value</th>
+              <th>Status</th>
+              <th>Report</th>
+            </tr>
+          </thead>
+          <tbody id="completed-reports-body">
+            <tr><td colspan="5" class="empty">Loading reports...</td></tr>
+          </tbody>
+        </table>
+      </section>
+
+      <section class="section">
+        <h2>Start New Audit</h2>
+        <p class="subtitle">Submit a new vendor verification request and monitor progress from this dashboard.</p>
+        <a class="cta" href="/pages/vendor/submit-documents.html">Start New Audit</a>
+      </section>
+    </div>
+
+    <script>
+      const token = localStorage.getItem('token');
+      const activeAuditsBody = document.getElementById('active-audits-body');
+      const completedReportsBody = document.getElementById('completed-reports-body');
+
+      function statusClass(status) {
+        if (status === 'Submitted') return 'submitted';
+        if (status === 'In Progress') return 'in-progress';
+        return 'completed';
+      }
+
+      function money(value) {
+        const numeric = Number(value || 0);
+        return new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(numeric);
+      }
+
+      function createAuditRow(audit, withReport) {
+        const reportCell = withReport
+          ? `<td>${audit.report_url ? `<a href="${audit.report_url}" target="_blank" rel="noopener noreferrer">Download</a>` : 'Pending upload'}</td>`
+          : '';
+
+        return `
+          <tr>
+            <td>${audit.case_id}</td>
+            <td>${audit.vendor_name}</td>
+            <td>${money(audit.transaction_value)}</td>
+            <td><span class="status ${statusClass(audit.status)}">${audit.status}</span></td>
+            ${reportCell}
+          </tr>
+        `;
+      }
+
+      async function loadDashboard() {
+        if (!token) {
+          activeAuditsBody.innerHTML = '<tr><td colspan="4" class="empty">Please log in to view your dashboard.</td></tr>';
+          completedReportsBody.innerHTML = '<tr><td colspan="5" class="empty">Please log in to view your reports.</td></tr>';
+          return;
+        }
+
+        const headers = { Authorization: `Bearer ${token}` };
+
+        try {
+          const [auditsRes, reportsRes] = await Promise.all([
+            fetch('/api/dashboard/audits', { headers }),
+            fetch('/api/dashboard/reports', { headers }),
+          ]);
+
+          const audits = await auditsRes.json();
+          const reports = await reportsRes.json();
+
+          activeAuditsBody.innerHTML = audits.length
+            ? audits.map((item) => createAuditRow(item, false)).join('')
+            : '<tr><td colspan="4" class="empty">No active audits yet.</td></tr>';
+
+          completedReportsBody.innerHTML = reports.length
+            ? reports.map((item) => createAuditRow(item, true)).join('')
+            : '<tr><td colspan="5" class="empty">No completed reports yet.</td></tr>';
+        } catch (error) {
+          activeAuditsBody.innerHTML = '<tr><td colspan="4" class="empty">Unable to load active audits.</td></tr>';
+          completedReportsBody.innerHTML = '<tr><td colspan="5" class="empty">Unable to load reports.</td></tr>';
+        }
+      }
+
+      loadDashboard();
+    </script>
+  </body>
+</html>

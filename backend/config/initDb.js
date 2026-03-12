@@ -7,12 +7,10 @@ async function initializeDatabase() {
       name VARCHAR(120) NOT NULL,
       email VARCHAR(255) UNIQUE NOT NULL,
       password_hash TEXT NOT NULL,
-      role VARCHAR(30) NOT NULL DEFAULT 'vendor',
+      role VARCHAR(30) NOT NULL DEFAULT 'client',
       created_at TIMESTAMP NOT NULL DEFAULT NOW()
     );
   `);
-
-
 
   await pool.query(`
     CREATE TABLE IF NOT EXISTS audits (
@@ -22,11 +20,32 @@ async function initializeDatabase() {
       vendor_name VARCHAR(255) NOT NULL,
       vendor_email VARCHAR(255),
       vendor_country VARCHAR(120),
+      transaction_value NUMERIC(14,2) NOT NULL DEFAULT 0,
       request_data JSONB NOT NULL DEFAULT '{}'::JSONB,
       status VARCHAR(30) NOT NULL DEFAULT 'Submitted',
       created_at TIMESTAMP NOT NULL DEFAULT NOW(),
-      updated_at TIMESTAMP NOT NULL DEFAULT NOW()
+      updated_at TIMESTAMP NOT NULL DEFAULT NOW(),
+      CONSTRAINT audits_status_check CHECK (status IN ('Submitted', 'In Progress', 'Completed'))
     );
+  `);
+
+  await pool.query(`
+    ALTER TABLE audits
+    ADD COLUMN IF NOT EXISTS transaction_value NUMERIC(14,2) NOT NULL DEFAULT 0;
+  `);
+
+  await pool.query(`
+    DO $$
+    BEGIN
+      IF NOT EXISTS (
+        SELECT 1
+        FROM pg_constraint
+        WHERE conname = 'audits_status_check'
+      ) THEN
+        ALTER TABLE audits
+        ADD CONSTRAINT audits_status_check CHECK (status IN ('Submitted', 'In Progress', 'Completed'));
+      END IF;
+    END $$;
   `);
 
   await pool.query(`

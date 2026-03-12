@@ -2,10 +2,12 @@ const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const { createUser, findUserByEmail } = require('../models/userModel');
 
+const ALLOWED_ROLES = new Set(['client', 'vendor', 'admin']);
+
 function signToken(user) {
   return jwt.sign(
     { id: user.id, email: user.email, role: user.role, name: user.name },
-    process.env.JWT_SECRET,
+    process.env.JWT_SECRET || 'vendorverify-dev-secret',
     { expiresIn: '8h' }
   );
 }
@@ -25,12 +27,15 @@ async function register(req, res) {
       return res.status(409).json({ message: 'User already exists.' });
     }
 
+    const requestedRole = String(role || 'client').toLowerCase();
+    const normalizedRole = ALLOWED_ROLES.has(requestedRole) ? requestedRole : 'client';
+
     const passwordHash = await bcrypt.hash(password, 10);
     const user = await createUser({
       name: String(name).trim(),
       email: normalizedEmail,
       passwordHash,
-      role: role || 'vendor',
+      role: normalizedRole,
     });
 
     const token = signToken(user);

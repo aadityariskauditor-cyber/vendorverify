@@ -83,6 +83,11 @@
     <div class="container">© 2026 VendorVerify. All rights reserved.</div>
   </footer>
 
+  <script>
+    if (!localStorage.getItem('vendorverify_session')) {
+      window.location.href = '/pages/auth/login.html';
+    }
+  </script>
   <script src="../../scripts/main.js"></script>
   <script src="../../scripts/api/api-client.js"></script>
   <script src="../../scripts/auth/auth.js"></script>

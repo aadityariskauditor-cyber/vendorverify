@@ -18,13 +18,13 @@
         <a href="pricing.html">Pricing</a>
         <a href="contact.html">Contact</a>
         <a href="auth/login.html">Login</a>
-        <a class="cta" href="../index.html#free-vendor-risk-check">Start Free Vendor Risk Check</a>
+        <a class="cta" href="../index.html#risk-check">Start Free Vendor Risk Check</a>
       </nav>
     </div>
   </header>
 
   <main class="page-section">
-    <section class="container content-card">
+    <section class="container content-card" id="paymentSection" style="display:none;">
       <h1>Complete Payment to Start Verification</h1>
       <p>
         VendorVerify currently operates as a consulting-first platform with manual payment verification.
@@ -80,5 +80,20 @@
   </footer>
 
   <script src="../scripts/main.js"></script>
+  <script>
+    const paymentSection = document.getElementById('paymentSection');
+    const showPayment = () => {
+      if (paymentSection) {
+        paymentSection.style.display = 'block';
+      }
+    };
+
+    if (localStorage.getItem('vendorverify_payment_ready')) {
+      showPayment();
+    }
+
+    window.addEventListener('vendorverify:riskCalculator', showPayment);
+    window.addEventListener('vendorverify:gstRisk', showPayment);
+  </script>
 </body>
 </html>

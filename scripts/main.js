@@ -344,8 +344,11 @@ function applyPricingContent() {
   const addOnList = document.getElementById('addonList');
 
   if (addOnList && Array.isArray(pricingConfig.addOns)) {
+    const renderAsCards = addOnList.classList.contains('features-grid');
     addOnList.innerHTML = pricingConfig.addOns
-      .map((item) => `<li>${item.label} – ${item.inr}</li>`)
+      .map((item) => (renderAsCards
+        ? `<article class="content-card feature-card"><h3>${item.label}</h3><p>${item.inr}</p></article>`
+        : `<li>${item.label} – ${item.inr}</li>`))
       .join('');
   }
 }

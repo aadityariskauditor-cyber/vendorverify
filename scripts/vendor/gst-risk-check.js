@@ -49,6 +49,7 @@
           <p><strong>Directors:</strong> ${payload?.directorsCount ?? 'N/A'}</p>
           <p><strong>Litigation Signals:</strong> ${payload?.litigationSignals ?? 'N/A'}</p>
           <p><strong>Vendor Risk Score:</strong> ${riskScore} / 100 (${riskCategory})</p>
+          <p><strong>${payload?.signalLabel || 'Preliminary risk signal — full verification required.'}</strong></p>
           <div class="gst-risk-chart-wrap">
             <canvas id="gstRiskChart" aria-label="Vendor risk score chart" role="img"></canvas>
           </div>
@@ -79,6 +80,7 @@
       try {
         const payload = await window.ApiClient.gstRiskCheck({ gstin });
         renderResult(payload);
+        localStorage.setItem('vendorverify_payment_ready', 'true');
         window.dispatchEvent(new CustomEvent('vendorverify:gstRisk', { detail: payload }));
       } catch (error) {
         renderError(error?.message || 'Unable to complete GST risk check right now.');

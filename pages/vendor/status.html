@@ -61,7 +61,7 @@
         </article>
       </section>
 
-      <section class="content-card payment-confirmation-card" aria-labelledby="paymentConfirmationTitle">
+      <section class="content-card payment-confirmation-card" id="paymentSection" style="display:none;" aria-labelledby="paymentConfirmationTitle">
         <p class="eyebrow">Vendor Audit Confirmation</p>
         <h2 id="paymentConfirmationTitle">Complete Payment to Start Consultant-Led Verification</h2>
         <p>VendorVerify follows a consultant-led model where analysts manually validate vendor risk and share a decision-ready report before you release advance payments.</p>
@@ -96,8 +96,9 @@
             <div class="payment-proof-block">
               <h4>Share Payment Proof</h4>
               <p>After completing payment, please share the payment screenshot along with your Case ID.</p>
-              <p><strong>WhatsApp:</strong> +91-XXXXXXXXXX</p>
+              <p><strong>WhatsApp:</strong> +91 9637439000 / +91 9953896410</p>
               <p><strong>Email:</strong> contact@vendorverify.in</p>
+              <a class="btn btn-primary" href="https://wa.me/919637439000" target="_blank" rel="noopener">Send Payment Confirmation on WhatsApp</a>
             </div>
           </article>
         </div>
@@ -137,9 +138,27 @@
     <div class="container">© 2026 VendorVerify. All rights reserved.</div>
   </footer>
 
+  <script>
+    if (!localStorage.getItem('vendorverify_session')) {
+      window.location.href = '/pages/auth/login.html';
+    }
+  </script>
   <script src="../../scripts/main.js"></script>
   <script src="../../scripts/api/api-client.js"></script>
   <script src="../../scripts/auth/auth.js"></script>
   <script src="../../scripts/vendor/vendor-dashboard.js"></script>
+  <script>
+    const paymentSection = document.getElementById('paymentSection');
+    const revealPaymentSection = () => {
+      if (paymentSection) paymentSection.style.display = 'block';
+    };
+
+    if (localStorage.getItem('vendorverify_payment_ready')) {
+      revealPaymentSection();
+    }
+
+    window.addEventListener('vendorverify:riskCalculator', revealPaymentSection);
+    window.addEventListener('vendorverify:gstRisk', revealPaymentSection);
+  </script>
 </body>
 </html>

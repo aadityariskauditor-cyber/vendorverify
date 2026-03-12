@@ -1,5 +1,6 @@
 (function initializeVendorVerifyAuth(global) {
   const STORAGE_KEY = 'vv_auth_state';
+  const VENDOR_SESSION_KEY = 'vendorverify_session';
 
   const ROLES = Object.freeze({
     ADMIN: 'admin',
@@ -20,6 +21,7 @@
 
   function saveAuthState(state) {
     localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+    localStorage.setItem(VENDOR_SESSION_KEY, 'active');
   }
 
   function loadAuthState() {
@@ -44,6 +46,7 @@
 
   function logout() {
     localStorage.removeItem(STORAGE_KEY);
+    localStorage.removeItem(VENDOR_SESSION_KEY);
   }
 
   function getState() {
@@ -110,6 +113,7 @@
 
   global.VendorVerifyAuth = {
     ROLES,
+    login: loginState,
     logout,
     getState,
     getCurrentUser,

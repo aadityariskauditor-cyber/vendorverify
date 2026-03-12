@@ -41,14 +41,9 @@ window.vendorVerifyPricing = {
     },
   ],
   addOns: [
-    { label: 'Vendor Red-Flag Summary', inr: '₹1,999' },
-    { label: 'Vendor Credibility Snapshot', inr: '₹1,999' },
-    { label: 'Transaction Risk Structuring Advisory', inr: '₹4,999' },
-    { label: 'Vendor Monitoring (30 days)', inr: '₹2,999' },
-    { label: 'Pre-Transaction Advisory Call', inr: '₹2,500' },
-    { label: 'Factory Video Verification', inr: '₹3,000–₹5,000' },
-    { label: 'Physical Factory Inspection', inr: '₹10,000–₹25,000' },
-    { label: 'Pre-Dispatch Goods Inspection', inr: '₹5,000–₹10,000' },
-    { label: 'Third-Party Testing Coordination', inr: '₹3,000 (plus testing charges)' },
+    { label: 'Factory Verification', inr: '₹7,999' },
+    { label: 'Director Background Check', inr: '₹3,999' },
+    { label: 'Litigation Deep Scan', inr: '₹4,999' },
+    { label: 'Financial Health Review', inr: '₹6,999' },
   ],
 };

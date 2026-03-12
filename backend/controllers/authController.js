@@ -39,6 +39,7 @@ async function register(req, res) {
     });
 
     const token = signToken(user);
+    req.session.user = { id: user.id, email: user.email, role: user.role, name: user.name };
     return res.status(201).json({ token, user });
   } catch (error) {
     return res.status(500).json({ message: 'Unable to register user.' });
@@ -67,6 +68,7 @@ async function login(req, res) {
     }
 
     const token = signToken(user);
+    req.session.user = { id: user.id, email: user.email, role: user.role, name: user.name };
     return res.json({
       token,
       user: {

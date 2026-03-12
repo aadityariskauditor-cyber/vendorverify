@@ -51,6 +51,7 @@
         `;
       }
 
+      localStorage.setItem('vendorverify_payment_ready', 'true');
       window.dispatchEvent(new CustomEvent('vendorverify:riskCalculator', {
         detail: { amount, vendorAge, riskExposure },
       }));

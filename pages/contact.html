@@ -18,7 +18,7 @@
         <a href="pricing.html">Pricing</a>
         <a class="active" href="contact.html">Contact</a>
         <a href="auth/login.html">Login</a>
-        <a class="cta" href="../index.html#free-vendor-risk-check">Start Free Vendor Risk Check</a>
+        <a class="cta" href="../index.html#risk-check">Start Free Vendor Risk Check</a>
       </nav>
     </div>
   </header>
@@ -26,14 +26,32 @@
   <main class="page-section">
     <div class="container content-card">
       <h1>Contact Us</h1>
-      <p>
-        Need help with vendor verification, supplier due diligence, or risk assessment before payment? Reach the VendorVerify team at
-        <a href="#" data-site-info-link="emailPrimary"><span data-site-info="emailPrimary">aditya@vendorverify.in</span></a>
-        or
-        <a href="#" data-site-info-link="emailSecondary"><span data-site-info="emailSecondary">aaditya.riskauditor@gmail.com</span></a>.
-        You can also call us at
-        <a href="#" data-site-info-link="phone"><span data-site-info="phone">+91 9637439000</span></a>.
-      </p>
+      <p>Need help with vendor verification, supplier due diligence, or risk assessment before payment? Send us your requirement and our team will reach out quickly.</p>
+
+      <form class="auth-form" id="contactForm">
+        <div class="form-field">
+          <label for="contactName">Name</label>
+          <input id="contactName" name="name" type="text" required />
+        </div>
+        <div class="form-field">
+          <label for="contactCompany">Company</label>
+          <input id="contactCompany" name="company" type="text" required />
+        </div>
+        <div class="form-field">
+          <label for="contactEmail">Email</label>
+          <input id="contactEmail" name="email" type="email" required />
+        </div>
+        <div class="form-field">
+          <label for="contactPhone">Phone</label>
+          <input id="contactPhone" name="phone" type="tel" pattern="[0-9]{10}" required />
+        </div>
+        <div class="form-field">
+          <label for="contactMessage">Message</label>
+          <textarea id="contactMessage" name="message" rows="5" required></textarea>
+        </div>
+        <button class="btn btn-primary" type="submit">Send Message</button>
+        <p id="contactMessageState" aria-live="polite"></p>
+      </form>
     </div>
   </main>
 
@@ -42,5 +60,7 @@
   </footer>
 
   <script src="../scripts/main.js"></script>
+  <script src="../scripts/api/api-client.js"></script>
+  <script src="../scripts/contact.js"></script>
 </body>
 </html>

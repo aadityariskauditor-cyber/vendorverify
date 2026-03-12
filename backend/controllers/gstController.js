@@ -78,6 +78,7 @@ function buildMockIntelligence(gstin) {
     ...profile,
     riskScore,
     riskCategory,
+    signalLabel: 'Preliminary risk signal — full verification required.',
   };
 }
 

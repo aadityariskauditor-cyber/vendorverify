@@ -42,23 +42,11 @@
         <div class="gst-risk-chart-wrap">
           <canvas id="gstRiskChart" aria-label="Vendor risk score chart" role="img"></canvas>
         </div>
-        <div class="gst-cta-wrap">
-          <p><strong>Run Full Vendor Due Diligence Audit</strong></p>
-          <p>₹4,999</p>
-          <p>Preliminary risk signals detected.</p>
-          <p>VendorVerify analysts perform deeper investigations including:</p>
-          <ul>
-            <li>operational presence verification</li>
-            <li>litigation checks</li>
-            <li>financial indicators</li>
-            <li>factory verification</li>
-          </ul>
-          <a class="btn btn-primary" href="pages/contact.html">Start Vendor Audit</a>
-        </div>
       </article>
     `;
 
     window.VendorVerifyRiskChart?.render?.(payload.riskScore);
+    window.VendorVerifyRiskDashboard?.render?.(payload);
   }
 
   async function runGstRiskCheck() {
@@ -85,7 +73,7 @@
 
     try {
       const payload = await window.ApiClient.gstRiskCheck({ gstin });
-      debug?.log?.('GST API response received', payload);
+      debug?.log?.('GST risk response received', payload);
       renderResult(payload);
     } catch (error) {
       renderError(error.message || 'Unable to complete GST risk check right now.');

@@ -251,6 +251,89 @@
           </article>
         </div>
 
+        <div class="supplier-risk-intelligence" aria-label="Supplier risk intelligence interactive modules">
+          <article class="content-card intelligence-card">
+            <div class="module-header">
+              <span class="step-chip">Step 1</span>
+              <h3>Fraud Awareness Module</h3>
+            </div>
+            <p>Swipe through real-world supplier fraud patterns and key indicators.</p>
+            <div class="fraud-slider" id="fraudSlider" aria-live="polite"></div>
+            <div class="fraud-slider-controls">
+              <button class="btn btn-secondary" id="fraudPrev" type="button">Previous</button>
+              <button class="btn btn-primary" id="fraudNext" type="button">Next</button>
+            </div>
+          </article>
+
+          <article class="content-card intelligence-card">
+            <div class="module-header">
+              <span class="step-chip">Step 2</span>
+              <h3>Advance Payment Risk Calculator</h3>
+            </div>
+            <div class="intelligence-form-grid">
+              <div class="form-field">
+                <label for="advanceAmount">Advance Payment Amount (₹)</label>
+                <input id="advanceAmount" type="number" min="0" step="1000" placeholder="500000" />
+              </div>
+              <div class="form-field">
+                <label for="vendorAgeCategory">Vendor Age Category</label>
+                <select id="vendorAgeCategory">
+                  <option value="moreThan3">More than 3 years</option>
+                  <option value="between1And3">1–3 years</option>
+                  <option value="lessThan1">Less than 1 year</option>
+                </select>
+              </div>
+            </div>
+            <button class="btn btn-primary" type="button" id="calculateRiskBtn">Calculate Exposure</button>
+            <div class="meter-shell" aria-label="Advance payment risk meter">
+              <div class="meter-fill" id="riskMeterFill"></div>
+            </div>
+            <div id="riskCalculatorResult" class="module-result" aria-live="polite"></div>
+          </article>
+
+          <article class="content-card intelligence-card">
+            <div class="module-header">
+              <span class="step-chip">Step 4</span>
+              <h3>Fraud Probability Engine</h3>
+            </div>
+            <div class="intelligence-form-grid">
+              <div class="form-field">
+                <label for="fraudAdvanceAmount">Advance Amount (₹)</label>
+                <input id="fraudAdvanceAmount" type="number" min="0" step="1000" placeholder="500000" />
+              </div>
+              <div class="form-field">
+                <label for="fraudVendorAge">Vendor Age</label>
+                <select id="fraudVendorAge">
+                  <option value="moreThan3">More than 3 years</option>
+                  <option value="between1And3">1–3 years</option>
+                  <option value="lessThan1">Less than 1 year</option>
+                </select>
+              </div>
+              <div class="form-field">
+                <label for="gstRegistrationAge">GST Registration Age</label>
+                <select id="gstRegistrationAge">
+                  <option value="moreThan3">More than 3 years</option>
+                  <option value="between1And3">1–3 years</option>
+                  <option value="lessThan1">New GST (&lt;1 year)</option>
+                </select>
+              </div>
+              <div class="form-field">
+                <label for="operationalPresence">Operational Presence</label>
+                <select id="operationalPresence">
+                  <option value="factoryVerified">Factory verified</option>
+                  <option value="addressUnverified">Address unverified</option>
+                  <option value="residentialLocation">Residential location</option>
+                </select>
+              </div>
+            </div>
+            <button class="btn btn-primary" type="button" id="calculateFraudProbabilityBtn">Calculate Fraud Probability</button>
+            <div class="meter-shell" aria-label="Fraud probability meter">
+              <div class="meter-fill" id="probabilityMeterFill"></div>
+            </div>
+            <div id="fraudProbabilityResult" class="module-result" aria-live="polite"></div>
+          </article>
+        </div>
+
         <div class="section-heading">
           <span class="eyebrow">Beyond Document Verification</span>
           <h3>Beyond Document Verification</h3>
@@ -526,6 +609,40 @@
           </div>
           <button class="btn btn-primary" id="runGSTCheck" type="button">Check Vendor Risk</button>
           <div id="gstRiskResult" aria-live="polite"></div>
+          <div id="vendorRiskDashboard" class="vendor-risk-dashboard is-hidden" aria-live="polite">
+            <h3>Supplier Risk Intelligence Dashboard</h3>
+            <div class="dashboard-grid">
+              <article class="content-card dashboard-metric-card">
+                <p>Vendor Risk Score</p>
+                <h4 id="dashboardRiskScore">--</h4>
+              </article>
+              <article class="content-card dashboard-metric-card">
+                <p>Compliance Signals</p>
+                <h4 id="dashboardComplianceSignals">--</h4>
+              </article>
+              <article class="content-card dashboard-metric-card">
+                <p>Operational Presence</p>
+                <h4 id="dashboardOperationalPresence">--</h4>
+              </article>
+              <article class="content-card dashboard-metric-card">
+                <p>Litigation Signals</p>
+                <h4 id="dashboardLitigationSignals">--</h4>
+              </article>
+            </div>
+            <div class="dashboard-chart-wrap">
+              <canvas id="vendorRiskRadarChart" aria-label="Vendor risk pillars radar chart" role="img"></canvas>
+            </div>
+            <div class="gst-cta-wrap dashboard-cta">
+              <p>VendorVerify analysts perform deeper investigations including:</p>
+              <ul>
+                <li>operational presence verification</li>
+                <li>litigation analysis</li>
+                <li>financial indicators</li>
+                <li>supplier background checks</li>
+              </ul>
+              <a class="btn btn-primary" href="pages/pricing.html">Start Vendor Audit – ₹4,999</a>
+            </div>
+          </div>
         </article>
       </div>
     </section>
@@ -756,7 +873,11 @@
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <script src="scripts/api/api-client.js"></script>
   <script src="scripts/vendor/vendor-risk-chart.js"></script>
+  <script src="scripts/vendor/fraud-slider.js"></script>
+  <script src="scripts/vendor/risk-calculator.js"></script>
   <script src="scripts/vendor/gst-risk-check.js"></script>
+  <script src="scripts/vendor/fraud-probability.js"></script>
+  <script src="scripts/vendor/vendor-risk-dashboard.js"></script>
   <script src="scripts/main.js"></script>
   <script src="scripts/marketing.js"></script>
 </body>

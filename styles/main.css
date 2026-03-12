@@ -614,6 +614,20 @@ p {
   color: var(--muted);
   font-size: 0.95rem;
 }
+
+.risk-chart-card {
+  min-height: 320px;
+}
+
+.risk-chart-card h3 {
+  margin-bottom: 1rem;
+}
+
+.risk-chart-card canvas {
+  width: 100% !important;
+  height: 240px !important;
+}
+
 .platform-note {
   margin-top: 1rem;
   color: var(--muted);

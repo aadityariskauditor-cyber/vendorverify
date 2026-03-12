@@ -43,10 +43,12 @@
   function buildLink(id, entry) {
     const snapshot = encodeSnapshot(entry);
     const url = new URL('/pages/risk-result.html', window.location.origin);
+    if (!snapshot) return '';
+
+    // Keep id for backwards compatibility/debug tracing, but make the payload
+    // self-contained in the snapshot so links work across devices and browsers.
     url.searchParams.set('id', id);
-    if (snapshot) {
-      url.searchParams.set(SNAPSHOT_PARAM, snapshot);
-    }
+    url.searchParams.set(SNAPSHOT_PARAM, snapshot);
     return url.toString();
   }
 
@@ -92,8 +94,16 @@
       debug?.warn?.('Could not persist share entry in localStorage', error);
     }
 
+    if (!link) {
+      if (output) {
+        output.innerHTML = '<strong>Shareable link unavailable.</strong> Please rerun the assessment.';
+      }
+      debug?.warn?.('Share link could not be created because snapshot encoding failed');
+      return;
+    }
+
     renderLink(link);
-    debug?.log?.('Share link created', { source, id });
+    debug?.log?.('Share link created', { source, id, snapshot: true });
   }
 
   window.addEventListener('vendorverify:riskCalculator', (event) => {

@@ -17,16 +17,20 @@
     return filingScoreMap[String(filingScore || '').trim().toLowerCase()] ?? 60;
   }
 
-  function clampScore(value) {
-    return Math.max(10, Math.min(100, Number(value)));
+  function clampScore(value, fallback = 60) {
+    const numericValue = Number(value);
+    const safeValue = Number.isFinite(numericValue) ? numericValue : fallback;
+    return Math.max(10, Math.min(100, safeValue));
   }
 
   function getPillarValues(payload) {
-    const riskScore = Number(payload?.riskScore || 0);
+    const riskScore = clampScore(payload?.riskScore || 0, 0);
     const normalizedFilingScore = normalizeFilingScore(payload?.filingScore);
-    const complianceSignals = clampScore(normalizedFilingScore);
+    const complianceSignals = clampScore(normalizedFilingScore, 60);
     const operationalPresence = clampScore(payload?.operationalPresenceScore || (100 - riskScore + 20));
-    const litigationSignals = clampScore(100 - Number(payload?.litigationSignals || 30));
+    const litigationCount = Number(payload?.litigationSignals);
+    const normalizedLitigationCount = Number.isFinite(litigationCount) ? litigationCount : 30;
+    const litigationSignals = clampScore(100 - normalizedLitigationCount, 70);
 
     return {
       riskScore,

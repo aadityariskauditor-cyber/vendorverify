@@ -77,7 +77,7 @@
     updateCard('dashboardLitigationSignals', values.litigationSignals);
 
     renderRadar(values);
-    debug?.log?.('Risk dashboard rendered', values);
+    debug?.log?.('Dashboard rendered', values);
   }
 
   window.VendorVerifyRiskDashboard = {

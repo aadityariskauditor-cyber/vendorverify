@@ -20,6 +20,8 @@
       'scripts/vendor/risk-calculator.js',
       'scripts/vendor/fraud-probability.js',
       'scripts/vendor/vendor-risk-dashboard.js',
+      'scripts/vendor/report-preview.js',
+      'scripts/vendor/share-risk-result.js',
     ],
     routes: [
       '/index.html',
@@ -111,6 +113,8 @@
       'scripts/vendor/gst-risk-check.js',
       'scripts/vendor/fraud-probability.js',
       'scripts/vendor/vendor-risk-dashboard.js',
+      'scripts/vendor/report-preview.js',
+      'scripts/vendor/share-risk-result.js',
     ];
 
     const missing = required.filter((path) => missingScripts.includes(path));

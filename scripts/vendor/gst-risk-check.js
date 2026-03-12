@@ -75,6 +75,7 @@
       const payload = await window.ApiClient.gstRiskCheck({ gstin });
       debug?.log?.('GST risk response received', payload);
       renderResult(payload);
+      window.dispatchEvent(new CustomEvent('vendorverify:gstRisk', { detail: payload }));
     } catch (error) {
       renderError(error.message || 'Unable to complete GST risk check right now.');
     } finally {

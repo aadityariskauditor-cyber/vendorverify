@@ -46,6 +46,10 @@
       `;
     }
 
+    window.dispatchEvent(new CustomEvent('vendorverify:fraudProbability', {
+      detail: { amount, vendorAge, gstAge, operationalPresence, score, probability, level },
+    }));
+
     debug?.log?.('Fraud probability calculated', {
       amount,
       vendorAge,

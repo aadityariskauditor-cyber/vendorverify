@@ -217,7 +217,7 @@
         <div class="section-heading">
           <span class="eyebrow">Vendor Verification Process</span>
           <h2>From fraud awareness to audit purchase in five clear steps</h2>
-          <p>Fraud Awareness → Risk Calculator → GST Vendor Intelligence → Fraud Probability Engine → VendorVerify Audit Purchase.</p>
+          <p>Fraud Awareness → Risk Calculator → GST Vendor Intelligence → Fraud Probability Engine → Vendor Risk Dashboard → Vendor Risk Report Preview → VendorVerify Audit Purchase.</p>
         </div>
         <div class="workflow-steps">
           <article class="content-card workflow-step-card">
@@ -246,6 +246,18 @@
           <span class="workflow-arrow" aria-hidden="true">→</span>
           <article class="content-card workflow-step-card">
             <span class="step-number">5</span>
+            <h3>Vendor Risk Dashboard</h3>
+            <p>Review consolidated risk cards across compliance, operations, litigation, and the aggregate vendor score.</p>
+          </article>
+          <span class="workflow-arrow" aria-hidden="true">→</span>
+          <article class="content-card workflow-step-card">
+            <span class="step-number">6</span>
+            <h3>Vendor Risk Report Preview</h3>
+            <p>Preview report-ready fields and share a summary internally before ordering analyst-led verification.</p>
+          </article>
+          <span class="workflow-arrow" aria-hidden="true">→</span>
+          <article class="content-card workflow-step-card">
+            <span class="step-number">7</span>
             <h3>VendorVerify Audit Purchase</h3>
             <p>Proceed with a full VendorVerify audit purchase for analyst-led verification before releasing funds.</p>
           </article>
@@ -289,6 +301,17 @@
               <div class="meter-fill" id="riskMeterFill"></div>
             </div>
             <div id="riskCalculatorResult" class="module-result" aria-live="polite"></div>
+          </article>
+
+          <article class="content-card intelligence-card">
+            <div class="module-header">
+              <span class="step-chip">Step 3</span>
+              <h3>GST Vendor Intelligence</h3>
+            </div>
+            <p>Run a GST intelligence check with live API-backed validation and risk scoring.</p>
+            <div class="hero-actions">
+              <a class="btn btn-secondary" href="#gst-precheck">Run GST Risk Check</a>
+            </div>
           </article>
 
           <article class="content-card intelligence-card">
@@ -458,14 +481,57 @@
     <section class="page-section section-soft" id="sample-vendor-risk-report" data-animate>
       <div class="container">
         <div class="section-heading">
-          <span class="eyebrow">Sample deliverable</span>
-          <h2>Sample Vendor Verification Report</h2>
-          <p>This sample report illustrates the structure and analytical depth of VendorVerify’s vendor due diligence assessments. Actual reports may vary depending on the scope of verification requested.</p>
+          <span class="eyebrow">Step 6 · Report stage</span>
+          <h2>Vendor Risk Report Preview</h2>
+          <p>Preview key report fields generated from your Supplier Risk Intelligence run before purchasing the full analyst audit.</p>
         </div>
-        <div class="hero-actions">
-          <a class="btn btn-primary" href="assets/sample-vendor-risk-evaluation-report.pdf" download>Download Sample Vendor Risk Evaluation Report (PDF)</a>
-          <a class="btn btn-secondary" href="#risk-check">Next: Start a Free Vendor Risk Check</a>
+        <article class="content-card report-preview-card" id="reportPreviewCard">
+          <dl class="report-preview-grid" id="reportPreviewFields">
+            <div><dt>Vendor Name</dt><dd>ABC Engineering Pvt Ltd</dd></div>
+            <div><dt>Company Age</dt><dd>4.2 years</dd></div>
+            <div><dt>GST Status</dt><dd>Active</dd></div>
+            <div><dt>Compliance Risk</dt><dd>Moderate</dd></div>
+            <div><dt>Operational Risk</dt><dd>Low</dd></div>
+            <div><dt>Litigation Signals</dt><dd>Low</dd></div>
+            <div><dt>Vendor Risk Score</dt><dd>68 / 100</dd></div>
+          </dl>
+          <div class="hero-actions">
+            <button class="btn btn-secondary" id="openReportPreview" type="button">Open Report Preview</button>
+            <a class="btn btn-primary" href="assets/sample-vendor-risk-evaluation-report.pdf" download>Download Sample Vendor Risk Evaluation Report (PDF)</a>
+          </div>
+        </article>
+
+        <div id="reportPreviewModal" class="report-preview-modal is-hidden" aria-hidden="true" role="dialog" aria-labelledby="reportPreviewTitle">
+          <div class="report-preview-modal-card">
+            <button class="report-modal-close" id="closeReportPreview" type="button" aria-label="Close preview">×</button>
+            <h3 id="reportPreviewTitle">Vendor Risk Report Preview</h3>
+            <p>This preview summarizes high-signal checks from the Supplier Risk Intelligence System.</p>
+            <div id="reportPreviewModalBody"></div>
+          </div>
         </div>
+
+        <article class="content-card share-result-card">
+          <h3>Share Vendor Risk Result</h3>
+          <p>Generate a shareable risk-result link after running Risk Calculator, GST Intelligence, or Fraud Probability.</p>
+          <div class="share-actions" id="shareRiskActions">
+            <button class="btn btn-secondary" id="copyRiskLink" type="button">Copy Link</button>
+            <a class="btn btn-secondary" id="shareWhatsApp" href="#" target="_blank" rel="noopener">WhatsApp</a>
+            <a class="btn btn-secondary" id="shareLinkedIn" href="#" target="_blank" rel="noopener">LinkedIn</a>
+            <a class="btn btn-secondary" id="shareEmail" href="#">Email</a>
+          </div>
+          <p id="shareRiskLinkOutput" class="module-result">Run any intelligence tool to generate a shareable result link.</p>
+        </article>
+
+        <article class="content-card consulting-cta-card">
+          <p>VendorVerify analysts perform deeper investigations including:</p>
+          <ul>
+            <li>director background checks</li>
+            <li>factory verification</li>
+            <li>litigation analysis</li>
+            <li>financial indicators</li>
+          </ul>
+          <a class="btn btn-primary" href="pages/pricing.html">Start Vendor Audit – ₹4,999</a>
+        </article>
       </div>
     </section>
 
@@ -849,6 +915,22 @@
       </div>
     </section>
 
+    <section class="page-section section-soft" data-animate>
+      <div class="container">
+        <div class="section-heading">
+          <span class="eyebrow">Organic SEO Resources</span>
+          <h2>Supplier Verification Learning Hub</h2>
+          <p>Explore educational pages designed for procurement teams to improve supplier fraud prevention and due diligence readiness.</p>
+        </div>
+        <div class="features-grid">
+          <article class="content-card feature-card"><a href="pages/verify-gst-vendor.html">Verify GST Vendor</a></article>
+          <article class="content-card feature-card"><a href="pages/supplier-fraud-india.html">Supplier Fraud in India</a></article>
+          <article class="content-card feature-card"><a href="pages/gst-vendor-verification-guide.html">GST Vendor Verification Guide</a></article>
+          <article class="content-card feature-card"><a href="pages/how-to-verify-supplier-india.html">How to Verify Supplier in India</a></article>
+        </div>
+      </div>
+    </section>
+
     <section class="page-section final-cta" data-animate>
       <div class="container final-cta-card">
         <h2>Verify suppliers before payment and reduce transaction risk.</h2>
@@ -878,7 +960,16 @@
   <script src="scripts/vendor/gst-risk-check.js"></script>
   <script src="scripts/vendor/fraud-probability.js"></script>
   <script src="scripts/vendor/vendor-risk-dashboard.js"></script>
+  <script src="scripts/vendor/report-preview.js"></script>
+  <script src="scripts/vendor/share-risk-result.js"></script>
+  <script src="scripts/utils/debug.js"></script>
+  <script src="scripts/utils/system-health.js"></script>
   <script src="scripts/main.js"></script>
   <script src="scripts/marketing.js"></script>
+  <script>
+    window.addEventListener('load', () => {
+      window.VendorVerifySystemHealth?.run?.();
+    });
+  </script>
 </body>
 </html>

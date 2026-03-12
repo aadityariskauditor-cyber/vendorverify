@@ -37,6 +37,11 @@
     }
 
     debug?.log?.('Risk calculator executed', { amount, ageCategory, exposure, meterPercent });
+
+    window.dispatchEvent(new CustomEvent('vendorverify:riskCalculator', {
+      detail: { amount, ageCategory, exposure, verificationCost: cost },
+    }));
+
   }
 
   calculateButton?.addEventListener('click', calculateExposure);

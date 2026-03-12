@@ -2062,3 +2062,47 @@ color:#666;
     grid-template-columns: 1fr;
   }
 }
+
+
+/* Supplier Risk Intelligence responsive refinements */
+#fraud-awareness .fraud-slider {
+  position: relative;
+}
+
+.fraud-card {
+  display: none;
+}
+
+.fraud-card.is-active {
+  display: block;
+}
+
+.risk-calculator-card,
+.probability-card,
+.dashboard-card,
+.report-preview-card,
+.share-result-card {
+  width: 100%;
+}
+
+.report-preview-modal-card {
+  max-height: 85vh;
+  overflow: auto;
+}
+
+@media (max-width: 760px) {
+  .share-actions .btn {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .gst-risk-chart-wrap,
+  .dashboard-chart-wrap {
+    height: 240px;
+    max-width: 100%;
+  }
+
+  .meter-shell {
+    height: 12px;
+  }
+}

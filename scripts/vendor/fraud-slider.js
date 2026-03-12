@@ -1,8 +1,19 @@
 (() => {
-  const sliderRoot = document.getElementById('fraudSlider');
-  const nextButton = document.getElementById('fraudNext');
-  const prevButton = document.getElementById('fraudPrev');
-  const debug = window.VendorVerifyDebug;
+  function onReady(callback) {
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', callback, { once: true });
+      return;
+    }
+
+    callback();
+  }
+
+  onReady(() => {
+    const awarenessRoot = document.getElementById('fraud-awareness');
+    const sliderRoot = awarenessRoot?.querySelector('.fraud-slider') || document.getElementById('fraudSlider');
+    const nextButton = document.getElementById('fraudNext');
+    const prevButton = document.getElementById('fraudPrev');
+    const debug = window.VendorVerifyDebug;
 
   const fraudCases = [
     {
@@ -27,44 +38,60 @@
     },
   ];
 
-  let activeIndex = 0;
+    let activeIndex = 0;
 
-  function renderCard(index) {
-    if (!sliderRoot) return;
+    function ensureCards() {
+      if (!sliderRoot) return [];
 
-    const card = fraudCases[index];
-    sliderRoot.innerHTML = `
-      <article class="fraud-case-card" data-active-card="${index}">
-        <h4>${card.title}</h4>
-        <p>${card.description}</p>
-        <p><strong>Risk indicators:</strong></p>
-        <ul>
-          ${card.indicators.map((item) => `<li>${item}</li>`).join('')}
-        </ul>
-      </article>
-    `;
-  }
+      const existingCards = Array.from(sliderRoot.querySelectorAll('.fraud-card'));
+      if (existingCards.length) return existingCards;
 
-  function nextCard() {
-    activeIndex = (activeIndex + 1) % fraudCases.length;
-    renderCard(activeIndex);
-  }
+      sliderRoot.innerHTML = fraudCases.map((card, index) => `
+        <article class="fraud-card fraud-case-card${index === 0 ? ' is-active' : ''}" data-card-index="${index}" aria-hidden="${index === 0 ? 'false' : 'true'}">
+          <h4>${card.title}</h4>
+          <p>${card.description}</p>
+          <p><strong>Risk indicators:</strong></p>
+          <ul>
+            ${card.indicators.map((item) => `<li>${item}</li>`).join('')}
+          </ul>
+        </article>
+      `).join('');
 
-  function previousCard() {
-    activeIndex = (activeIndex - 1 + fraudCases.length) % fraudCases.length;
-    renderCard(activeIndex);
-  }
+      return Array.from(sliderRoot.querySelectorAll('.fraud-card'));
+    }
 
-  if (sliderRoot) {
-    renderCard(activeIndex);
-    nextButton?.addEventListener('click', nextCard);
-    prevButton?.addEventListener('click', previousCard);
-    debug?.log?.('Fraud slider initialized');
-  }
+    function renderCard(index) {
+      const cards = ensureCards();
+      if (!cards.length) return;
 
-  window.VendorVerifyFraudSlider = {
-    nextCard,
-    previousCard,
-    getActiveCard: () => activeIndex,
-  };
+      cards.forEach((card, cardIndex) => {
+        const isActive = cardIndex === index;
+        card.classList.toggle('is-active', isActive);
+        card.setAttribute('aria-hidden', isActive ? 'false' : 'true');
+      });
+    }
+
+    function nextCard() {
+      activeIndex = (activeIndex + 1) % fraudCases.length;
+      renderCard(activeIndex);
+    }
+
+    function previousCard() {
+      activeIndex = (activeIndex - 1 + fraudCases.length) % fraudCases.length;
+      renderCard(activeIndex);
+    }
+
+    if (sliderRoot) {
+      renderCard(activeIndex);
+      nextButton?.addEventListener('click', nextCard);
+      prevButton?.addEventListener('click', previousCard);
+      debug?.log?.('Fraud slider initialized');
+    }
+
+    window.VendorVerifyFraudSlider = {
+      nextCard,
+      previousCard,
+      getActiveCard: () => activeIndex,
+    };
+  });
 })();

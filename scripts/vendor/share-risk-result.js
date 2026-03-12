@@ -1,134 +1,123 @@
 (() => {
-  const output = document.getElementById('shareRiskLinkOutput');
-  const copyButton = document.getElementById('copyRiskLink');
-  const whatsapp = document.getElementById('shareWhatsApp');
-  const linkedIn = document.getElementById('shareLinkedIn');
-  const email = document.getElementById('shareEmail');
-  const debug = window.VendorVerifyDebug;
-
-  const STORAGE_KEY = 'vendorverifyRiskResults';
-  const SNAPSHOT_PARAM = 'snapshot';
-  let latestLink = '';
-
-  function getStore() {
-    try {
-      return JSON.parse(localStorage.getItem(STORAGE_KEY) || '{}');
-    } catch (error) {
-      return {};
-    }
-  }
-
-  function setStore(store) {
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(store));
-  }
-
-  function encodeSnapshot(data) {
-    try {
-      const json = JSON.stringify(data || {});
-      const utf8Bytes = new TextEncoder().encode(json);
-      let binary = '';
-      utf8Bytes.forEach((byte) => {
-        binary += String.fromCharCode(byte);
-      });
-      return btoa(binary)
-        .replace(/\+/g, '-')
-        .replace(/\//g, '_')
-        .replace(/=+$/g, '');
-    } catch (error) {
-      debug?.warn?.('Could not encode snapshot payload', error);
-      return '';
-    }
-  }
-
-  function buildLink(id, entry) {
-    const snapshot = encodeSnapshot(entry);
-    const url = new URL('/pages/risk-result.html', window.location.origin);
-    if (!snapshot) return '';
-
-    // Keep id for backwards compatibility/debug tracing, but make the payload
-    // self-contained in the snapshot so links work across devices and browsers.
-    url.searchParams.set('id', id);
-    url.searchParams.set(SNAPSHOT_PARAM, snapshot);
-    return url.toString();
-  }
-
-  function updateShareTargets(link) {
-    const encoded = encodeURIComponent(link);
-    const text = encodeURIComponent('Vendor risk result from VendorVerify');
-    whatsapp?.setAttribute('href', `https://wa.me/?text=${text}%20${encoded}`);
-    linkedIn?.setAttribute('href', `https://www.linkedin.com/sharing/share-offsite/?url=${encoded}`);
-    email?.setAttribute('href', `mailto:?subject=Vendor%20Risk%20Result&body=${text}%0A${encoded}`);
-  }
-
-  function renderLink(link) {
-    latestLink = link;
-    if (output) {
-      output.innerHTML = `<strong>Shareable link:</strong> <a href="${link}" target="_blank" rel="noopener">${link}</a>`;
-    }
-    updateShareTargets(link);
-  }
-
-  function createId() {
-    if (window.crypto?.randomUUID) {
-      return window.crypto.randomUUID();
-    }
-
-    return `${Date.now()}-${Math.random().toString(36).slice(2, 10)}`;
-  }
-
-  function createShareLink(source, payload) {
-    const store = getStore();
-    const id = createId();
-    const entry = {
-      source,
-      payload,
-      createdAt: new Date().toISOString(),
-    };
-
-    const link = buildLink(id, entry);
-
-    try {
-      store[id] = entry;
-      setStore(store);
-    } catch (error) {
-      debug?.warn?.('Could not persist share entry in localStorage', error);
-    }
-
-    if (!link) {
-      if (output) {
-        output.innerHTML = '<strong>Shareable link unavailable.</strong> Please rerun the assessment.';
-      }
-      debug?.warn?.('Share link could not be created because snapshot encoding failed');
+  function onReady(callback) {
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', callback, { once: true });
       return;
     }
-
-    renderLink(link);
-    debug?.log?.('Share link created', { source, id, snapshot: true });
+    callback();
   }
 
-  window.addEventListener('vendorverify:riskCalculator', (event) => {
-    createShareLink('risk-calculator', event.detail || {});
-  });
+  onReady(() => {
+    const output = document.getElementById('shareRiskLinkOutput');
+    const copyButton = document.getElementById('copyRiskLink');
+    const whatsapp = document.getElementById('shareWhatsApp');
+    const linkedIn = document.getElementById('shareLinkedIn');
+    const email = document.getElementById('shareEmail');
+    const debug = window.VendorVerifyDebug;
 
-  window.addEventListener('vendorverify:gstRisk', (event) => {
-    createShareLink('gst-risk-check', event.detail || {});
-  });
+    const STORAGE_KEY = 'vendorverifyRiskResults';
+    let latestLink = '';
 
-  window.addEventListener('vendorverify:fraudProbability', (event) => {
-    createShareLink('fraud-probability', event.detail || {});
-  });
-
-  copyButton?.addEventListener('click', async () => {
-    if (!latestLink) return;
-    try {
-      await navigator.clipboard.writeText(latestLink);
-      if (output) output.innerHTML = `${output.innerHTML}<br/><span>Copied to clipboard.</span>`;
-    } catch (error) {
-      if (output) output.innerHTML = `${output.innerHTML}<br/><span>Copy failed. Please copy manually.</span>`;
+    function getStore() {
+      try {
+        const raw = localStorage.getItem(STORAGE_KEY);
+        if (!raw) return {};
+        const parsed = JSON.parse(raw);
+        return parsed && typeof parsed === 'object' && !Array.isArray(parsed) ? parsed : {};
+      } catch (error) {
+        return {};
+      }
     }
-  });
 
-  window.VendorVerifyShareRiskResult = {
-    createShareLink,
-  };
+    function setStore(store) {
+      try {
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(store));
+      } catch (error) {
+        debug?.warn?.('Unable to persist share result', error);
+      }
+    }
+
+    function generateShareId() {
+      const random = Math.random().toString(36).slice(2, 8);
+      return `${Date.now()}${random}`;
+    }
+
+    function buildLink(id) {
+      const baseUrl = window.location.origin || 'https://vendorverify.in';
+      return `${baseUrl}/pages/risk-result.html?id=${encodeURIComponent(id)}`;
+    }
+
+    function updateShareTargets(link) {
+      const encodedLink = encodeURIComponent(link);
+      const message = encodeURIComponent('Vendor risk result from VendorVerify');
+
+      whatsapp?.setAttribute('href', `https://wa.me/?text=${message}%20${encodedLink}`);
+      linkedIn?.setAttribute('href', `https://www.linkedin.com/sharing/share-offsite/?url=${encodedLink}`);
+      email?.setAttribute('href', `mailto:?subject=Vendor%20Risk%20Result&body=${message}%0A${encodedLink}`);
+    }
+
+    function renderLink(link) {
+      latestLink = link;
+
+      if (output) {
+        output.innerHTML = `<strong>Shareable link:</strong> <a href="${link}" target="_blank" rel="noopener">${link}</a>`;
+      }
+
+      updateShareTargets(link);
+    }
+
+    function createShareLink(source, payload) {
+      const store = getStore();
+      const id = generateShareId();
+
+      store[id] = {
+        source,
+        payload: payload && typeof payload === 'object' ? payload : { value: payload },
+        createdAt: new Date().toISOString(),
+      };
+
+      setStore(store);
+
+      const link = buildLink(id);
+      renderLink(link);
+
+      debug?.log?.('Share link created', { source, id, link });
+
+      return link;
+    }
+
+    async function copyLatestLink() {
+      if (!latestLink) return;
+
+      try {
+        if (navigator.clipboard?.writeText) {
+          await navigator.clipboard.writeText(latestLink);
+          if (output) output.innerHTML += `<br/><span>Copied to clipboard.</span>`;
+          return;
+        }
+      } catch (error) {}
+
+      if (output) {
+        output.innerHTML += `<br/><span>Copy failed. Please copy manually.</span>`;
+      }
+    }
+
+    window.addEventListener('vendorverify:riskCalculator', (event) => {
+      createShareLink('risk-calculator', event.detail || {});
+    });
+
+    window.addEventListener('vendorverify:gstRisk', (event) => {
+      createShareLink('gst-risk-check', event.detail || {});
+    });
+
+    window.addEventListener('vendorverify:fraudProbability', (event) => {
+      createShareLink('fraud-probability', event.detail || {});
+    });
+
+    copyButton?.addEventListener('click', copyLatestLink);
+
+    window.VendorVerifyShareRiskResult = {
+      createShareLink,
+    };
+  });
 })();

@@ -326,12 +326,12 @@
           <div style="margin-top:1rem;"><button class="btn btn-primary" type="submit">Calculate Risk Level</button></div>
         </form>
 
-        <div class="card calc-result" id="calcResult" aria-live="polite">
+        <div class="card calc-result" id="calcResult" role="status" aria-live="polite">
           <p style="font-weight:700;color:var(--color-primary);">Recommended Package</p>
           <h3 id="resultPackage">Enhanced Vendor Risk Evaluation</h3>
           <p id="resultDescription">Best suited for transactions between ₹10 lakh and ₹1 crore.</p>
           <p class="price" id="resultPrice">₹11,999 (~$145)</p>
-          <a id="resultCta" class="btn btn-primary" href="#pricing">Start Risk Evaluation</a>
+          <a id="resultCta" class="btn btn-primary" href="#submission-form">Start Risk Evaluation</a>
         </div>
       </article>
     </section>
@@ -399,7 +399,7 @@
           <h2>Download Sample Vendor Risk Report</h2>
           <p>Review our evidence-based report format before onboarding our services.</p>
         </div>
-        <a class="btn btn-outline" href="assets/sample-vendor-risk-evaluation-report.pdf" target="_blank" rel="noopener">View Sample Report</a>
+        <a class="btn btn-outline" href="assets/sample-vendor-risk-evaluation-report.pdf" target="_blank" rel="noopener noreferrer">View Sample Report</a>
       </article>
     </section>
 
@@ -495,27 +495,30 @@
         <p>Share your vendor information to start verification and receive a tailored recommendation.</p>
       </div>
       <article class="card">
-        <form>
+        <form action="https://formspree.io/f/xojklzjg" method="POST">
+          <input type="hidden" name="_subject" value="New Vendor Verification Request - VendorVerify" />
+          <input type="hidden" name="_next" value="https://vendorverify.in/thank-you.html" />
+          <input type="text" name="_gotcha" style="display:none" />
           <div class="submission-grid">
             <div>
               <label for="vendorCompanyName">Vendor Company Name</label>
-              <input id="vendorCompanyName" type="text" required />
+              <input id="vendorCompanyName" name="vendorCompanyName" type="text" required />
             </div>
             <div>
               <label for="gstRegNumber">GST / Registration Number</label>
-              <input id="gstRegNumber" type="text" required />
+              <input id="gstRegNumber" name="gstRegNumber" type="text" />
             </div>
             <div>
               <label for="submissionTransactionValue">Transaction Value</label>
-              <input id="submissionTransactionValue" type="number" min="0" required />
+              <input id="submissionTransactionValue" name="transactionValue" type="number" min="1" required />
             </div>
             <div>
               <label for="emailAddress">Email Address</label>
-              <input id="emailAddress" type="email" required />
+              <input id="emailAddress" name="emailAddress" type="email" required />
             </div>
             <div>
               <label for="phoneNumber">Phone Number</label>
-              <input id="phoneNumber" type="tel" required />
+              <input id="phoneNumber" name="phoneNumber" type="tel" pattern="[0-9+ ]{8,15}" />
             </div>
           </div>
           <div style="margin-top:1rem;"><button type="submit" class="btn btn-primary">Submit Vendor Details</button></div>
@@ -569,6 +572,7 @@
     const resultDescription = document.getElementById('resultDescription');
     const resultPrice = document.getElementById('resultPrice');
     const resultCta = document.getElementById('resultCta');
+    const submissionSection = document.getElementById('submission-form');
 
     function getRecommendation(txValue, location, relationship, frequency) {
       let adjustedValue = txValue;
@@ -595,7 +599,15 @@
       resultCta.textContent = selectedPlan.cta;
       resultCta.setAttribute('href', '#submission-form');
       resultCard.classList.add('show');
-      resultCard.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+      submissionSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    });
+
+
+    const submissionForm = document.querySelector('#submission-form form');
+    submissionForm.addEventListener('submit', function() {
+      const submitButton = this.querySelector('button[type="submit"]');
+      submitButton.disabled = true;
+      submitButton.innerText = 'Submitting...';
     });
 
     const stickyBar = document.getElementById('stickyCta');

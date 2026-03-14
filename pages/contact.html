@@ -5,6 +5,77 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Contact | VendorVerify</title>
   <link rel="stylesheet" href="../styles/main.css" />
+  <style>
+    .contact-grid {
+      display: grid;
+      grid-template-columns: 3fr 2fr;
+      gap: 2rem;
+      align-items: start;
+    }
+
+    .contact-form-wrap {
+      padding: 1.6rem;
+    }
+
+    .contact-info-card {
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 1.6rem;
+      background: linear-gradient(180deg, rgba(24, 34, 52, 0.72), rgba(16, 24, 39, 0.82));
+      box-shadow: var(--shadow-sm);
+    }
+
+    .contact-info-card h2 {
+      margin-bottom: 0.4rem;
+      font-size: 1.5rem;
+    }
+
+    .contact-info-card .subtitle {
+      margin-bottom: 1rem;
+      color: #c6d4ff;
+      font-weight: 600;
+    }
+
+    .contact-info-card h3 {
+      margin-top: 1.2rem;
+      margin-bottom: 0.55rem;
+      font-size: 1.05rem;
+    }
+
+    .contact-detail-list {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      display: grid;
+      gap: 0.55rem;
+    }
+
+    .contact-detail-list li {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.55rem;
+      color: var(--text);
+    }
+
+    .icon {
+      width: 1.1rem;
+      flex-shrink: 0;
+      display: inline-block;
+      text-align: center;
+      line-height: 1.3;
+    }
+
+    .contact-info-card p {
+      margin: 0.65rem 0;
+      color: var(--muted);
+    }
+
+    @media (max-width: 900px) {
+      .contact-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
 </head>
 <body>
   <header class="site-header">
@@ -24,39 +95,64 @@
   </header>
 
   <main class="page-section">
-    <div class="container content-card">
-      <h1>Contact Us</h1>
-      <p>Need help with vendor verification, supplier due diligence, or risk assessment before payment? Send us your requirement and our team will reach out quickly.</p>
+    <div class="container contact-grid">
+      <section class="content-card contact-form-wrap">
+        <h1>Contact Us</h1>
+        <p>Need help with vendor verification, supplier due diligence, or risk assessment before payment? Send us your requirement and our team will reach out quickly.</p>
 
-      <form class="auth-form" id="contactForm">
-        <div class="form-field">
-          <label for="contactName">Name</label>
-          <input id="contactName" name="name" type="text" required />
-        </div>
-        <div class="form-field">
-          <label for="contactCompany">Company</label>
-          <input id="contactCompany" name="company" type="text" required />
-        </div>
-        <div class="form-field">
-          <label for="contactEmail">Email</label>
-          <input id="contactEmail" name="email" type="email" required />
-        </div>
-        <div class="form-field">
-          <label for="contactPhone">Phone</label>
-          <input id="contactPhone" name="phone" type="tel" pattern="[0-9]{10}" required />
-        </div>
-        <div class="form-field">
-          <label for="contactMessage">Message</label>
-          <textarea id="contactMessage" name="message" rows="5" required></textarea>
-        </div>
-        <button class="btn btn-primary" type="submit">Send Message</button>
-        <p id="contactMessageState" aria-live="polite"></p>
-      </form>
+        <form class="auth-form" id="contactForm">
+          <div class="form-field">
+            <label for="contactName">Name</label>
+            <input id="contactName" name="name" type="text" required />
+          </div>
+          <div class="form-field">
+            <label for="contactCompany">Company</label>
+            <input id="contactCompany" name="company" type="text" required />
+          </div>
+          <div class="form-field">
+            <label for="contactEmail">Email</label>
+            <input id="contactEmail" name="email" type="email" required />
+          </div>
+          <div class="form-field">
+            <label for="contactPhone">Phone</label>
+            <input id="contactPhone" name="phone" type="tel" pattern="[0-9]{10}" required />
+          </div>
+          <div class="form-field">
+            <label for="contactMessage">Message</label>
+            <textarea id="contactMessage" name="message" rows="5" required></textarea>
+          </div>
+          <button class="btn btn-primary" type="submit">Send Message</button>
+          <p id="contactMessageState" aria-live="polite"></p>
+        </form>
+      </section>
+
+      <aside class="contact-info-card" aria-label="VendorVerify contact and service information">
+        <h2>VendorVerify</h2>
+        <p class="subtitle">Vendor Risk Intelligence &amp; Supplier Verification</p>
+        <p>VendorVerify provides structured vendor risk analysis, supplier due diligence, and fraud-risk intelligence to help businesses evaluate counterparties before entering commercial engagements.</p>
+
+        <ul class="contact-detail-list">
+          <li><span class="icon" aria-hidden="true">📞</span><span><strong>Phone:</strong> +91-9637439000</span></li>
+          <li><span class="icon" aria-hidden="true">💬</span><span><strong>WhatsApp:</strong> +91-9953896410</span></li>
+          <li><span class="icon" aria-hidden="true">✉️</span><span><strong>General Inquiries:</strong> info@vendorverify.in</span></li>
+          <li><span class="icon" aria-hidden="true">✉️</span><span><strong>Primary Analyst Contact:</strong> aditya@vendorverify.in</span></li>
+          <li><span class="icon" aria-hidden="true">✉️</span><span><strong>Alternate Communication:</strong> aaditya.riskauditor@gmail.com</span></li>
+        </ul>
+
+        <h3>Service Delivery Timeline</h3>
+        <p>Standard vendor verification assessments are typically completed within 48–72 hours.</p>
+        <p>Investigations involving complex corporate structures or extended due diligence may require 3–5 business days depending on the verification scope.</p>
+
+        <h3>Vendor Risk Scoring Methodology</h3>
+        <p>VendorVerify evaluates suppliers using a risk intelligence scoring model ranging from 0 to 100 incorporating financial indicators, legal exposure, operational credibility, governance patterns, and address verification signals.</p>
+
+        <p>For vendor verification requests, supplier due diligence inquiries, partnership discussions, or technical support, please contact the VendorVerify team via phone, WhatsApp, or email.</p>
+      </aside>
     </div>
   </main>
 
   <footer class="site-footer">
-    <div class="container">© 2026 VendorVerify. All rights reserved.</div>
+    <div class="container">© 2026 VendorVerify. All rights reserved. | <a href="/pages/privacy-policy.html">Privacy Policy</a> | <a href="/pages/terms.html">Terms &amp; Conditions</a> | <a href="/pages/refund-policy.html">Refund Policy</a> | <a href="/pages/contact.html">Contact Us</a></div>
   </footer>
 
   <script src="../scripts/main.js"></script>

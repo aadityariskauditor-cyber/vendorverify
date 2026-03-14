@@ -1,0 +1,612 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="VendorVerify pricing plans for vendor risk intelligence, due diligence, and fraud prevention services." />
+  <title>VendorVerify Pricing | Vendor Risk Intelligence Packages</title>
+  <style>
+    :root {
+      --color-primary: #0B3C5D;
+      --color-accent: #1E88E5;
+      --color-highlight: #F5A623;
+      --color-bg: #F7F9FC;
+      --color-text: #1A1A1A;
+      --color-white: #ffffff;
+      --color-muted: #5b6875;
+      --color-border: #dce3ec;
+      --shadow-soft: 0 12px 32px rgba(11, 60, 93, 0.08);
+      --radius-lg: 18px;
+      --radius-md: 14px;
+      --radius-sm: 10px;
+      --transition: 220ms ease;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: Inter, system-ui, sans-serif;
+      background: var(--color-bg);
+      color: var(--color-text);
+      line-height: 1.6;
+      padding-bottom: 88px;
+    }
+
+    .container { width: min(1120px, 92%); margin: 0 auto; }
+    section { padding: 4rem 0; }
+
+    h1, h2, h3 { line-height: 1.2; color: var(--color-primary); }
+    h1 { font-size: clamp(2rem, 4vw, 3rem); margin-bottom: 1rem; }
+    h2 { font-size: clamp(1.6rem, 3vw, 2.2rem); margin-bottom: 0.9rem; }
+    h3 { font-size: 1.2rem; margin-bottom: 0.6rem; }
+    p { color: var(--color-muted); }
+
+    .nav-wrap {
+      position: sticky;
+      top: 0;
+      z-index: 1001;
+      background: rgba(247, 249, 252, 0.95);
+      backdrop-filter: blur(5px);
+      border-bottom: 1px solid var(--color-border);
+    }
+
+    .navbar {
+      min-height: 70px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      flex-wrap: wrap;
+      padding: 0.7rem 0;
+    }
+
+    .brand { font-weight: 800; color: var(--color-primary); text-decoration: none; }
+
+    .nav-menu {
+      list-style: none;
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      padding-left: 0;
+    }
+
+    .nav-menu a {
+      text-decoration: none;
+      color: var(--color-primary);
+      font-weight: 600;
+      font-size: 0.95rem;
+    }
+
+    .hero {
+      padding-top: 4rem;
+      background: linear-gradient(135deg, rgba(11,60,93,0.97), rgba(30,136,229,0.95));
+      color: var(--color-white);
+      text-align: center;
+      border-radius: 0 0 28px 28px;
+      box-shadow: var(--shadow-soft);
+      margin-bottom: 1.2rem;
+    }
+
+    .hero h1, .hero p { color: var(--color-white); }
+    .hero p { max-width: 760px; margin: 0 auto 1.8rem; font-size: 1.06rem; }
+
+    .cta-group { display: flex; gap: 0.9rem; justify-content: center; flex-wrap: wrap; }
+
+    .btn {
+      border: 0;
+      border-radius: 999px;
+      font-weight: 600;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: transform var(--transition), box-shadow var(--transition), background var(--transition);
+      padding: 0.75rem 1.2rem;
+      min-height: 46px;
+      min-width: 180px;
+    }
+    .btn:hover { transform: translateY(-2px); }
+    .btn-primary { background: var(--color-highlight); color: #132435; box-shadow: 0 10px 20px rgba(245,166,35,.35); }
+    .btn-secondary { background: rgba(255,255,255,.18); border: 1px solid rgba(255,255,255,.42); color: var(--color-white); }
+    .btn-outline { background: transparent; border: 1px solid var(--color-accent); color: var(--color-accent); }
+
+    .section-intro { max-width: 760px; margin-bottom: 1.4rem; }
+
+    .card {
+      background: var(--color-white);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow-soft);
+      padding: 1.4rem;
+    }
+
+    .calculator-grid,
+    .submission-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 1rem;
+      margin-top: 1.2rem;
+    }
+
+    label {
+      font-weight: 600;
+      color: var(--color-primary);
+      font-size: 0.95rem;
+      display: block;
+      margin-bottom: 0.4rem;
+    }
+
+    input, select {
+      width: 100%;
+      border: 1px solid var(--color-border);
+      background: #fbfcff;
+      border-radius: var(--radius-sm);
+      padding: 0.72rem;
+      color: var(--color-text);
+      font-size: 0.98rem;
+    }
+
+    input:focus, select:focus { outline: 3px solid rgba(30,136,229,.2); border-color: var(--color-accent); }
+
+    .calc-result { margin-top: 1rem; border-left: 4px solid var(--color-accent); display: none; }
+    .calc-result.show { display: block; animation: fadeUp .3s ease; }
+    .price { color: var(--color-primary); font-weight: 700; font-size: 1.12rem; margin: .2rem 0 .7rem; }
+
+    .pricing-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1rem; margin-top: 1.3rem; }
+
+    .pricing-card { display: flex; flex-direction: column; gap: .8rem; transition: transform var(--transition), box-shadow var(--transition); }
+    .pricing-card:hover, .addon-card:hover, .enterprise:hover, .trust-item:hover, .sample-card:hover { transform: translateY(-4px); box-shadow: 0 14px 30px rgba(11,60,93,.14); }
+
+    .badge {
+      align-self: flex-start;
+      background: rgba(245,166,35,.17);
+      color: #8a5300;
+      border: 1px solid rgba(245,166,35,.3);
+      border-radius: 999px;
+      font-size: .8rem;
+      font-weight: 700;
+      padding: .28rem .68rem;
+    }
+
+    .pricing-card.featured {
+      border-color: rgba(30,136,229,.55);
+      background: linear-gradient(180deg, rgba(30,136,229,.12), #fff);
+      transform: scale(1.03);
+    }
+
+    .best-for {
+      color: var(--color-accent);
+      font-size: .92rem;
+      font-weight: 600;
+      background: rgba(30,136,229,.1);
+      border-radius: 999px;
+      padding: .22rem .65rem;
+      display: inline-block;
+    }
+
+    ul { padding-left: 0; list-style: none; color: var(--color-muted); }
+    ul li + li { margin-top: .35rem; }
+    .feature-list li::before { content: "✔"; color: #198754; font-weight: 800; margin-right: .45rem; }
+
+    .delivery { font-size: .92rem; color: var(--color-primary); background: rgba(11,60,93,.08); display: inline-block; padding: .22rem .6rem; border-radius: 999px; }
+
+    .sample-card { display:flex; align-items:center; justify-content:space-between; gap:1rem; flex-wrap:wrap; }
+
+    .comparison-wrap { overflow-x: auto; border: 1px solid var(--color-border); border-radius: var(--radius-md); background:#fff; box-shadow: var(--shadow-soft); }
+    table { width: 100%; border-collapse: collapse; min-width: 680px; }
+    th, td { padding: .75rem; text-align: left; border-bottom:1px solid #edf1f7; font-size: .95rem; }
+    th { background:#f0f6fc; color: var(--color-primary); font-weight:700; }
+    tr:nth-child(even) td { background:#fbfdff; }
+
+    .addons-category-grid { display:grid; grid-template-columns: repeat(3, minmax(0,1fr)); gap:1rem; margin-top:1.3rem; }
+    .addon-card .addon-group-title { color: var(--color-primary); margin-bottom:.5rem; font-size:1rem; }
+
+    .trust-grid { display:grid; grid-template-columns: repeat(2, minmax(0,1fr)); gap:1rem; margin-top:1rem; }
+    .trust-item p { color: var(--color-primary); font-weight:600; }
+
+    .enterprise { border:1px solid rgba(30,136,229,.4); background:linear-gradient(145deg,#fafdff,#fff); transition: transform var(--transition), box-shadow var(--transition); }
+    .enterprise .price { font-size:1.45rem; }
+
+    .final-cta { background: var(--color-primary); text-align:center; border-radius: var(--radius-lg); box-shadow: var(--shadow-soft); margin-top:1rem; }
+    .final-cta h2, .final-cta p { color: var(--color-white); max-width:680px; margin-inline:auto; }
+
+    .usd-note { margin-top: 1rem; font-size: .9rem; }
+
+    footer {
+      margin-top: 2rem;
+      padding: 1.2rem 0 6rem;
+      background: #eaf0f7;
+      border-top: 1px solid var(--color-border);
+    }
+
+    .footer-inner { display:flex; align-items:center; justify-content:space-between; gap:1rem; flex-wrap:wrap; }
+    .footer-links a { color: var(--color-primary); text-decoration:none; font-weight:600; margin-right:.9rem; }
+
+    .sticky-cta {
+      position: fixed;
+      left: 0; right: 0; bottom: 0;
+      background: rgba(11,60,93,.96);
+      color: var(--color-white);
+      padding: .7rem 1rem;
+      backdrop-filter: blur(4px);
+      box-shadow: 0 -10px 24px rgba(10,20,40,.25);
+      z-index: 1000;
+    }
+    .sticky-inner { width:min(1120px, 96%); margin:0 auto; display:flex; align-items:center; justify-content:space-between; gap:.8rem; flex-wrap:wrap; }
+    .sticky-text { font-weight:600; letter-spacing:.1px; color: var(--color-white); }
+
+    @keyframes fadeUp { from { opacity: 0; transform: translateY(6px); } to { opacity:1; transform:translateY(0);} }
+
+    @media (max-width: 980px) {
+      .pricing-grid, .addons-category-grid { grid-template-columns: repeat(2, minmax(0,1fr)); }
+      .calculator-grid, .submission-grid, .trust-grid { grid-template-columns: 1fr; }
+    }
+
+    @media (max-width: 640px) {
+      section { padding: 3rem 0; }
+      .hero { padding-top: 3.2rem; }
+      .nav-menu { width: 100%; justify-content: center; flex-wrap: wrap; }
+      .pricing-grid, .addons-category-grid, .trust-grid { grid-template-columns: 1fr; }
+      .pricing-card.featured { transform: none; }
+      .btn { width: 100%; }
+      .sticky-inner { flex-direction: column; align-items: stretch; }
+      .sticky-text { text-align: center; }
+    }
+  </style>
+</head>
+<body>
+  <div class="nav-wrap">
+    <nav class="container navbar" aria-label="Main navigation">
+      <a class="brand" href="#top">VendorVerify</a>
+      <ul class="nav-menu">
+        <li><a href="#top">Home</a></li>
+        <li><a href="#pricing">Pricing</a></li>
+        <li><a href="#how-it-works">How It Works</a></li>
+        <li><a href="#sample-report">Sample Report</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+      <a class="btn btn-primary" href="#submission-form">Verify Vendor</a>
+    </nav>
+  </div>
+
+  <header id="top" class="hero">
+    <section class="container">
+      <h1>Vendor Risk Intelligence Packages</h1>
+      <p>Verify suppliers, assess transaction risk, and prevent costly vendor fraud before committing funds.</p>
+      <div class="cta-group">
+        <a class="btn btn-primary" href="#pricing">Start Vendor Verification</a>
+        <a class="btn btn-secondary" href="#enterprise">Talk to a Risk Advisor</a>
+      </div>
+    </section>
+  </header>
+
+  <main>
+    <section id="calculator" class="container">
+      <div class="section-intro">
+        <h2>Vendor Risk Calculator</h2>
+        <p>Estimate the recommended vendor verification level based on your transaction value.</p>
+      </div>
+
+      <article class="card">
+        <form id="risk-form">
+          <div class="calculator-grid">
+            <div>
+              <label for="transactionValue">Transaction Value (₹)</label>
+              <input id="transactionValue" name="transactionValue" type="number" min="0" placeholder="e.g. 5000000" required />
+            </div>
+            <div>
+              <label for="vendorLocation">Vendor Location</label>
+              <select id="vendorLocation" name="vendorLocation" required>
+                <option value="India">India</option>
+                <option value="China">China</option>
+                <option value="Vietnam">Vietnam</option>
+                <option value="Bangladesh">Bangladesh</option>
+                <option value="Other">Other</option>
+              </select>
+            </div>
+            <div>
+              <label for="vendorRelationship">Vendor Relationship</label>
+              <select id="vendorRelationship" name="vendorRelationship" required>
+                <option value="New Vendor">New Vendor</option>
+                <option value="Existing Vendor">Existing Vendor</option>
+                <option value="Strategic Supplier">Strategic Supplier</option>
+              </select>
+            </div>
+            <div>
+              <label for="orderFrequency">Order Frequency</label>
+              <select id="orderFrequency" name="orderFrequency" required>
+                <option value="One-time transaction">One-time transaction</option>
+                <option value="Occasional supplier">Occasional supplier</option>
+                <option value="Regular supplier">Regular supplier</option>
+              </select>
+            </div>
+          </div>
+          <div style="margin-top:1rem;"><button class="btn btn-primary" type="submit">Calculate Risk Level</button></div>
+        </form>
+
+        <div class="card calc-result" id="calcResult" aria-live="polite">
+          <p style="font-weight:700;color:var(--color-primary);">Recommended Package</p>
+          <h3 id="resultPackage">Enhanced Vendor Risk Evaluation</h3>
+          <p id="resultDescription">Best suited for transactions between ₹10 lakh and ₹1 crore.</p>
+          <p class="price" id="resultPrice">₹11,999 (~$145)</p>
+          <a id="resultCta" class="btn btn-primary" href="#pricing">Start Risk Evaluation</a>
+        </div>
+      </article>
+    </section>
+
+    <section id="pricing" class="container">
+      <div class="section-intro">
+        <h2>Pricing Plans</h2>
+        <p>Choose the right level of vendor intelligence based on your transaction exposure and supplier criticality.</p>
+      </div>
+
+      <div class="pricing-grid">
+        <article class="card pricing-card">
+          <h3>Basic Vendor Verification</h3>
+          <p class="best-for">Best for transactions up to ₹10 lakh</p>
+          <p class="price">₹4,999 (~$60)</p>
+          <ul class="feature-list">
+            <li>GST registration validation</li>
+            <li>Business registration verification</li>
+            <li>Director / proprietor identity check</li>
+            <li>Basic litigation search</li>
+            <li>Operational presence verification</li>
+          </ul>
+          <p class="delivery">Delivery: 48–72 hours</p>
+          <a class="btn btn-primary" href="#submission-form">Verify Vendor</a>
+        </article>
+
+        <article class="card pricing-card featured">
+          <span class="badge">Recommended</span>
+          <h3>Enhanced Vendor Risk Evaluation</h3>
+          <p class="best-for">Best for transactions ₹10 lakh – ₹1 crore</p>
+          <p class="price">₹11,999 (~$145)</p>
+          <ul class="feature-list">
+            <li>Includes Basic plus</li>
+            <li>Financial stability indicators</li>
+            <li>Promoter background signals</li>
+            <li>Extended litigation search</li>
+            <li>Operational capability indicators</li>
+            <li>Vendor Risk Score (FLAGO Model)</li>
+            <li>Transaction safeguard recommendations</li>
+          </ul>
+          <a class="btn btn-primary" href="#submission-form">Start Risk Evaluation</a>
+        </article>
+
+        <article class="card pricing-card">
+          <h3>Strategic Vendor Due Diligence</h3>
+          <p class="best-for">Best for transactions above ₹1 crore</p>
+          <p class="price">₹24,999 (~$300)</p>
+          <ul class="feature-list">
+            <li>Includes Enhanced plus</li>
+            <li>Live video verification of vendor facility</li>
+            <li>Operational capacity validation</li>
+            <li>Deep litigation and governance review</li>
+            <li>Transaction structure advisory</li>
+          </ul>
+          <a class="btn btn-primary" href="#submission-form">Start Due Diligence</a>
+        </article>
+      </div>
+
+      <p class="usd-note">USD values are approximate references based on an exchange rate of ₹83 per USD.</p>
+    </section>
+
+    <section id="sample-report" class="container">
+      <article class="card sample-card">
+        <div>
+          <h2>Download Sample Vendor Risk Report</h2>
+          <p>Review our evidence-based report format before onboarding our services.</p>
+        </div>
+        <a class="btn btn-outline" href="assets/sample-vendor-risk-evaluation-report.pdf" target="_blank" rel="noopener">View Sample Report</a>
+      </article>
+    </section>
+
+    <section class="container" id="how-it-works">
+      <div class="section-intro"><h2>Plan Comparison</h2></div>
+      <div class="comparison-wrap">
+        <table aria-label="VendorVerify package feature comparison">
+          <thead><tr><th>Feature</th><th>Basic</th><th>Enhanced</th><th>Strategic</th></tr></thead>
+          <tbody>
+            <tr><td>GST validation</td><td>✓</td><td>✓</td><td>✓</td></tr>
+            <tr><td>Company registration verification</td><td>✓</td><td>✓</td><td>✓</td></tr>
+            <tr><td>Director identity check</td><td>✓</td><td>✓</td><td>✓</td></tr>
+            <tr><td>Financial indicators</td><td>—</td><td>✓</td><td>✓</td></tr>
+            <tr><td>Promoter background signals</td><td>—</td><td>✓</td><td>✓</td></tr>
+            <tr><td>Extended litigation search</td><td>—</td><td>✓</td><td>✓</td></tr>
+            <tr><td>Operational capability indicators</td><td>—</td><td>✓</td><td>✓</td></tr>
+            <tr><td>Vendor risk score</td><td>—</td><td>✓</td><td>✓</td></tr>
+            <tr><td>Transaction safeguard advisory</td><td>—</td><td>✓</td><td>✓</td></tr>
+            <tr><td>Video facility verification</td><td>—</td><td>—</td><td>✓</td></tr>
+            <tr><td>Operational capacity validation</td><td>—</td><td>—</td><td>✓</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="container">
+      <div class="section-intro"><h2>Optional Risk Intelligence Add-Ons</h2></div>
+      <div class="addons-category-grid">
+        <article class="card addon-card">
+          <h3 class="addon-group-title">Vendor Intelligence</h3>
+          <ul class="feature-list">
+            <li>Vendor Red-Flag Summary — ₹1,999 (~$24)</li>
+            <li>Vendor Credibility Snapshot — ₹1,999 (~$24)</li>
+          </ul>
+        </article>
+
+        <article class="card addon-card">
+          <h3 class="addon-group-title">Transaction Protection</h3>
+          <ul class="feature-list">
+            <li>Transaction Risk Structuring — ₹4,999 (~$60)</li>
+            <li>Vendor Monitoring (30 Days) — ₹2,999 (~$36)</li>
+            <li>Pre-Transaction Advisory Call — ₹2,500 (~$30)</li>
+            <li>Third-Party Testing Coordination — ₹3,000 + lab charges (~$36 + lab cost)</li>
+          </ul>
+        </article>
+
+        <article class="card addon-card">
+          <h3 class="addon-group-title">Supply Chain Verification</h3>
+          <ul class="feature-list">
+            <li>Factory Video Verification — ₹3,000–₹5,000 (~$36–$60)</li>
+            <li>Physical Factory Inspection — ₹10,000–₹25,000 (~$120–$300)</li>
+            <li>Pre-Dispatch Goods Verification — ₹5,000–₹10,000 (~$60–$120)</li>
+          </ul>
+        </article>
+      </div>
+
+      <div style="margin-top:1.2rem;"><a class="btn btn-primary" href="#submission-form">Add Verification Modules</a></div>
+    </section>
+
+    <section class="container">
+      <div class="section-intro"><h2>Why Companies Use VendorVerify</h2></div>
+      <div class="trust-grid">
+        <article class="card trust-item"><p>Structured vendor due diligence</p></article>
+        <article class="card trust-item"><p>Evidence-based verification reports</p></article>
+        <article class="card trust-item"><p>Vendor risk classification</p></article>
+        <article class="card trust-item"><p>Transaction safeguard recommendations</p></article>
+      </div>
+    </section>
+
+    <section id="enterprise" class="container">
+      <article class="card enterprise">
+        <h2>Enterprise Vendor Risk Partner Program</h2>
+        <p class="price">₹1,50,000 per year (~$1,800)</p>
+        <h3>Includes</h3>
+        <ul class="feature-list">
+          <li>50 Basic Verifications</li>
+          <li>10 Enhanced Evaluations</li>
+          <li>3 Strategic Due Diligence reports</li>
+        </ul>
+        <h3 style="margin-top:0.9rem;">Benefits</h3>
+        <ul class="feature-list">
+          <li>Priority processing</li>
+          <li>Dedicated analyst support</li>
+          <li>Standardized vendor risk scoring</li>
+        </ul>
+        <div style="margin-top:1rem;"><a class="btn btn-primary" href="#contact">Talk to Enterprise Team</a></div>
+      </article>
+    </section>
+
+    <section id="submission-form" class="container">
+      <div class="section-intro">
+        <h2>Submit Vendor Details</h2>
+        <p>Share your vendor information to start verification and receive a tailored recommendation.</p>
+      </div>
+      <article class="card">
+        <form>
+          <div class="submission-grid">
+            <div>
+              <label for="vendorCompanyName">Vendor Company Name</label>
+              <input id="vendorCompanyName" type="text" required />
+            </div>
+            <div>
+              <label for="gstRegNumber">GST / Registration Number</label>
+              <input id="gstRegNumber" type="text" required />
+            </div>
+            <div>
+              <label for="submissionTransactionValue">Transaction Value</label>
+              <input id="submissionTransactionValue" type="number" min="0" required />
+            </div>
+            <div>
+              <label for="emailAddress">Email Address</label>
+              <input id="emailAddress" type="email" required />
+            </div>
+            <div>
+              <label for="phoneNumber">Phone Number</label>
+              <input id="phoneNumber" type="tel" required />
+            </div>
+          </div>
+          <div style="margin-top:1rem;"><button type="submit" class="btn btn-primary">Submit Vendor Details</button></div>
+        </form>
+      </article>
+    </section>
+
+    <section class="container" id="contact">
+      <article class="final-cta card">
+        <h2>Prevent vendor fraud before committing funds.</h2>
+        <p>Move forward with confidence using structured verification, documented evidence, and transaction-level risk intelligence.</p>
+        <div class="cta-group" style="margin-top:1.2rem;">
+          <a class="btn btn-primary" href="#submission-form">Upload Vendor Details</a>
+          <a class="btn btn-secondary" href="#contact">Schedule Risk Consultation</a>
+        </div>
+      </article>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container footer-inner">
+      <div>
+        <p>© 2026 VendorVerify</p>
+        <p>Vendor Risk Intelligence Platform</p>
+      </div>
+      <div class="footer-links">
+        <a href="pages/privacy-policy.html">Privacy Policy</a>
+        <a href="pages/terms.html">Terms</a>
+        <a href="#contact">Contact</a>
+      </div>
+    </div>
+  </footer>
+
+  <div class="sticky-cta" id="stickyCta">
+    <div class="sticky-inner">
+      <p class="sticky-text">Verify a Vendor Before You Pay</p>
+      <a class="btn btn-primary" href="#submission-form">Start Vendor Verification</a>
+    </div>
+  </div>
+
+  <script>
+    const plans = {
+      basic: { title: 'Basic Vendor Verification', description: 'Best suited for transactions up to ₹10 lakh.', price: '₹4,999 (~$60)', cta: 'Verify Vendor' },
+      enhanced: { title: 'Enhanced Vendor Risk Evaluation', description: 'Best suited for transactions between ₹10 lakh and ₹1 crore.', price: '₹11,999 (~$145)', cta: 'Start Risk Evaluation' },
+      strategic: { title: 'Strategic Vendor Due Diligence', description: 'Best suited for transactions above ₹1 crore and critical supplier decisions.', price: '₹24,999 (~$300)', cta: 'Start Due Diligence' }
+    };
+
+    const form = document.getElementById('risk-form');
+    const resultCard = document.getElementById('calcResult');
+    const resultPackage = document.getElementById('resultPackage');
+    const resultDescription = document.getElementById('resultDescription');
+    const resultPrice = document.getElementById('resultPrice');
+    const resultCta = document.getElementById('resultCta');
+
+    function getRecommendation(txValue, location, relationship, frequency) {
+      let adjustedValue = txValue;
+      if (location !== 'India') adjustedValue += 1000000;
+      if (relationship === 'New Vendor') adjustedValue += 1500000;
+      if (frequency === 'One-time transaction') adjustedValue += 1000000;
+
+      if (adjustedValue > 10000000) return plans.strategic;
+      if (adjustedValue > 1000000) return plans.enhanced;
+      return plans.basic;
+    }
+
+    form.addEventListener('submit', (event) => {
+      event.preventDefault();
+      const value = Number(document.getElementById('transactionValue').value || 0);
+      const location = document.getElementById('vendorLocation').value;
+      const relationship = document.getElementById('vendorRelationship').value;
+      const frequency = document.getElementById('orderFrequency').value;
+
+      const selectedPlan = getRecommendation(value, location, relationship, frequency);
+      resultPackage.textContent = selectedPlan.title;
+      resultDescription.textContent = selectedPlan.description;
+      resultPrice.textContent = selectedPlan.price;
+      resultCta.textContent = selectedPlan.cta;
+      resultCta.setAttribute('href', '#submission-form');
+      resultCard.classList.add('show');
+      resultCard.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    });
+
+    const stickyBar = document.getElementById('stickyCta');
+    let lastY = window.scrollY;
+    window.addEventListener('scroll', () => {
+      const currentY = window.scrollY;
+      if (currentY > lastY && currentY > 160) stickyBar.style.transform = 'translateY(100%)';
+      else stickyBar.style.transform = 'translateY(0)';
+      stickyBar.style.transition = 'transform 180ms ease';
+      lastY = currentY;
+    });
+  </script>
+</body>
+</html>

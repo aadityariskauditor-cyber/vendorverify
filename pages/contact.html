@@ -100,7 +100,10 @@
         <h1>Contact Us</h1>
         <p>Need help with vendor verification, supplier due diligence, or risk assessment before payment? Send us your requirement and our team will reach out quickly.</p>
 
-        <form class="auth-form" id="contactForm">
+        <form class="auth-form" id="contactForm" action="https://formspree.io/f/xojklzjg" method="POST">
+          <input type="hidden" name="_subject" value="New Contact Request - VendorVerify" />
+          <input type="hidden" name="_next" value="https://vendorverify.in/thank-you.html" />
+          <input type="text" name="_gotcha" style="display:none" />
           <div class="form-field">
             <label for="contactName">Name</label>
             <input id="contactName" name="name" type="text" required />

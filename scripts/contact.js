@@ -4,19 +4,15 @@
 
   if (!form) return;
 
-  form.addEventListener('submit', async (event) => {
-    event.preventDefault();
+  form.addEventListener('submit', () => {
+    const submitButton = form.querySelector("button[type='submit']");
+    if (submitButton) {
+      submitButton.disabled = true;
+      submitButton.innerText = 'Submitting...';
+    }
 
-    const formData = new FormData(form);
-    const payload = Object.fromEntries(formData.entries());
-
-    try {
+    if (state) {
       state.textContent = 'Submitting...';
-      await window.ApiClient.submitContact(payload);
-      state.textContent = 'Thank you. Our team will respond within 24 hours.';
-      form.reset();
-    } catch (error) {
-      state.textContent = error.message || 'Unable to submit your request right now.';
     }
   });
 })();
